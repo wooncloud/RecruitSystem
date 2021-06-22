@@ -132,6 +132,13 @@
 			<version>1.4</version>
 		</dependency>
 		
+		<!-- String 문자열을 쉽게 처리 하기 위한 라이브러리  -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+		
 		<!-- 잭슨매퍼 Spring 에서 Ajax사용하여 Map으로 반환시 자동으로 JSON으로 변경해서 보내줌 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
