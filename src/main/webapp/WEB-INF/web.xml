@@ -19,7 +19,10 @@
 	<!-- application-context.xml -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/appServlet/application-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/appServlet/application-context.xml
+			/WEB-INF/spring/appServlet/security-context.xml
+		</param-value>
 	</context-param>
 
 	<listener>

@@ -45,7 +45,7 @@
                     <a href="#" class="">로그아웃</a>
                 </div>
                 <div class="">
-                    <a href="#" class="">로그인</a>
+                    <a href="./loginForm.jsp" class="">로그인</a>
                     <a href="#" class="">회원가입</a>
                 </div>
             </div>

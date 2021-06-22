@@ -3,14 +3,13 @@
 <configuration>
 	
 <!-- 	DTO나 VO 같은 데이터전달 객체 선언 typeAlias -->
-<!-- <typeAliases> -->
-<!-- 	<typeAlias type="" alias=""/> -->
-
-<!-- </typeAliases> -->
+<typeAliases>
+	<typeAlias type="com.sng.gdrs.dto.UserInfoDto" alias="UserInfoDto"/>
+</typeAliases>
 	
 <!-- 	쿼리문이 입력되어 있는 statement.xml	 -->
-<!-- <mappers> -->
-<!-- 	<mapper resource=""/> -->
-<!-- </mappers> -->
+<mappers>
+	<mapper resource="sqls/UserInfo_Statement.xml"/>
+</mappers>
 	
 </configuration>
