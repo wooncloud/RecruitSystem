@@ -9,6 +9,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+	<mvc:annotation-driven />
+
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
