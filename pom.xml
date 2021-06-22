@@ -16,7 +16,7 @@
 		<aspect>1.9.6</aspect>
 	</properties>
 	<dependencies>
-		<!-- Spring관련 bean. aop... 등의 라이브러리를 hierarchy를 통해 가져옴 -->
+		<!-- Spring관련 bean. aop... 등의 라이브러리를 hierarchy를 통해 가져옴z -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
