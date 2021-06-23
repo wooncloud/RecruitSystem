@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ERROR 500</title>
 </head>
 <body>
-
+	<h1>ERROR 500</h1>
+	<a href="index.jsp">메인으로 돌아가기</a>
 </body>
 </html>

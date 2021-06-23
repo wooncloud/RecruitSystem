@@ -13,7 +13,7 @@
 		<aop:aspect ref="logAop">
 			<aop:before method="before" pointcut-ref="daoPointCut"/>
 			<aop:after-returning method="afterReturning" pointcut-ref="daoPointCut"/>
-			<aop:after-throwing method="error" pointcut-ref="daoPointCut"/>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="daoPointCut"/>
 		</aop:aspect>
 	</aop:config>
 

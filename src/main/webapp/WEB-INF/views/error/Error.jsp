@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ERROR 404</title>
+<title>ERROR</title>
 </head>
 <body>
-	<h1>ERROR 404</h1>
+	<h1>ERROR </h1>
 	<a href="index.jsp">메인으로 돌아가기</a>
 </body>
 </html>
