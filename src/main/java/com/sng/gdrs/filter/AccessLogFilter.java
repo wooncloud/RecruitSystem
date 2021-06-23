@@ -20,8 +20,7 @@ public class AccessLogFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		logger.info("필터 생성");
-		
+		logger.info("[ * Access Log * ] Filter Init");
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class AccessLogFilter implements Filter {
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append(remoteAddr).append(":").append(uri).append("?").append(queryString).append("#").append(referer).append(":").append(agent);
 		
-		logger.info("AccessLogFilter 로그필터 : \t {}", stringBuffer.toString());
+		logger.info("[ * Access Log * ] : {}", stringBuffer.toString());
 	
 		chain.doFilter(request, response);
 		
@@ -55,7 +54,7 @@ public class AccessLogFilter implements Filter {
 	
 	@Override
 	public void destroy() {
-		logger.info("필터 종료");
+		logger.info("[ * Access Log * ] Filter Destroy");
 		
 	}
 	

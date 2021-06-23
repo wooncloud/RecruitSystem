@@ -15,7 +15,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("인터셉터 시작");
+		logger.info("[ * Interceptor * ] preHandle");
 
 		return super.preHandle(request, response, handler);
 	}
@@ -24,7 +24,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		logger.info("인터셉터 종료");
+		logger.info("[ * Interceptor * ] postHandle");
 		
 		super.postHandle(request, response, handler, modelAndView);
 	}
@@ -33,7 +33,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		logger.info("View 랜더링이 끝난 직후 인터섹터 종료");
+		logger.info("[ * Interceptor * ] afterCompletion");
 		super.afterCompletion(request, response, handler, ex);
 	}
 	

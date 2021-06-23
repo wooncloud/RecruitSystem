@@ -22,14 +22,14 @@
 		<property name="password" value="${password}"/>
 	</bean>
 	
-<!-- 	주입을 통해서 사용할 bean을 작성 SqlSessionTemplate	-->
+<!-- 	SqlSessionFactoryBean	-->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="/WEB-INF/spring/mybatis/Configuration.xml"/>
 	</bean> 
 	
 <!--  	주입을 통해서 사용할 bean을 작성 sqlSessionTemplate	 -->
-	<bean class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSession"/>
 	</bean> 
 	
