@@ -41,12 +41,8 @@
             </div>
             <div class="nav-user d-flex-center">
                 <div class="d-flex-center">
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
-                </div>
-                <div class="">
-                    <a href="./loginForm.jsp" class="">로그인</a>
-                    <a href="#" class="">회원가입</a>
+                    <a href="./loginForm.do">로그인</a>
+                    <a href="./signupForm.do">회원가입</a>
                 </div>
                 <div class="d-flex-center">
                     <span>~~ 님 안녕하세요.</span>

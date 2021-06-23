@@ -56,7 +56,7 @@
 
 <!-- 비밀번호 암호화에 사용될 것 -->
 <!-- 아이디로 로그인 -->
-	<select id="umEmailSecurity" parameterType="java.lang.String" resultType="java.lang.String">
+	<select id="umEmailSecurity" parameterType="java.lang.String" resultType="UserInfoDto">
 		SELECT EMAIL
       	  FROM USERINFO u 
       	  WHERE EMAIL =  #{email}
