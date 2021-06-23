@@ -24,7 +24,7 @@ public class UserController {
 	@RequestMapping(value = "/loginForm.do", method = RequestMethod.GET)
 	public String loginForm() {
 		logger.info("로그인 페이지로 이동 확인");
-		return "loginForm";
+		return "user/loginForm";
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
