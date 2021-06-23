@@ -29,16 +29,16 @@
 	</bean> 
 	
 <!--  	주입을 통해서 사용할 bean을 작성 sqlSessionTemplate	 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSession"/>
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSession"/>
 	</bean> 
 	
-<!--  	주입을 통해서 사용할 bean을 작성 transactionManager	 -->
+	<!-- 주입을 통해서 사용할 bean을 작성 transactionManager	 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-<!-- 			AOP를 통한 Transaction 처리-->
+	<!-- AOP를 통한 Transaction 처리-->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
@@ -46,7 +46,7 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.sng.gdrs.model.*Service*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.sng.gdrs.model.service.*Service*.*(..))"/>
 	</aop:config>
 	
 	
