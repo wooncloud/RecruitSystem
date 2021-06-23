@@ -9,11 +9,14 @@
 	</welcome-file-list>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/error404</location>
+		<location>/error404.do</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/error500</location>
+		<location>/error500.do</location>
+	</error-page>
+	<error-page>
+		<location>/error.do</location>
 	</error-page>
 
 	<!-- application-context.xml -->

@@ -21,13 +21,9 @@
 <!-- 	IoC에서 호출되는 RequestMapping을 통해서 제어 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-<!-- 			인터셉터 되는 URL -->
-			<mvc:mapping path=""/>
-<!-- 			인터셉터 제외 되는 URL -->
-			<mvc:exclude-mapping path=""/>
-			
+			<mvc:mapping path="/admin/"/>
+			<mvc:exclude-mapping path="/init/*.do"/>
 			<beans:bean class="com.sng.gdrs.interceptor.Interceptor"></beans:bean>
-			
 		</mvc:interceptor>
 		<beans:bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 				<beans:property name="cacheSeconds" value="0"/>
