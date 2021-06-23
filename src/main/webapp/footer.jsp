@@ -1,7 +1,7 @@
     </section>
     <footer>
         <div class="container">
-            Copyright &copy; Team SngSng. All rights reserved.
+            Copyright &copy; Team SNG. All rights reserved.
         </div>
     </footer>
 </body>

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body{
+    background-color: whitesmoke;
+}
+
 /* header */
 header{
     position: fixed;
@@ -11,6 +15,7 @@ header{
     padding: 5px;
     z-index: 50;
     border-bottom: 1px solid lightgray;
+    background-color: white;
 }
 
 nav{
@@ -21,15 +26,18 @@ nav{
     height: 60px;
     width: 100%;
     color: transparent;
-    margin-bottom: 50px;
 }
 
 .temp-logo{
     text-decoration: none;
-    color: black;
+    color: #4CAF50;
     font-weight: bold;
-    font-size: x-large;
+    font-size: xx-large;
     margin: 0 20px;
+}
+
+.temp-logo:hover{
+    color: #4CAF50;
 }
 
 .nav-menu-list > ul{
@@ -42,7 +50,7 @@ nav{
 
 .nav-menu-list > ul > li:hover{
     border-bottom: 2px solid gray;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .nav-menu-list > ul > li > a{
@@ -60,10 +68,21 @@ nav{
     align-items: center;
 }
 
+.nav-user > div > a, span{
+    padding: 4px 8px;
+    margin: 0 2px;
+    text-decoration: none;
+    color: dimgray;
+}
+.nav-user > div > a:hover{
+    border-bottom: 2px solid gray;
+}
+
 /* footer */
 footer{
     width: 100%;
     height: 100px;
-    background-color: whitesmoke;
+    background-color: white;
     padding: 35px 0;
+    border-top: 1px solid lightgray;
 }

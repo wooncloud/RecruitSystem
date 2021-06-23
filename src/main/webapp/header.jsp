@@ -40,17 +40,18 @@
                 </div>
             </div>
             <div class="nav-user d-flex-center">
-                <div class="">
-                    <span>~~ 님 안녕하세요.</span>
-                    <a href="#" class="">로그아웃</a>
+                <div class="d-flex-center">
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
                 </div>
-                <div class="">
-                    <a href="#" class="">로그인</a>
-                    <a href="#" class="">회원가입</a>
+                <div class="d-flex-center">
+                    <span>~~ 님 안녕하세요.</span>
+                    <a href="#">내 정보</a>
+                    <a href="#">로그아웃</a>
                 </div>
             </div>
         </nav>
     </header>
     <div class="header-space"></div>
-    <section class="container">
+    <section>
 
