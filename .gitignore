@@ -112,5 +112,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # project custom ignore
-src/main/resources/
+db.properties
 Scripts/
