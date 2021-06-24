@@ -1,7 +1,8 @@
     </section>
     <footer>
         <div class="container">
-            Copyright &copy; Team SNG. All rights reserved.
+            <div>Goodee Recruit System</div>
+            <div>Copyright &copy; Team SNG. All rights reserved.</div>
         </div>
     </footer>
 </body>

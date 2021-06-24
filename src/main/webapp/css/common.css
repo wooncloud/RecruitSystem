@@ -1,11 +1,11 @@
 @charset "UTF-8";
-
-body{
+body {
     background-color: whitesmoke;
 }
 
 /* header */
-header{
+
+header {
     position: fixed;
     left: 0;
     top: 0;
@@ -18,17 +18,17 @@ header{
     background-color: white;
 }
 
-nav{
+nav {
     height: 100%;
 }
 
-.header-space{
+.header-space {
     height: 60px;
     width: 100%;
     color: transparent;
 }
 
-.temp-logo{
+.temp-logo {
     text-decoration: none;
     color: #4CAF50;
     font-weight: bold;
@@ -36,53 +36,66 @@ nav{
     margin: 0 20px;
 }
 
-.temp-logo:hover{
+.temp-logo:hover {
     color: #4CAF50;
 }
 
-.nav-menu-list > ul{
+.nav-menu-list>ul {
     margin: 0;
 }
-.nav-menu-list > ul > li{
+
+.nav-menu-list>ul>li {
     padding: 4px 8px;
     margin: 0 2px;
 }
 
-.nav-menu-list > ul > li:hover{
+.nav-menu-list>ul>li:hover {
     border-bottom: 2px solid gray;
     /* font-weight: bold; */
 }
 
-.nav-menu-list > ul > li > a{
+.nav-menu-list>ul>li>a {
     text-decoration: none;
     color: dimgray;
 }
 
-.nav-base-frame{
+.nav-base-frame {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.d-flex-center{
+
+.d-flex-center {
     display: flex;
     align-items: center;
 }
 
-.nav-user > div > a, span{
+.nav-user>div>a, .nav-user>div>span {
     padding: 4px 8px;
     margin: 0 2px;
     text-decoration: none;
     color: dimgray;
 }
-.nav-user > div > a:hover{
+
+.nav-user>div>a:hover {
     border-bottom: 2px solid gray;
 }
 
 /* footer */
-footer{
+
+footer {
     width: 100%;
     height: 100px;
     background-color: white;
-    padding: 35px 0;
+    padding: 24px 0;
     border-top: 1px solid lightgray;
+    color: dimgray;
+    font-size: 11pt;
+}
+
+footer>div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
 }

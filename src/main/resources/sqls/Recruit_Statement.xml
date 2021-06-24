@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sng.gdrs.model.dao.IRecruitDao">
+	
+	<!-- 관리자용 쿼리 -->
+	<!-- 관리자 - 채용공고 작성 -->
+	<insert id="raWrite" parameterType="RecruitDto">
+		INSERT INTO RECRUITMENT (
+			SEQ, TITLE, CONTENT,
+            WRITER, STARTTERM, ENDTERM,
+            EMPLOY, STATUS
+        )
+        VALUES (
+        	RECRUITMENT_SEQ.NEXTVAL, #{title}, #{content},
+            #{writer}, #{startterm}, #{endterm},
+            #{employ}, #{status}
+        )
+	</insert>
+	
+	<!-- 관리자 - 채용공고 수정 -->
+	<update id="raModify" parameterType="RecruitDto">
+		UPDATE  RECRUITMENT SET 
+			TITLE = #{title}, CONTENT = #{content}, STARTTERM = #{startterm},
+			ENDTERM = #{endterm}, EMPLOY = #{employ}
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<!-- 관리자 - 채용공고 삭제 -->
+	<update id="raDelFlag" parameterType="java.lang.Integer">
+		UPDATE RECRUITMENT SET DELFLAG ='Y'
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<!-- 관리자 - 채용공고 상태 수정 -->
+	<update id="raStatus" parameterType="java.lang.Integer">
+		UPDATE  RECRUITMENT SET STATUS ='P'
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<!-- 관리자 - 채용공고 목록 조회 -->
+	<select id="raAdminList" resultType="RecruitDto">
+		SELECT r.SEQ, r.TITLE, r.WRITER, 
+			r.STARTTERM, r.ENDTERM, c.CODENAME AS EMPLOY, 
+			r.STATUS, r.DELFLAG 
+		        FROM RECRUITMENT r JOIN TYPECODE c
+		         ON r.EMPLOY = c.CODEID
+		        ORDER BY SEQ DESC
+	</select>
+	<!-- 검색쿼리 -->
+	
+	
+	
+	
+	<!-- 지원자용 쿼리 -->
+	<!-- 지원자 - 채용공고 목록 조회 -->
+	<select id="raUserList" resultType="RecruitDto">
+		SELECT r.SEQ, r.TITLE, r.STARTTERM, r.ENDTERM, t.CODENAME AS EMPLOY
+        FROM RECRUITMENT r JOIN TYPECODE t 
+        	ON r.EMPLOY = t.CODEID 
+        WHERE r.STATUS = 'P' AND r.DELFLAG = 'N'
+        ORDER BY r.ENDTERM ASC, r.TITLE
+	</select>
+	
+	<!-- 지원자 - 채용공고 검색 -->
+	<!-- <select id="raUserSearch">
+		SELECT SEQ, TITLE, STARTTERM, ENDTERM, EMPLOY 
+        FROM RECRUITMENT r
+        WHERE STATUS = 'P' AND DELFLAG = 'N'
+        
+                AND (TITLE LIKE '%젤리%' AND EMPLOY = 'EMP001')
+        ORDER BY ENDTERM ASC, TITLE
+	</select> -->
+	
+	<!-- 채용공고 상세 조회 -->
+	<select id="raDetail" parameterType="java.lang.Integer" resultType="RecruitDto">
+		SELECT r.SEQ, r.TITLE, r.CONTENT, 
+		r.WRITER, r.STARTTERM, r.ENDTERM, 
+		c.CODENAME AS EMPLOY, r.STATUS, r.DELFLAG
+			FROM RECRUITMENT r JOIN TYPECODE c
+				ON r.EMPLOY = c.CODEID 
+			WHERE r.SEQ = #{seq}
+	</select>
+	
+</mapper>

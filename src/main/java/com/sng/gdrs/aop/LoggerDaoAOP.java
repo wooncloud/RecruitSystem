@@ -8,30 +8,26 @@ public class LoggerDaoAOP {
 
 	public void before(JoinPoint j) {
 		Logger log = LoggerFactory.getLogger(j.getTarget() + "");
-		log.warn("메소드 실행전");
 
 		Object[] objs = j.getArgs();
 		if (objs != null) {
-			log.warn(" {} ", j.getSignature().getName());
+			log.info("[ * DAO AOP Log * ] : {} =>", j.getSignature().getName());
 			for (int i = 0; i < objs.length; i++) {
-				log.warn(i + "번째 Args :\t " + String.valueOf(objs[i]));
+				log.warn("\t" + i + "번째 Args : " + String.valueOf(objs[i]));
 			}
 
-			log.warn(" {} ", j.getSignature().getName());
+			log.info("<= [ * DAO AOP Log * ] : {}", j.getSignature().getName());
 		}
 	}
 
 	public void afterReturning(JoinPoint j) {
 		Logger log = LoggerFactory.getLogger(j.getTarget() + "");
-		log.warn(" 종료 : \t {} ", j.getSignature().getName());
-
+		log.info("[ * DAO AOP Log * ] 종료 : {}", j.getSignature().getName());
 	}
 
 	public void afterThrowing(JoinPoint j) {
 		Logger log = LoggerFactory.getLogger(j.getTarget() + "");
-		log.warn("에러발생 : \t {} ", j.getSignature().getName());
-		// log.warn(" 에러발생 : \t {} ", exception.getMessage());
-
+		log.warn("[ * DAO AOP Log * ] 에러발생 : {}", j.getSignature().getName());
 	}
 
 }

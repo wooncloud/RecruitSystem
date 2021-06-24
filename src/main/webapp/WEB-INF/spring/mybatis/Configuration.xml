@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-	
-<!-- 	DTO나 VO 같은 데이터전달 객체 선언 typeAlias -->
-<typeAliases>
-	<typeAlias type="com.sng.gdrs.dto.UserInfoDto" alias="UserInfoDto"/>
-</typeAliases>
-	
-<!-- 	쿼리문이 입력되어 있는 statement.xml	 -->
-<mappers>
-	<mapper resource="sqls/UserInfo_Statement.xml"/>
-</mappers>
-	
+
+	<!-- DTO나 VO 같은 데이터전달 객체 선언 typeAlias -->
+	<typeAliases>
+		<typeAlias type="com.sng.gdrs.dto.UserInfoDto" alias="UserInfoDto" />
+		<typeAlias type="com.sng.gdrs.dto.RecruitDto" alias="RecruitDto" />
+		<typeAlias type="com.sng.gdrs.dto.CodeDto" alias="CodeDto" />
+	</typeAliases>
+
+	<!-- 쿼리문이 입력되어 있는 statement.xml -->
+	<mappers>
+		<mapper resource="sqls/Code_Statement.xml" />
+		<mapper resource="sqls/UserInfo_Statement.xml" />
+		<mapper resource="sqls/Recruit_Statement.xml" />
+	</mappers>
+
 </configuration>
