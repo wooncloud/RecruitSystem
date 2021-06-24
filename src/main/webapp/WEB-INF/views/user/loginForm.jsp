@@ -1,24 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@include file="/header.jsp" %>
+	pageEncoding="UTF-8"%>
 
-<h1>로그인 폼 TEST중입니다.</h1>
+<%@include file="/header.jsp"%>
 
+<link href="./css/user.css" rel="stylesheet">
+
+<div class="container">
 	<form action="./login.do" method="post">
-		<div class="inputWord">아이디</div>
-			<input type="text" name="email" id="email" placeholder="이메일 입력"><br>
-		<div class="inputWord">비밀번호</div>
-			<input type="password" name="password" id="password" placeholder="비밀번호 입력" ><br>
-			
-		<input type="submit"  id="login" name="login" class="login" value="LOGIN" >
-		
-		<div id="bottom">
-			<input type="button" id="signup" value="회원가입">
-			<input type="button" value="아이디 찾기">
-			<input type="button" value="비밀번호 찾기">
-		
-		</div>	
+		<div class="card">
+			<div class="card-body">
+				<div class="fs-5 fw-bold">&nbsp;&nbsp;로그인</div>
+				<div class="input-group my-3">
+ 					<span class="input-group-text" id="basic-addon1">&nbsp;이메일&nbsp;&nbsp;</span>
+  					<input type="text" name="email" id="email" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group my-3">
+ 					<span class="input-group-text" id="basic-addon1">비밀번호</span>
+  					<input type="password" name="password" id="password" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</div>
+		</div>
+		<div class="my-3 d-grid gap-2" >
+			<input type="submit"id="login" name="login" class="btn btn-outline-success btn-lg" value="로그인">
+			<input type="button" id="signup" class="btn btn-outline-success btn-lg" value="회원가입" onclick="location.href='./signupForm.do'">
+		</div>
 	</form>
+</div>
 
-<%@include file="/footer.jsp" %>
+<%@include file="/footer.jsp"%>

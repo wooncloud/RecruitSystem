@@ -3,7 +3,7 @@
 <mapper namespace="com.sng.gdrs.model.dao.IUserInfoDao">
 <!-- 	로그인 -->
 	<select id="umLogin" parameterType="java.util.Map" resultType="UserInfoDto">
-		SELECT EMAIL
+		SELECT EMAIL, NAME, EMAILCHECK
       	  FROM USERINFO u 
       	  WHERE EMAIL =#{email}
               AND PASSWORD =#{password}
@@ -57,9 +57,11 @@
 <!-- 비밀번호 암호화에 사용될 것 -->
 <!-- 아이디로 로그인 -->
 	<select id="umEmailSecurity" parameterType="java.lang.String" resultType="UserInfoDto">
-		SELECT EMAIL
+		SELECT EMAIL, NAME, EMAILCHECK
       	  FROM USERINFO u 
       	  WHERE EMAIL =  #{email}
+      	  AND DELFLAG ='N'
+          AND EMAILCHECK = 'Y'
 	</select>
 
 <!-- 비밀번호 확인 -->

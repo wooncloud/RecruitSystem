@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -40,15 +43,19 @@
                 </div>
             </div>
             <div class="nav-user d-flex-center">
+            <c:if test="${userInfoDto.email == null}">
                 <div class="d-flex-center">
                     <a href="./loginForm.do">로그인</a>
                     <a href="./signupForm.do">회원가입</a>
                 </div>
+            </c:if>
+            <c:if test="${userInfoDto.email != null}">
                 <div class="d-flex-center">
-                    <span>~~ 님 안녕하세요.</span>
-                    <a href="#">내 정보</a>
-                    <a href="#">로그아웃</a>
+                    <span> ${userInfoDto.name} 님 안녕하세요.</span>
+                    <a href="./myInfo.do">내 정보</a>
+                    <a href="./logout.do">로그아웃</a>
                 </div>
+            </c:if>    
             </div>
         </nav>
     </header>
