@@ -6,10 +6,12 @@
 	<typeAliases>
 		<typeAlias type="com.sng.gdrs.dto.UserInfoDto" alias="UserInfoDto" />
 		<typeAlias type="com.sng.gdrs.dto.RecruitDto" alias="RecruitDto" />
+		<typeAlias type="com.sng.gdrs.dto.CodeDto" alias="CodeDto" />
 	</typeAliases>
 
 	<!-- 쿼리문이 입력되어 있는 statement.xml -->
 	<mappers>
+		<mapper resource="sqls/Code_Statement.xml" />
 		<mapper resource="sqls/UserInfo_Statement.xml" />
 		<mapper resource="sqls/Recruit_Statement.xml" />
 	</mappers>
