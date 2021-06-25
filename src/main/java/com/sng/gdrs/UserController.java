@@ -2,6 +2,7 @@ package com.sng.gdrs;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sng.gdrs.dto.UserInfoDto;
 import com.sng.gdrs.model.service.IUserInfoService;
@@ -86,9 +88,22 @@ public class UserController {
 		return "user/signupForm";
 	}
 	
-//	테스트 끝나면 약관동의 넣고 테스트 에서 회원가입으로 변경예정
+	@RequestMapping(value = "/duplication.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> duplication(String chkEmail) {
+		logger.info("[test] : 입력한 중복검사 요청 아이디 : {}", chkEmail);
+		Map<String, Boolean> map = new HashMap<>();
+		boolean isc = false;
+		String checkEmail = iuService.umDuplicate(chkEmail);
+		logger.info("[duplication] : 아이디 중복여부 확인 {}", checkEmail);
+		if(checkEmail==null) {
+			isc = true;
+		}
+		map.put("isc", isc);
+		return map;
+	}
 	
-	@RequestMapping(value = "/signUpTest.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public String signUpTest(UserInfoDto dto, HttpServletResponse response) throws IOException {
 		logger.debug("[T] 회원가입 값 확인 : {}", dto);
 		response.setContentType("text/html; charset=UTF-8;");
@@ -96,7 +111,7 @@ public class UserController {
 		
 		boolean isc = iuService.umSignUp(dto);
 		if(isc) {
-			out.println("<script>alert('회원가입을 환영합니다.<br>이메일 인증 후 로그인 가능합니다.'); location.href='./loginForm.do'</script>");
+			out.println("<script>alert('회원가입을 환영합니다.이메일 인증을 진행해 주세요.'); location.href='./loginForm.do'</script>");
 			out.flush();
 		}else if(!isc){
 			out.println("<script>alert('회원가입 실패.'); location.href='./signupForm.do'</script>");
@@ -120,6 +135,15 @@ public class UserController {
 		logger.info("[myInfo] : 회원 정보 조회 페이지 이동 요청 : {}", dto);
 		
 		return "user/myInfo";
+	}
+	
+	@RequestMapping(value = "/umDelFlag.do", method = RequestMethod.POST)
+	public String umDelFlag(UserInfoDto udto, HttpSession session, HttpServletResponse response)  {
+					
+
+		
+		
+		return null;
 	}
 	
 	

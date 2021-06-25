@@ -34,9 +34,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
 //	이메일 중복검사
 	@Override
-	public boolean umDuplicate(String eamil) {
-		logger.info("umDuplicate 이메일 중복 검사 : {} ", eamil);
-		return iDao.umDuplicate(eamil);
+	public String umDuplicate(String chkEamil) {
+		logger.info("umDuplicate 이메일 중복 검사 : {} ", chkEamil);
+		return iDao.umDuplicate(chkEamil);
 	}	
 	
 //	이메일 인증

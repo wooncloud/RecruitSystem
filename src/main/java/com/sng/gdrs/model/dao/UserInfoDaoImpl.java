@@ -47,9 +47,8 @@ public class UserInfoDaoImpl implements IUserInfoDao {
 
 //	이메일 중복검사
 	@Override
-	public boolean umDuplicate(String email) {
-		int n = sqlSession.selectOne(NS+"umDuplicate", email);
-		return (n>0)?true:false;
+	public String umDuplicate(String chkEmail) {
+		return sqlSession.selectOne(NS+"umDuplicate", chkEmail);
 	}
 	
 //	이메일 인증

@@ -25,10 +25,10 @@ public interface IUserInfoDao {
 	/**
 	 * 이메일 중복검사
 	 * 
-	 * @param eamil
+	 * @param chkEmail
 	 * @return
 	 */
-	public boolean umDuplicate(String eamil);
+	public String umDuplicate(String chkEmail);
 
 	/**
 	 * 이메일 인증

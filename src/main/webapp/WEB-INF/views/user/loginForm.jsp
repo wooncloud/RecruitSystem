@@ -11,9 +11,9 @@
 	<form action="./login.do" method="post" onsubmit="return loginCheck()">
 		<div class="card">
 			<div class="card-body">
-				<div class="mt-3 fs-5 fw-bold">&nbsp;&nbsp;로그인</div>
+				<div class="mt-3 fs-4 fw-bold">로그인</div>
 				<div class="input-group my-3">
- 					<span class="input-group-text" id="basic-addon1">&nbsp;이메일&nbsp;&nbsp;</span>
+ 					<span class="input-group-text" id="basic-addon1">이메일</span>
   					<input type="text" name="email" id="email" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
 				</div>
 				<div class="input-group my-3">

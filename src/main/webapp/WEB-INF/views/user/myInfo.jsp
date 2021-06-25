@@ -9,31 +9,31 @@
 	<div class="box">
         <div class="card">
 			<div class="card-body">
-				<div class="fs-5 fw-bold">내 정보 조회</div>
-				<div  class="my-3 fw-normal">
-					이름<br>
-					${dto.name}
+				<div class="fs-4 fw-bold">내 정보 조회</div>
+				<div  class="my-3 fw-light">
+					이름
+					<p class="fw-normal fs-6">${dto.name}</p>
 				</div>
-				<div  class="my-3 fw-normal">
-					이메일<br>
-					${dto.email}
+				<div  class="my-3 fw-light">
+					이메일
+					<p class="fw-normal fs-6">${dto.email}</p>
 				</div>
-				<div  class="my-3 fw-normal">
-					비밀번호<br>
-					<a href="./modifyPw.do">비밀번호 변경하기</a>
+				<div  class="my-3 fw-light">
+					비밀번호
+					<p class="fw-normal fs-6"><a href="./modifyPw.do">비밀번호 변경하기</a></p>
 				</div>
-				<div  class="my-3 fw-normal">
-					휴대폰 번호<br>
-					${dto.phone}
+				<div  class="my-3 fw-light">
+					휴대폰 번호
+					<p class="fw-normal fs-6">${dto.phone}</p>
 				</div>
-				<div  class="my-3 fw-normal">
-					생년월일<br>
-					${dto.birth}
+				<div  class="my-3 fw-light">
+					생년월일
+					<p class="fw-normal fs-6">${dto.birth}</p>
 				</div>
 			</div>
 		</div>
     	<div class="my-3" align="right">
-	    	<input type="button" class="btn btn-danger " value="계정삭제">
+	    	<input type="button" class="btn btn-danger " value="계정삭제" onclick="location.href='./umDelFlag.do'">
     	</div>
 	</div>
 </div>

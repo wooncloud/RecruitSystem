@@ -13,7 +13,7 @@ public interface IUserInfoService {
 	public boolean umSignUp(UserInfoDto dto);
 	
 //	이메일 중복검사
-	public boolean umDuplicate(String eamil);
+	public String umDuplicate(String chkEmail);
 	
 //	이메일 인증
 	public boolean umConfirm(Map<String, Object> map);
