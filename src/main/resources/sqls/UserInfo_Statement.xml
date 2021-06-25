@@ -35,7 +35,7 @@
 
 <!-- 내정보확인 -->
 	<select id="umMyPage" parameterType="java.lang.String" resultType="UserInfoDto">
-		SELECT EMAIL, NAME, BIRTH ,PHONE
+		SELECT EMAIL, NAME, TO_CHAR(BIRTH, 'YYYY-MM-DD') BIRTH ,PHONE
       	  FROM USERINFO u 
        	 WHERE EMAIL = #{email}
 	</select>
