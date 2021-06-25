@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <div class="container my-5">
         <div class="card">
-            <form action="./recuitInsert.do" method="POST">
+            <form action="./recruitInsert.do" method="POST" onsubmit="">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <div>
                         <h5 class="mb-0 fw-bold">새 공고 작성</h5>
@@ -61,7 +61,7 @@
 			  language: 'ko',
 			  initialValue: content
 			});
-
+		
 			editor.getHTML();
 		});
 	</script>

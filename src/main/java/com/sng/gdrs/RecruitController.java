@@ -28,9 +28,9 @@ public class RecruitController {
 	@Autowired
 	private ICodeService codeService;
 
-	@RequestMapping(value = "/recuitList.do", method = RequestMethod.GET)
-	public String recuitList(HttpSession session, Model model) {
-		logger.info("[recuitList] : 채용공고 화면으로 이동");
+	@RequestMapping(value = "/recruitList.do", method = RequestMethod.GET)
+	public String recruitList(HttpSession session, Model model) {
+		logger.info("[recruitList] : 채용공고 화면으로 이동");
 		session.setAttribute("UserEmail", "kckt66@naver.com");
 		
 		List<RecruitDto> lists = iService.raUserList();
@@ -39,12 +39,12 @@ public class RecruitController {
 		model.addAttribute("lists", lists);
 		model.addAttribute("emp", emp);
 		
-		return "recruit/recuitList";
+		return "recruit/recruitList";
 	}
 	
-	@RequestMapping(value = "/recuitDetail.do", method = RequestMethod.GET)
-	public String recuitDetail(String seq, Model model) {
-		logger.info("[recuitDetail] : 채용공고 상세조회 화면으로 이동");
+	@RequestMapping(value = "/recruitDetail.do", method = RequestMethod.GET)
+	public String recruitDetail(String seq, Model model) {
+		logger.info("[recruitDetail] : 채용공고 상세조회 화면으로 이동");
 		
 		RecruitDto dto = iService.raDetail(Integer.parseInt(seq));		
 		model.addAttribute("dto", dto);
@@ -52,17 +52,26 @@ public class RecruitController {
 		List<CodeDto> emp = codeService.selectCodeType("EMP");
 		model.addAttribute("emp", emp);
 		
-		return "recruit/recuitDetail";
+		return "recruit/recruitDetail";
 	}
 	
-	@RequestMapping(value = "/recuitInsertForm.do", method = RequestMethod.GET)
-	public String recuitInsertForm(Model model) {
-		logger.info("[recuitInsertForm] : 채용공고 신규작성 화면으로 이동");
+	@RequestMapping(value = "/recruitInsertForm.do", method = RequestMethod.GET)
+	public String recruitInsertForm(Model model) {
+		logger.info("[recruitInsertForm] : 채용공고 신규작성 화면으로 이동");
 		
 		List<CodeDto> emp = codeService.selectCodeType("EMP");
 		model.addAttribute("emp", emp);
 		
-		return "recruit/recuitInsert";
+		return "recruit/recruitInsert";
+	}
+	
+	@RequestMapping(value = "/recruitInsert.do", method = RequestMethod.POST)
+	public String recruitInsert(Model model) {
+		logger.info("[recruitInsert] : 채용공고 신규작성 프로세스");
+		
+		
+		return "redirect:/recruitInsertForm.do";
+//		return "redirect:/recruitDetail.do?seq=";
 	}
 	
 }

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@include file="/header.jsp" %>
-    <link rel="stylesheet" href="./css/recuit.css">
+    <link rel="stylesheet" href="./css/recruit.css">
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <a href="./recuitInsertForm.do" class="btn btn-primary">공고작성</a>
+                <a href="./recruitInsertForm.do" class="btn btn-primary">공고작성</a>
             </div>
             <div class="d-flex justify-content-between">
                 <div class="mx-1">
@@ -22,13 +22,13 @@
                 </div>
             </div>
         </div>
-        <div class="recuit-list">
+        <div class="recruit-list">
             <c:forEach var="dto" items="${lists }" varStatus="vs">
                 <div class="card my-2">
                     <div class="card-body d-flex justify-content-between">
                         <div class="d-flex flex-column">
                             <div>
-                                <a href="./recuitDetail.do?seq=${dto.seq}" class="recuit-title">
+                                <a href="./recruitDetail.do?seq=${dto.seq}" class="recruit-title">
                                     <h5>${dto.title}</h5>
                                 </a>
                             </div>
