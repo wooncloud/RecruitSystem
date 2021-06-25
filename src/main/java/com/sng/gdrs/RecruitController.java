@@ -66,9 +66,10 @@ public class RecruitController {
 	}
 	
 	@RequestMapping(value = "/recruitInsert.do", method = RequestMethod.POST)
-	public String recruitInsert(Model model) {
+	public String recruitInsert(RecruitDto rDto) {
 		logger.info("[recruitInsert] : 채용공고 신규작성 프로세스");
 		
+		System.out.println(rDto);
 		
 		return "redirect:/recruitInsertForm.do";
 //		return "redirect:/recruitDetail.do?seq=";
