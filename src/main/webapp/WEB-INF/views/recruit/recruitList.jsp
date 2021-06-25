@@ -2,6 +2,7 @@
 
 <%@include file="/header.jsp" %>
     <link rel="stylesheet" href="./css/recruit.css">
+    <script type="text/javascript" src="./js/recruit.js"></script>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center">
             <div>
@@ -17,7 +18,7 @@
 					</select>
 				</div>
                 <div class="mx-1 input-group">
-                    <input type="text" id="search" class="form-control" placeholder="검색..">
+                    <input type="text" id="search" class="form-control" placeholder="제목 검색..">
                     <input type="button" id="btnSearch" class="btn btn-outline-secondary" value="검색">
                 </div>
             </div>
@@ -48,8 +49,8 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            <div>
-                            	${dto.employ }
+                            <div id="employ">
+                            	${dto.employ}
                             </div>
                         </div>
                     </div>
@@ -57,5 +58,9 @@
             </c:forEach>
         </div>
     </div>
+    <script type="text/javascript">
+        window.onload = recruitList.init;
+        let empCode = ${empJson}
+    </script>
 
 <%@include file="/footer.jsp" %>

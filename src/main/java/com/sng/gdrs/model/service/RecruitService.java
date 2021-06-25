@@ -1,6 +1,7 @@
 package com.sng.gdrs.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,27 +20,27 @@ public class RecruitService implements IRecruitService {
 	private IRecruitDao iDao;
 
 	@Override
-	public int raWrite(RecruitDto dto) {
+	public boolean raWrite(RecruitDto dto) {
 		logger.info("[raWrite - {}]", dto);
-		return iDao.raWrite(dto);
+		return iDao.raWrite(dto) > 0 ? true : false;
 	}
 
 	@Override
-	public int raModify(RecruitDto dto) {
+	public boolean raModify(RecruitDto dto) {
 		logger.info("[raModify - {}]", dto);
-		return iDao.raModify(dto);
+		return iDao.raModify(dto) > 0 ? true : false;
 	}
 
 	@Override
-	public int raDelFlag(int seq) {
+	public boolean raDelFlag(int seq) {
 		logger.info("[raDelFlag - {}]", seq);
-		return iDao.raDelFlag(seq);
+		return iDao.raDelFlag(seq) > 0 ? true : false;
 	}
 
 	@Override
-	public int raStatus(int seq) {
+	public boolean raStatus(int seq) {
 		logger.info("[raStatus - {}]", seq);
-		return iDao.raStatus(seq);
+		return iDao.raStatus(seq) > 0 ? true : false;
 	}
 
 	@Override
@@ -55,9 +56,9 @@ public class RecruitService implements IRecruitService {
 	}
 
 	@Override
-	public List<RecruitDto> raUserList() {
+	public List<RecruitDto> raUserList(Map<String, Object> map) {
 		logger.info("[raUserList]");
-		return iDao.raUserList();
+		return iDao.raUserList(map);
 	}
 
 	@Override

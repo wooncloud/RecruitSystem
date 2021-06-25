@@ -1,10 +1,12 @@
 package com.sng.gdrs.dto;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RecruitDto implements Serializable {
-	
+
 	private static final long serialVersionUID = -2664867638778323347L;
 	private int seq;
 	private String title;

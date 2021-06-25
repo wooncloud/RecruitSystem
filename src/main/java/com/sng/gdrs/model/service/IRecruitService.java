@@ -1,35 +1,77 @@
 package com.sng.gdrs.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sng.gdrs.dto.RecruitDto;
 
 public interface IRecruitService {
 
-//	관리자 - 채용공고 작성
-	public int raWrite(RecruitDto dto);
+	/**
+	 * 관리자 - 채용공고 작성
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public boolean raWrite(RecruitDto dto);
 
-//	관리자 - 채용공고 수정
-	public int raModify(RecruitDto dto);
+	/**
+	 * 관리자 - 채용공고 수정
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public boolean raModify(RecruitDto dto);
 
-//	관리자 - 채용공고 삭제
-	public int raDelFlag(int seq);
+	/**
+	 * 관리자 - 채용공고 삭제
+	 * 
+	 * @param seq
+	 * @return
+	 */
+	public boolean raDelFlag(int seq);
 
-//	관리자 - 채용공고 상태 수정
-	public int raStatus(int seq);
+	/**
+	 * 관리자 - 채용공고 상태 수정
+	 * 
+	 * @param seq
+	 * @return
+	 */
+	public boolean raStatus(int seq);
 
-//	관리자 - 채용공고 목록 조회
+	/**
+	 * 관리자 - 채용공고 목록 조회
+	 * 
+	 * @return
+	 */
 	public List<RecruitDto> raAdminList();
 
-//	관리자 -  채용공고 검색
+	/**
+	 * 관리자 - 채용공고 검색
+	 * 
+	 * @return
+	 */
 	public List<RecruitDto> raAdminSearch();
 
-//	지원자 - 채용공고 목록 조회
-	public List<RecruitDto> raUserList();
+	/**
+	 * 지원자 - 채용공고 목록 조회
+	 * 
+	 * @return
+	 */
+	public List<RecruitDto> raUserList(Map<String, Object> map);
 
-//	지원자 - 채용공고 검색
+	/**
+	 * 지원자 - 채용공고 검색
+	 * 
+	 * @return
+	 */
 	public List<RecruitDto> raUserSearch();
 
-//	채용공고 상세 조회
+	/**
+	 * 채용공고 상세 조회
+	 * 
+	 * @param seq
+	 * @return
+	 */
 	public RecruitDto raDetail(int seq);
 }

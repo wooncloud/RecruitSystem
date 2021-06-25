@@ -1,6 +1,7 @@
 package com.sng.gdrs.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class RecruitDaoImpl implements IRecruitDao {
 	}
 
 	@Override
-	public List<RecruitDto> raUserList() {
-		return sqlSession.selectList(NS + "raUserList");
+	public List<RecruitDto> raUserList(Map<String, Object> map) {
+		return sqlSession.selectList(NS + "raUserList", map);
 	}
 
 	@Override
