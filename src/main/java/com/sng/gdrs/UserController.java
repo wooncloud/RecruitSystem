@@ -91,11 +91,12 @@ public class UserController {
 	@RequestMapping(value = "/duplication.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Boolean> duplication(String chkEmail) {
-		logger.info("[test] : 입력한 중복검사 요청 아이디 : {}", chkEmail);
+		logger.info("[duplication] : 입력한 중복검사 요청 아이디 : {}", chkEmail);
 		Map<String, Boolean> map = new HashMap<>();
 		boolean isc = false;
 		String checkEmail = iuService.umDuplicate(chkEmail);
 		logger.info("[duplication] : 아이디 중복여부 확인 {}", checkEmail);
+		// null이 나오면 DB에 없음으로 사용가능 
 		if(checkEmail==null) {
 			isc = true;
 		}
@@ -137,14 +138,78 @@ public class UserController {
 		return "user/myInfo";
 	}
 	
-	@RequestMapping(value = "/umDelFlag.do", method = RequestMethod.POST)
-	public String umDelFlag(UserInfoDto udto, HttpSession session, HttpServletResponse response)  {
-					
+	@RequestMapping(value = "/passwordChk.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> pwCheck(String pwCheck, HttpSession session) {
+		UserInfoDto uidto = (UserInfoDto) session.getAttribute("userInfoDto");
+		logger.debug("[T] : 디티오 확인 : {}", uidto);
+		String emailChk = uidto.getEmail();
+		logger.debug("[T] : 입력한 이메일 확인 : {}", emailChk);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("email", emailChk);
+		map.put("password", pwCheck);
+			
+		Map<String, Boolean> bmap = new HashMap<>();
+		boolean isc = false;
+		UserInfoDto udto = iuService.umUserCheck(map);
+		if(udto!=null) {
+			isc = true;
+			logger.info("[passwordChk] : 기존비밀번호 확인 성공 : {}", isc);		
+		}
+		bmap.put("isc", isc);
 
-		
-		
-		return null;
+		return bmap;
 	}
+	
+	@RequestMapping(value = "/pwChange.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> passwordChange(String pwChange ,HttpSession session)  {
+		UserInfoDto dto = (UserInfoDto) session.getAttribute("userInfoDto");	
+		dto.setPassword(pwChange);
+		
+		Map<String, Boolean> bmap = new HashMap<>();
+		boolean isc = false;
+		boolean isc2 = iuService.umModify(dto);
+		if(isc2==true) {
+			isc = true;
+			logger.info("[passwordChange] : 비밀번호 변경 성공 : {}", isc);
+		}else {
+			logger.info("[passwordChange] : 비밀번호 변경 실패 : {}", isc);
+		}
+		bmap.put("isc", isc);
+		
+		return bmap;
+	}
+	
+	@RequestMapping(value = "/umDelFlag.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> umDelFlag(HttpSession session)  {
+		logger.info("[umDelFlag] : 회원 계정 삭제 요청 : ");
+		UserInfoDto dto = (UserInfoDto) session.getAttribute("userInfoDto");	
+		dto.setDelflag("Y");
+		Map<String, Boolean> map = new HashMap<>();
+		boolean isc = false;
+		boolean isc2 = iuService.umDelflag(dto);
+		if(isc2==true) {
+			isc = true;
+			logger.info("[passwordChange] : 회원계정 삭제 성공 : {}", isc);
+		}else {
+			logger.info("[passwordChange] : 회원계정 삭제 실패 : {}", isc);
+		}
+		map.put("isc", isc);
+		
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

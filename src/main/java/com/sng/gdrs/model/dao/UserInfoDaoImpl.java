@@ -65,17 +65,35 @@ public class UserInfoDaoImpl implements IUserInfoDao {
 		return sqlSession.selectOne(NS+"umMyPage", email);
 	}
 	
+//	변경전 기존 비밀번호 확인
+	@Override
+	public UserInfoDto umUserCheck(Map<String, Object> map){
+		UserInfoDto dto = null;
+		
+//		암호화된 password를 Spring Security의 maches를 통해 분석 후 정합여부 판단
+		String dbPassword = sqlSession.selectOne(NS+"umPwSecurity", map.get("email"));
+		if(passwordEncoder.matches((String)map.get("password"), dbPassword)) {
+			dto = sqlSession.selectOne(NS+"umEmailSecurity", map.get("email"));
+		}
+		
+		return dto;
+	}
+	
 //	내정보변경
 	@Override
-	public boolean umModify(Map<String, Object> map) {
-		int n = sqlSession.update(NS+"umModify", map);
+	public boolean umModify(UserInfoDto dto) {
+		String enPassword = passwordEncoder.encode(dto.getPassword());
+		dto.setPassword(enPassword);
+		
+		int n = sqlSession.update(NS+"umModify", dto);
+		
 		return (n>0)?true:false;
 	}
 	
 //	회원탈퇴
 	@Override
-	public boolean umDelflag(Map<String, Object> map) {
-		int n = sqlSession.update(NS+"umDelflag", map);
+	public boolean umDelflag(UserInfoDto dto) {
+		int n = sqlSession.update(NS+"umDelflag", dto);
 		return (n>0)?true:false;
 	}
 	

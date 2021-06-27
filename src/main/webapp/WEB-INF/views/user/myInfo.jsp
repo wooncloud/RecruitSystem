@@ -3,7 +3,7 @@
 <%@include file="/header.jsp"%>
 
 <link href="./css/user.css" rel="stylesheet">
-
+<script type="text/javascript" src="./js/user.js"></script>
 
 <div class="container">
 	<div class="box">
@@ -20,7 +20,7 @@
 				</div>
 				<div  class="my-3 fw-light">
 					비밀번호
-					<p class="fw-normal fs-6"><a href="./modifyPw.do">비밀번호 변경하기</a></p>
+					<p class="fw-normal fs-6" onclick="modifyPw()"><a class="modifyPw">비밀번호 변경하기</a></p>
 				</div>
 				<div  class="my-3 fw-light">
 					휴대폰 번호
@@ -33,8 +33,9 @@
 			</div>
 		</div>
     	<div class="my-3" align="right">
-	    	<input type="button" class="btn btn-danger " value="계정삭제" onclick="location.href='./umDelFlag.do'">
+	    	<input type="submit" class="btn btn-danger " value="계정삭제" onclick="delFlagChk()">
     	</div>
+
 	</div>
 </div>
 

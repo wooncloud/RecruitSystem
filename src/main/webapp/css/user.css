@@ -13,4 +13,6 @@
 	 justify-content: center;
 }
 
-
+.modifyPw{
+	cursor: pointer;
+}

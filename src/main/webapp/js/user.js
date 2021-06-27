@@ -129,9 +129,168 @@ function signupChk(){
 }
 
 
+//비밀번호 변경  
+function modifyPw(){
+	
+	// 비빌번호 변경전 기존 비밀번호 확인
+	(async () => {
 
+		const { value: password } = await Swal.fire({     // Swal 빨간줄 이클립스에서 호환 안되는 듯 함
+		title: '비밀번호 변경',
+		input: 'password',
+		inputLabel: '현재 비밀번호를 입력해 주세요',
+		confirmButtonText: '확인',	
+		showCancelButton: true,
+		cancelButtonColor: 'green',
+		cancelButtonText: '취소'
+	}); // Swal.fire
+		// 확인 성공시 변경할 비밀번호 입력
+	 if(password){
+		 $.ajax({
+				url:"./passwordChk.do",
+				type:"post",
+				data:"pwCheck="+password,
+				async:true,
+				success: function (msg) {
+					console.log(msg);
+					if(msg.isc==true){			
 
+						Swal.fire({
+							title:'새 비밀번호를 입력해 주세요',
+							inputLabel: 'Password',
+							html:
+							    '<input type="password" id="swal-input1" class="swal2-input">' +
+							    '<input type="password" id="swal-input2" class="swal2-input">',
+							confirmButtonText: '확인',	
+							showCancelButton: true,
+							cancelButtonColor: 'green',
+							cancelButtonText: '취소',
 
+						}).then((result) => {
+							if(result.isConfirmed){							
+								let pwChange = document.getElementById('swal-input1').value;
+								let pwChange2 = document.getElementById('swal-input2').value;
+								console.log(pwChange);
+							// 변경할 비밀번호 유효값 확인 후 확인버튼 누르면 비밀번호 변경
+							if (pwChange==pwChange2) {
+								$.ajax({
+									url:"./pwChange.do",
+									type:"post",
+									data:"pwChange="+pwChange,
+									async:true,
+									success: function(msg){
+										console.log(msg);
+										if(msg.isc==true){								
+											Swal.fire({
+												icon:'success',
+												title:'비밀번호가 변경되었습니다.',
+												confirmButtonText: '확인'
+											})
+										}
+									}
+								})
+														
+							}else{
+								Swal.fire({
+									icon:'error',
+									title:'비밀번호가 일치하지 않습니다.',
+									confirmButtonText: '확인'
+								})
+							}
+							}
+						})
+
+					}else{
+						Swal.fire({
+							icon:'error',
+							title:'잘못된 비밀번호 입니다.',
+							confirmButtonText: '확인'
+						})
+					}
+					
+				   }
+			})
+	 }  // if문
+	})()  
+	
+}
+
+//계정 삭제
+function delFlagChk(){
+
+	// 계정 삭제 전 비밀번호 확인
+	(async () => {
+
+		const { value: password } = await Swal.fire({     // Swal 빨간줄 이클립스에서 호환 안되는 듯 함
+		title: '계정 삭제',
+		input: 'password',
+		inputLabel: '비밀번호를 입력해 주세요',
+		confirmButtonText: '확인',	
+		showCancelButton: true,
+		cancelButtonColor: 'green',
+		cancelButtonText: '취소'
+	}); // Swal.fire
+		// 확인 성공시 변경할 비밀번호 입력
+	 if(password){
+		 $.ajax({
+				url:"./passwordChk.do",
+				type:"post",
+				data:"pwCheck="+password,
+				async:true,
+				success: function (msg) {
+					console.log(msg);
+					if(msg.isc==true){			
+
+						Swal.fire({
+							title:'계정 삭제 ',
+							text:'계정을 정말 삭제 하시겠습니까?',
+							confirmButtonText: '확인',	
+							showCancelButton: true,
+							cancelButtonColor: 'green',
+							cancelButtonText: '취소',
+							
+							//계정 삭제 후 로그아웃 처리
+						}).then((result) => {
+							if(result.isConfirmed){	
+								$.ajax({
+									url:"./umDelFlag.do",
+									type:"post",
+									data:"delFlag",
+									async:true,
+									success: function(msg){
+										console.log(msg);
+										if(msg.isc==true){
+											Swal.fire({
+												icon:'success',
+												title:'계정 삭제 성공',
+												html:'계정이 삭제되었습니다.<br>  그동안 이용해주셔서 감사합니다.',
+												confirmButtonText: '확인'
+											})
+											location.replace("./logout.do");
+										}
+									}
+								})
+														
+							}
+							
+						})
+
+					}else{
+						Swal.fire({
+							icon:'error',
+							title:'잘못된 비밀번호 입니다',
+							confirmButtonText: '확인'
+						})
+					}
+					
+				   }
+			})
+	 }  // if문
+	})()  
+	
+}
+
+	
 
 
 
