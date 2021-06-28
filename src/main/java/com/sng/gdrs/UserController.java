@@ -1,9 +1,11 @@
 package com.sng.gdrs;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,15 +49,12 @@ public class UserController {
 			out.println("<script>alert('잘못된 아이디 또는 비밀번호 입니다.'); location.href='./loginForm.do'</script>");
 			out.flush();
 			
-//			return "redirect:/loginForm.do";
 			return null;
 			
 		}else{
 			logger.info("[login] : 로그인 성공");
 			//로그인에 성공하면 userInfoDto을 session에 담는다
-			session.setAttribute("userInfoDto", userInfoDto);
-			
-			System.out.println(userInfoDto);
+			session.setAttribute("userInfoDto", userInfoDto);		
 			
 		}	
 		return "redirect:/index.jsp";
@@ -129,8 +128,6 @@ public class UserController {
 		UserInfoDto udto = (UserInfoDto)session.getAttribute("userInfoDto");
 		String email = udto.getEmail();
 		UserInfoDto dto = iuService.umMyPage(email);
-		System.out.println(email+"--------email값확인중 --------------");
-		System.out.println(dto+"--------dto값확인중 --------------");
 		model.addAttribute("dto" ,dto);
 		
 		logger.info("[myInfo] : 회원 정보 조회 페이지 이동 요청 : {}", dto);
@@ -202,7 +199,15 @@ public class UserController {
 		return map;
 	}
 	
-	
+	@RequestMapping(value = "/emailChk.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String emailChk() {
+		Random random = new Random();
+		int randomNum = random.nextInt(99999999);
+		logger.info("[T] : 난수 발생 테스트 : {}", randomNum);
+		
+		return null;
+	}
 	
 	
 	

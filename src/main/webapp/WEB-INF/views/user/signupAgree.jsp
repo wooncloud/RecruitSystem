@@ -13,7 +13,7 @@
 				<div class="my-3 fs-4 fw-bold">[필수]개인정보 수집 및 이용 동의</div>
 				<label  class="my-2 fw-bold" for="floatingTextarea">개인정보 수집 및 이용에 대한 안내</label>
 				<div class="form-floating">
-					<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" readonly>동의하세요</textarea>
+					<textarea class="form-control" id="floatingTextarea" readonly>동의하세요</textarea>
 				</div>
 				<div class="my-2">
 					<input id="signupAgreeChk" type="checkbox">
