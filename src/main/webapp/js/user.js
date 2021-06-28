@@ -45,7 +45,7 @@ function duplicate(){
 	
 	(async () => {
 
-		const { value: email } = await Swal.fire({     // Swal 빨간줄 이클립스에서 호환 안되는 듯 함
+		const { value: email } = await Swal.fire({    
 		title: '이메일 중복검사',
 		input: 'email',
 		inputLabel: '사용하실 이메일을 입력해 주세요',
@@ -89,10 +89,10 @@ function duplicate(){
 					
 				   }
 			})
-	 }  // if문
+	 }  // if문 종료
 	})()  
 
-}  // function
+}  // function 종료
 
 //비밀번호 중복확인
 function pwCheck(){
@@ -135,15 +135,16 @@ function modifyPw(){
 	// 비빌번호 변경전 기존 비밀번호 확인
 	(async () => {
 
-		const { value: password } = await Swal.fire({     // Swal 빨간줄 이클립스에서 호환 안되는 듯 함
+		const { value: password } = await Swal.fire({     
 		title: '비밀번호 변경',
 		input: 'password',
 		inputLabel: '현재 비밀번호를 입력해 주세요',
+		
 		confirmButtonText: '확인',	
 		showCancelButton: true,
 		cancelButtonColor: 'gray',
 		cancelButtonText: '취소'
-	}); // Swal.fire
+	}); // Swal.fire 종료
 		// 확인 성공시 변경할 비밀번호 입력
 	 if(password){
 		 $.ajax({
@@ -210,7 +211,7 @@ function modifyPw(){
 					
 				   }
 			})
-	 }  // if문
+	 }  // if문 종료
 	})()  
 	
 }
@@ -221,7 +222,7 @@ function delFlagChk(){
 	// 계정 삭제 전 비밀번호 확인
 	(async () => {
 
-		const { value: password } = await Swal.fire({     // Swal 빨간줄 이클립스에서 호환 안되는 듯 함
+		const { value: password } = await Swal.fire({     
 		title: '계정 삭제',
 		input: 'password',
 		inputLabel: '비밀번호를 입력해 주세요',
@@ -229,7 +230,7 @@ function delFlagChk(){
 		showCancelButton: true,
 		cancelButtonColor: 'gray',
 		cancelButtonText: '취소'
-	}); // Swal.fire
+	}); // Swal.fire 종료
 		// 확인 성공시 변경할 비밀번호 입력
 	 if(password){
 		 $.ajax({
@@ -292,7 +293,7 @@ function delFlagChk(){
 					
 				   }
 			})
-	 }  // if문
+	 }  // if문 종료
 	})()  
 	
 }
