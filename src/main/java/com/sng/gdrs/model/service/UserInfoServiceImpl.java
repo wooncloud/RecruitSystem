@@ -34,9 +34,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
 //	이메일 중복검사
 	@Override
-	public boolean umDuplicate(String eamil) {
-		logger.info("umDuplicate 이메일 중복 검사 : {} ", eamil);
-		return iDao.umDuplicate(eamil);
+	public String umDuplicate(String chkEamil) {
+		logger.info("umDuplicate 이메일 중복 검사 : {} ", chkEamil);
+		return iDao.umDuplicate(chkEamil);
 	}	
 	
 //	이메일 인증
@@ -53,18 +53,26 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		return iDao.umMyPage(email);
 	}
 	
+//	변경전 기존 비밀번호 확인
+//	로그인
+	@Override
+	public UserInfoDto umUserCheck(Map<String, Object> map) {
+		logger.info("umLogin 로그인 : {} ", map);
+		return iDao.umLogin(map);
+	}
+	
 //	내정보변경
 	@Override
-	public boolean umModify(Map<String, Object> map) {
-		logger.info("umModify 지원자 정보 변경 : {}", map);
-		return iDao.umModify(map);
+	public boolean umModify(UserInfoDto dto) {
+		logger.info("umModify 지원자 정보 변경 : {}", dto);
+		return iDao.umModify(dto);
 	}
 	
 //	회원탈퇴
 	@Override
-	public boolean umDelflag(Map<String, Object> map) {
-		logger.info("umDelflag 지원자 회원 탈퇴 : {}", map);
-		return iDao.umDelflag(map);
+	public boolean umDelflag(UserInfoDto dto) {
+		logger.info("umDelflag 지원자 회원 탈퇴 : {}", dto);
+		return iDao.umDelflag(dto);
 	}
 	
 //	아이디로 로그인

@@ -13,7 +13,7 @@ public interface IUserInfoService {
 	public boolean umSignUp(UserInfoDto dto);
 	
 //	이메일 중복검사
-	public boolean umDuplicate(String eamil);
+	public String umDuplicate(String chkEmail);
 	
 //	이메일 인증
 	public boolean umConfirm(Map<String, Object> map);
@@ -21,11 +21,14 @@ public interface IUserInfoService {
 //	내정보확인
 	public UserInfoDto umMyPage(String email);
 	
+//	변경전 기존 비밀번호 확인
+	public UserInfoDto umUserCheck(Map<String, Object> map);
+	
 //	내정보변경
-	public boolean umModify(Map<String, Object> map);
+	public boolean umModify(UserInfoDto dto);
 	
 //	회원탈퇴
-	public boolean umDelflag(Map<String, Object> map);
+	public boolean umDelflag(UserInfoDto dto);
 	
 //	아이디로 로그인
 	public UserInfoDto umEmailSecurity(String email);

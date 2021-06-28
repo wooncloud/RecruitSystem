@@ -3,12 +3,11 @@
 <mapper namespace="com.sng.gdrs.model.dao.IUserInfoDao">
 <!-- 	로그인 -->
 	<select id="umLogin" parameterType="java.util.Map" resultType="UserInfoDto">
-		SELECT EMAIL, NAME, EMAILCHECK
+		SELECT EMAIL, NAME, DELFLAG, EMAILCHECK
       	  FROM USERINFO u 
       	  WHERE EMAIL =#{email}
               AND PASSWORD =#{password}
               AND DELFLAG ='N'
-              AND EMAILCHECK = 'Y'
 	</select>
 
 <!-- 회원가입 -->
@@ -21,8 +20,8 @@
 	</insert>
 
 <!-- 이메일 중복검사 -->
-	<select id="umDuplicate" parameterType="java.lang.String" resultType="java.lang.Integer">
-		SELECT COUNT(EMAIL)
+	<select id="umDuplicate" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT EMAIL
        	 FROM USERINFO u 
        	 WHERE EMAIL = #{email}
 	</select>
@@ -35,23 +34,29 @@
 
 <!-- 내정보확인 -->
 	<select id="umMyPage" parameterType="java.lang.String" resultType="UserInfoDto">
-		SELECT EMAIL, NAME, BIRTH ,PHONE
+		SELECT EMAIL, NAME, TO_CHAR(BIRTH, 'YYYY-MM-DD') BIRTH ,PHONE
       	  FROM USERINFO u 
        	 WHERE EMAIL = #{email}
 	</select>
 
 <!-- 내정보 변경 -->
-	<update id="umModify" parameterType="java.util.Map">
+<!-- 변경전 비밀번호 확인  -->
+	<select id="umUserCheck" parameterType="java.util.Map" resultType="UserInfoDto">
+		SELECT EMAIL
+      	  FROM USERINFO u 
+      	  WHERE EMAIL =#{email}
+              AND PASSWORD =#{password}
+	</select>
+<!-- 비밀번호 변경 -->
+	<update id="umModify" parameterType="UserInfoDto">
 		UPDATE USERINFO SET PASSWORD =#{password}
      	   WHERE EMAIL = #{email}
-              AND PASSWORD = #{password}
 	</update>
 
 <!-- 회원탈퇴 -->
-	<update id="umDelflag" parameterType="java.util.Map">
+	<update id="umDelflag" parameterType="UserInfoDto">
 		UPDATE USERINFO SET DELFLAG='Y' 
       	  WHERE EMAIL = #{email}
-              AND PASSWORD =#{password}
 	</update>
 
 <!-- 비밀번호 암호화에 사용될 것 -->
@@ -61,7 +66,6 @@
       	  FROM USERINFO u 
       	  WHERE EMAIL =  #{email}
       	  AND DELFLAG ='N'
-          AND EMAILCHECK = 'Y'
 	</select>
 
 <!-- 비밀번호 확인 -->
