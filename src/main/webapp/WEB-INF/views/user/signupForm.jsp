@@ -15,7 +15,7 @@
 				<div class="input-group my-3">
  					<span class="input-group-text" id="basic-addon1">이메일</span>
   					<input type="text" name="email" id="email" class="form-control" aria-label="Username" aria-describedby="basic-addon1" required readonly>
-					<input type="button" value="중복확인" class="btn btn-success" onclick="duplicate()">
+					<input type="button" value="중복확인" class="btn btn-outline-success" onclick="duplicate()">
 				</div>
 				<div class="input-group my-3">
  					<span class="input-group-text" id="basic-addon1">비밀번호</span>

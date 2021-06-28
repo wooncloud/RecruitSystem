@@ -1,9 +1,11 @@
 package com.sng.gdrs;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -202,7 +204,15 @@ public class UserController {
 		return map;
 	}
 	
-	
+	@RequestMapping(value = "/emailChk.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String emailChk() {
+		Random random = new Random();
+		int randomNum = random.nextInt(99999999);
+		logger.info("[T] : 난수 발생 테스트 : {}", randomNum);
+		
+		return null;
+	}
 	
 	
 	

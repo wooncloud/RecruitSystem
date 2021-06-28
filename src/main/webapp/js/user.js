@@ -70,7 +70,7 @@ function duplicate(){
 							text:'아이디를 사용 하시겠습니까?',
 							confirmButtonText: '아이디 사용',	
 							showCancelButton: true,
-							cancelButtonColor: 'green',
+							cancelButtonColor: 'gray',
 							cancelButtonText: '취소'
 						}).then((result) => {
 							if (result.isConfirmed) {
@@ -141,7 +141,7 @@ function modifyPw(){
 		inputLabel: '현재 비밀번호를 입력해 주세요',
 		confirmButtonText: '확인',	
 		showCancelButton: true,
-		cancelButtonColor: 'green',
+		cancelButtonColor: 'gray',
 		cancelButtonText: '취소'
 	}); // Swal.fire
 		// 확인 성공시 변경할 비밀번호 입력
@@ -163,7 +163,7 @@ function modifyPw(){
 							    '<input type="password" id="swal-input2" class="swal2-input">',
 							confirmButtonText: '확인',	
 							showCancelButton: true,
-							cancelButtonColor: 'green',
+							cancelButtonColor: 'gray',
 							cancelButtonText: '취소',
 
 						}).then((result) => {
@@ -227,7 +227,7 @@ function delFlagChk(){
 		inputLabel: '비밀번호를 입력해 주세요',
 		confirmButtonText: '확인',	
 		showCancelButton: true,
-		cancelButtonColor: 'green',
+		cancelButtonColor: 'gray',
 		cancelButtonText: '취소'
 	}); // Swal.fire
 		// 확인 성공시 변경할 비밀번호 입력
@@ -246,7 +246,7 @@ function delFlagChk(){
 							text:'계정을 정말 삭제 하시겠습니까?',
 							confirmButtonText: '확인',	
 							showCancelButton: true,
-							cancelButtonColor: 'green',
+							cancelButtonColor: 'gray',
 							cancelButtonText: '취소',
 							
 							//계정 삭제 후 로그아웃 처리
@@ -265,8 +265,14 @@ function delFlagChk(){
 												title:'계정 삭제 성공',
 												html:'계정이 삭제되었습니다.<br>  그동안 이용해주셔서 감사합니다.',
 												confirmButtonText: '확인'
-											})
+											}).then((result) => {
+												//계정삭제 alert 후 세션삭제하고 로그아웃
+											if(result.isConfirmed){	
 											location.replace("./logout.do");
+											}else{
+											location.replace("./logout.do");
+											}
+											})
 										}
 									}
 								})
@@ -279,7 +285,8 @@ function delFlagChk(){
 						Swal.fire({
 							icon:'error',
 							title:'잘못된 비밀번호 입니다',
-							confirmButtonText: '확인'
+							confirmButtonText: '확인',
+							
 						})
 					}
 					
@@ -290,7 +297,24 @@ function delFlagChk(){
 	
 }
 
-	
-
+	//이메일 인증
+function emailChk(){
+	$.ajax({
+		url:"./emailChk.do",
+		type:"post",
+		async:"true",
+		success: function(){
+			Swal.fire({
+				title:'이메일 인증',
+				html:'이메일로 전송된 인증번호를 입력해 주세요.',
+				input:'text',
+				confirmButtonText: '확인',	
+				showCancelButton: true,
+				cancelButtonColor: 'gray',
+				cancelButtonText: '취소',
+			})
+		}
+	})
+}
 
 
