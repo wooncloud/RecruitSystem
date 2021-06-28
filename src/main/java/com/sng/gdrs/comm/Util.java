@@ -80,4 +80,28 @@ public class Util {
 		
 		return page;
 	}
+	
+	/**
+	 * 랜덤으로 8자리의 문자+숫자를 만들어주는 메서드입니다.
+	 * @return 랜덤 발생한 8자리의 문자+숫자
+	 * @author Lee Gu Sung
+	 */
+	public static String randomVal() {
+		String randomval = "";
+		
+		for(int i=0; i<8; i++) {
+			int rndVal = (int)(Math.random() * 62);
+			if(rndVal < 10) {
+				randomval += rndVal;
+				} else if(rndVal > 35) { 
+					randomval += (char)(rndVal + 61);
+					} else { 
+						randomval += (char)(rndVal + 55);
+						} 
+			}
+		return randomval;
+	}
+	
+	
+	
 }

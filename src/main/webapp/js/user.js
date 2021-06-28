@@ -308,12 +308,42 @@ function emailChk(){
 			Swal.fire({
 				title:'이메일 인증',
 				html:'이메일로 전송된 인증번호를 입력해 주세요.',
-				input:'text',
+				html: '<input type="text" id="swal-input1" class="swal2-input">',
 				confirmButtonText: '확인',	
 				showCancelButton: true,
 				cancelButtonColor: 'gray',
 				cancelButtonText: '취소',
-			})
+			}).then((result) => {
+				if(result.isConfirmed){
+					let emailChk = document.getElementById('swal-input1').value;
+					console.log(emailChk);
+					$.ajax({
+						url:"./emailChkOk.do",
+						type:"post",
+						data: "emailChk="+emailChk,
+						async:true,
+						success: function(msg){
+							if(msg.isc==true){	
+								console.log(msg.isc);
+							Swal.fire({
+								icon:'success',
+								title:'이메일 인증',
+								text:'인증에 성공하셨습니다.'
+							})
+							}else{
+								Swal.fire({
+									icon:'error',
+									title:'인증 번호가 일치하지 않습니다.',
+									text:'다시 인증해 주세요.'
+								})
+							}
+						}
+						
+					}) // ajax 종료
+					
+				} // Confirmed if문 종료
+			}) // then(result) 종료
+			
 		}
 	})
 }
