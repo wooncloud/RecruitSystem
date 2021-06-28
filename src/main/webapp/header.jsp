@@ -47,7 +47,7 @@
             <c:if test="${userInfoDto.email == null}">
                 <div class="d-flex-center">
                     <a href="./loginForm.do">로그인</a>
-                    <a href="./signupForm.do">회원가입</a>
+                    <a href="./signupAgree.do">회원가입</a>
                 </div>
             </c:if>
             <c:if test="${userInfoDto.email != null}">
