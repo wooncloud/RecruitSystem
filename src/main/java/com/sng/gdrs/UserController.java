@@ -7,12 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sng.gdrs.comm.Util;
 import com.sng.gdrs.dto.UserInfoDto;
 import com.sng.gdrs.model.service.IUserInfoService;
 @Controller
@@ -29,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	private IUserInfoService iuService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@RequestMapping(value = "/loginForm.do", method = RequestMethod.GET)
 	public String loginForm() {
@@ -200,12 +209,80 @@ public class UserController {
 	
 	@RequestMapping(value = "/emailChk.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String emailChk() {
-		Random random = new Random();
-		int randomNum = random.nextInt(99999999);
-		logger.info("[T] : 난수 발생 테스트 : {}", randomNum);
+	public Map<String, Boolean> emailChk(HttpSession session) {
+		UserInfoDto dto = (UserInfoDto) session.getAttribute("userInfoDto");	
+		String email = dto.getEmail();
+		logger.info("[T] : 세션의 이메일 확인 테스트 : {}", email);
 		
-		return null;
+		String ran = Util.randomVal();
+		logger.info("[T] : 난수 발생 테스트 : {}", ran);
+		
+		//메일의 내용을 전송하기 위한 객체 MimeMessage
+		MimeMessage message = mailSender.createMimeMessage();
+		
+				try {
+					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+					messageHelper.setFrom("dlrjtjd0615@gmail.com"); // 보내는 사람의 이메일
+					messageHelper.setTo(email); // 받을 사람 이메일
+					messageHelper.setSubject("이메일 인증 메일입니다."); //메일의 제목
+					messageHelper.setText("이메일 인증의 입력란에 다음 인증키를 입력해 주세요.<br> 인증키 : "+ran, true);
+										
+					mailSender.send(message);
+								
+				} catch (MessagingException e) {
+					
+					e.printStackTrace();
+				}
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("email", email);
+				map.put("emailcheck", ran);
+
+				Map<String, Boolean> bmap = new HashMap<>();
+				boolean isc = false;
+				boolean isc2 = iuService.umConfirm(map);
+				if(isc2==true) {
+					isc = true;
+					logger.info("[emailChk] : 이메일 인증번호 발행 성공 : {}", isc);
+				}else {
+					logger.info("[emailChk] : 이메일 인증번호 발행 실패 : {}", isc);
+				}
+				bmap.put("isc", isc);
+				
+				return bmap;
 	}
 
+	@RequestMapping(value = "/emailChkOk.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> emailChkOk(HttpSession session, String emailChk){
+		UserInfoDto dto = (UserInfoDto) session.getAttribute("userInfoDto");	
+		String email = dto.getEmail();
+		UserInfoDto uDto = iuService.umEmailSecurity(email);
+		String emailcheck = uDto.getEmailcheck();
+		
+		Map<String, Boolean> bmap = new HashMap<>();
+		
+		if(emailcheck.equals(emailChk)) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("emailcheck", "Y");
+
+		boolean isc = false;
+		boolean isc2 = iuService.umConfirm(map);
+		if(isc2==true) {
+			isc = true;
+			logger.info("[emailChkOk] : 이메일 인증 성공 : {}", isc);
+		}else {
+			logger.info("[emailChkOk] : 이메일 인증 실패 : {}", isc);
+		}
+		bmap.put("isc", isc);
+
+		}
+
+		return bmap;
+	}
+	
+	
+	
 }
