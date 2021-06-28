@@ -56,7 +56,28 @@
                     </div>
                 </div>
             </c:forEach>
-        </div>
+			<ul class="pagination">
+				<c:if test="${page.startPage > page.countPage}">
+					<li class="page-item">
+						<a class="page-link" href="./recruitList.do?page=${page.startPage - 1}">
+							<span>&laquo;</span>
+						</a>
+					</li>
+				</c:if>
+				<c:forEach var="num" begin="${page.startPage}" end="${page.endPage}">
+					<li class="page-item ${num eq page.page ? 'active' : ''}">
+						<a class="page-link" href="./recruitList.do?page=${num}">${num}</a>
+					</li>	
+				</c:forEach>
+				<c:if test="${page.endPage < page.totalPage}">
+					<li class="page-item">
+						<a class="page-link" href="./recruitList.do?page=${page.endPage + 1}">
+							<span>&raquo;</span>
+						</a>
+					</li>
+				</c:if>
+			</ul>
+	</div>
     </div>
     <script type="text/javascript">
         window.onload = recruitList.init;

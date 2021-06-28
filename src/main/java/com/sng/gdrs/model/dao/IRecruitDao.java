@@ -48,6 +48,12 @@ public interface IRecruitDao {
 	 * 
 	 */
 	public List<RecruitDto> raAdminSearch();
+	
+	/**
+	 * 관리자 - 채용공고 전체 글 갯수 조회
+	 * @return
+	 */
+	public int raAdminAllCount();
 
 	/**
 	 * 지원자 - 채용공고 목록 조회
@@ -67,4 +73,10 @@ public interface IRecruitDao {
 	 */
 	public RecruitDto raDetail(int seq);
 
+	/**
+	 * 지원자 채용공고 글 갯수 조회
+	 * @return
+	 */
+	public int raUserAllCount();
+	
 }

@@ -3,6 +3,7 @@ package com.sng.gdrs;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sng.gdrs.comm.Util;
 import com.sng.gdrs.dto.CodeDto;
+import com.sng.gdrs.dto.Paging;
 import com.sng.gdrs.dto.RecruitDto;
 import com.sng.gdrs.model.service.ICodeService;
 import com.sng.gdrs.model.service.IRecruitService;
@@ -49,12 +51,36 @@ public class RecruitController {
 		logger.info("[recruitList] : 채용공고 화면으로 이동");
 		session.setAttribute("UserEmail", "kckt66@naver.com");
 		
+		// 페이징
+		Paging page = new Paging();
+		String strIdx = (String)param.get("page");
+		if(strIdx == null) {
+			strIdx = "1";
+		}
+		
+		int idx = Integer.parseInt(strIdx);
+		int allPageCnt = iService.raUserAllCount(); // 사용자 (관리자 분기 필요)
+		Util.defaultPagingSetting(page, allPageCnt); // paging dto setting
+		
+		page.setPage(idx);
+		page.setStartPage(idx);
+		page.setEndPage(page.getCountPage());
+//		int realEnd = (int)(Math.ceil((page.getTotalCount() * 1.0) / page.getCountList()));
+		// 위의 코드 필요할것 같아서 임시로 주석처리함
+		
+		param.put("first", page.getPage() * page.getCountList() - (page.getCountList() - 1));
+		param.put("last", page.getPage() * page.getCountList());
+		// 페이징 끝
+		
+		
+		// 값 가공 및 전달
 		List<RecruitDto> lists = iService.raUserList(param);
 		List<CodeDto> emp = codeService.selectCodeType("EMP");
 		JSONArray empJson = Util.ConvertCodeToJson(emp);
 		model.addAttribute("lists", lists);
 		model.addAttribute("emp", emp);
 		model.addAttribute("empJson", empJson);
+		model.addAttribute("page", page);
 
 		return "recruit/recruitList";
 	}

@@ -73,4 +73,16 @@ public class RecruitService implements IRecruitService {
 		return iDao.raDetail(seq);
 	}
 
+	@Override
+	public int raAdminAllCount() {
+		logger.info("[raAdminAllCount]");
+		return iDao.raAdminAllCount();
+	}
+
+	@Override
+	public int raUserAllCount() {
+		logger.info("[raUserAllCount]");
+		return iDao.raUserAllCount();
+	}
+
 }

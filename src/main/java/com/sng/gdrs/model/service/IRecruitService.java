@@ -74,4 +74,18 @@ public interface IRecruitService {
 	 * @return
 	 */
 	public RecruitDto raDetail(int seq);
+
+	/**
+	 * 관리자 - 채용공고 전체 글 갯수 조회
+	 * 
+	 * @return
+	 */
+	public int raAdminAllCount();
+
+	/**
+	 * 지원자 채용공고 글 갯수 조회
+	 * 
+	 * @return
+	 */
+	public int raUserAllCount();
 }

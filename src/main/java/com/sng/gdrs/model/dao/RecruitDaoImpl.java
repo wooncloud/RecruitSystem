@@ -61,4 +61,14 @@ public class RecruitDaoImpl implements IRecruitDao {
 		return sqlSession.selectOne(NS + "raDetail", seq);
 	}
 
+	@Override
+	public int raAdminAllCount() {
+		return sqlSession.selectOne(NS + "raAdminAllCount");
+	}
+
+	@Override
+	public int raUserAllCount() {
+		return sqlSession.selectOne(NS + "raUserAllCount");
+	}
+
 }
