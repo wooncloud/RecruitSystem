@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UserInfoDto implements Serializable {
 
-	private static final long serialVersionUID = 4590910370702836297L;
+	private static final long serialVersionUID = 4695537333061323247L;
 	
 	private String email;
 	private String password;
@@ -13,15 +13,12 @@ public class UserInfoDto implements Serializable {
 	private String phone;
 	private String delflag;
 	private String emailcheck;
-	
+
 	public UserInfoDto() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public UserInfoDto(String email, String password, String name, String birth, String phone, String delflag,
 			String emailcheck) {
-		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -29,6 +26,12 @@ public class UserInfoDto implements Serializable {
 		this.phone = phone;
 		this.delflag = delflag;
 		this.emailcheck = emailcheck;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfoDto [email=" + email + ", password=" + password + ", name=" + name + ", birth=" + birth
+				+ ", phone=" + phone + ", delflag=" + delflag + ", emailcheck=" + emailcheck + "]";
 	}
 
 	public String getEmail() {
@@ -87,16 +90,4 @@ public class UserInfoDto implements Serializable {
 		this.emailcheck = emailcheck;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfoDto [email=" + email + ", password=" + password + ", name=" + name + ", birth=" + birth
-				+ ", phone=" + phone + ", delflag=" + delflag + ", emailcheck=" + emailcheck + "]";
-	}
-	
-	
-	
 }

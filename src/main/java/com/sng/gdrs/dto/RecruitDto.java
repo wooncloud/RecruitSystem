@@ -8,6 +8,7 @@ import java.util.Date;
 public class RecruitDto implements Serializable {
 
 	private static final long serialVersionUID = -2664867638778323347L;
+	
 	private int seq;
 	private String title;
 	private String content;

@@ -70,6 +70,12 @@ nav {
     align-items: center;
 }
 
+.between-center{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .nav-user>div>a, .nav-user>div>span {
     padding: 4px 8px;
     margin: 0 2px;
