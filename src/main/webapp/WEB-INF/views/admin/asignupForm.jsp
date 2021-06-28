@@ -7,11 +7,11 @@
 <script type="text/javascript" src="./js/user.js"></script>
 
 <div class="container">
-	<form action="./signUp.do" method="post"  onsubmit="return signupChk(this);">
+	<form action="./asignUp.do" method="post"  onsubmit="return signupChk(this);">
 	<div class="box">
 		<div class="card">
 		<div class="card-body">
-			<div class="mt-3 fs-4 fw-bold">회원가입</div>
+			<div class="mt-3 fs-4 fw-bold">관리자 계정 생성</div>
 				<div class="input-group my-3">
  					<span class="input-group-text" >이메일</span>
   					<input type="text" name="email" id="email" class="form-control"  required readonly>
@@ -23,22 +23,14 @@
 				</div>
 				<div class="input-group my-3">
  					<span class="input-group-text" >비밀번호&nbsp;확인</span>
-  					<input type="password" name="passwordChk" id="passwordChk" class="form-control" onchange="pwCheck()" aria-label="Username"  required>
+  					<input type="password" name="passwordChk" id="passwordChk" class="form-control" onchange="pwCheck()"  required>
 				</div>
 				<div>
   					<span id="check"></span>
 				</div>
 				<div class="input-group my-3">
  					<span class="input-group-text" >이&nbsp;름</span>
-  					<input type="text" name="name" id="name" class="form-control"  placeholder="ex) 이젤리" required>
-				</div>
-				<div class="input-group my-3">
- 					<span class="input-group-text" >생년월일</span>
-  					<input type="text" name="birth" id="birth" class="form-control"  placeholder="ex) 1993-06-14" required>
-				</div>
-				<div class="input-group my-3">
- 					<span class="input-group-text" >핸드폰번호</span>
-  					<input type="text" name="phone" id="phone" class="form-control"  placeholder="ex) 010-1234-5678" required>
+  					<input type="text" name="name" id="name" class="form-control"  required>
 				</div>
 		</div>	
 		</div>

@@ -13,12 +13,12 @@
 			<div class="card-body">
 				<div class="mt-3 fs-4 fw-bold">로그인</div>
 				<div class="input-group my-3">
- 					<span class="input-group-text" id="basic-addon1">이메일</span>
-  					<input type="text" name="email" id="email" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+ 					<span class="input-group-text" >이메일</span>
+  					<input type="text" name="email" id="email" class="form-control" >
 				</div>
 				<div class="input-group my-3">
- 					<span class="input-group-text" id="basic-addon1">비밀번호</span>
-  					<input type="password" name="password" id="password" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+ 					<span class="input-group-text" >비밀번호</span>
+  					<input type="password" name="password" id="password" class="form-control" >
 				</div>
 			</div>
 		</div>

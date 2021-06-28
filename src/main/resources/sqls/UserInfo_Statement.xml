@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sng.gdrs.model.dao.IUserInfoDao">
+	
 <!-- 	로그인 -->
 	<select id="umLogin" parameterType="java.util.Map" resultType="UserInfoDto">
-		SELECT EMAIL, NAME, DELFLAG, EMAILCHECK
-      	  FROM USERINFO u 
-      	  WHERE EMAIL =#{email}
-              AND PASSWORD =#{password}
-              AND DELFLAG ='N'
+		SELECT EMAIL , NAME , DELFLAG
+		FROM (
+			SELECT EMAIL , NAME , DELFLAG , PASSWORD 
+				FROM USERINFO u 
+			UNION
+			SELECT EMAIL , NAME , DELFLAG , PASSWORD 
+				FROM ADMININFO a
+		)
+		WHERE EMAIL = #{email}
+			AND PASSWORD = #{password}
+			AND DELFLAG = 'N'
 	</select>
 
-<!-- 회원가입 -->
+<!-- 지원자 회원가입 -->
 	<insert id="umSignUp" parameterType="UserInfoDto">
 		INSERT INTO USERINFO (
                            EMAIL, PASSWORD, NAME, 
@@ -22,8 +29,12 @@
 <!-- 이메일 중복검사 -->
 	<select id="umDuplicate" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT EMAIL
-       	 FROM USERINFO u 
-       	 WHERE EMAIL = #{email}
+			FROM (SELECT EMAIL 
+						FROM USERINFO u 
+						UNION
+					  SELECT EMAIL 
+						FROM ADMININFO a)
+		WHERE EMAIL = #{email}
 	</select>
 
 <!-- 이메일 인증. -->
@@ -62,17 +73,25 @@
 <!-- 비밀번호 암호화에 사용될 것 -->
 <!-- 아이디로 로그인 -->
 	<select id="umEmailSecurity" parameterType="java.lang.String" resultType="UserInfoDto">
-		SELECT EMAIL, NAME, EMAILCHECK
-      	  FROM USERINFO u 
-      	  WHERE EMAIL =  #{email}
-      	  AND DELFLAG ='N'
+		SELECT EMAIL, NAME, DELFLAG 
+			FROM (SELECT EMAIL, NAME, DELFLAG  
+						FROM USERINFO u 
+					UNION
+					 SELECT EMAIL, NAME, DELFLAG  
+						FROM ADMININFO a)
+			WHERE EMAIL = #{email}
+			AND DELFLAG ='N'
 	</select>
 
 <!-- 비밀번호 확인 -->
 	<select id="umPwSecurity" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT PASSWORD 
-      	  FROM USERINFO u 
-      	  WHERE EMAIL =  #{email}
+			FROM (SELECT EMAIL, PASSWORD 
+						FROM USERINFO u 
+					  UNION
+					  SELECT EMAIL, PASSWORD 
+						FROM ADMININFO a)
+			WHERE EMAIL = #{email}
 	</select>
 
 </mapper>

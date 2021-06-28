@@ -16,11 +16,17 @@
 				</div>
 				<div  class="my-3 fw-light">
 					이메일
-					<p class="fw-normal fs-6">${dto.email}</p>
+					<div class="fw-normal fs-6">${dto.email}
+					</div>
+						<c:if test="${userInfoDto.emailcheck == 'N'}">
+							<input type="button" value="이메일 인증" class="btn btn-outline-success" onclick="emailChk()">
+						</c:if>		
 				</div>
 				<div  class="my-3 fw-light">
-					비밀번호
-					<p class="fw-normal fs-6" onclick="modifyPw()"><a class="modifyPw">비밀번호 변경하기</a></p>
+					<div>
+					비밀번호<br>
+						<input type="button" onclick="modifyPw()" value="비밀번호 변경" class="btn btn-outline-success ">
+					</div>
 				</div>
 				<div  class="my-3 fw-light">
 					휴대폰 번호
@@ -33,7 +39,7 @@
 			</div>
 		</div>
     	<div class="my-3" align="right">
-	    	<input type="submit" class="btn btn-danger " value="계정삭제" onclick="delFlagChk()">
+	    	<input type="submit" class="btn btn-outline-danger"  value="계정삭제" onclick="delFlagChk()">
     	</div>
 
 	</div>
