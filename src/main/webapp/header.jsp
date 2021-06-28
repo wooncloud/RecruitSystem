@@ -36,7 +36,7 @@
                 </div>
                 <div class="nav-menu-list">
                     <ul class="d-flex-center">
-                        <li><a href="./recuitList.do">채용공고</a></li>
+                        <li><a href="./recruitList.do">채용공고</a></li>
                         <li><a href="./myApplicaion.do">내 지원서</a></li>
                         <li><a href="./result.do">지원결과 확인</a></li>
                         <li><a href="./applyList.do">지원자 목록 조회</a></li>

@@ -47,6 +47,16 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${spring-security}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>${spring-security}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${spring-security}</version>
+		</dependency>
 				
 
 		<!-- AOP 처리를 위한 Aspect 라이브러리 -->
@@ -156,6 +166,12 @@
 			<version>1.9.13</version>
 		</dependency>
 		
+		<!-- json simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+    </dependency>
 		<!-- 	이메일 인증 관련 라이브러리 -->
 		<dependency>
     		<groupId>javax.mail</groupId>
@@ -172,7 +188,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

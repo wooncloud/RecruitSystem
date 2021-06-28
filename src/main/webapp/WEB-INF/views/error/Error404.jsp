@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ERROR 404</title>
+<title>페이지를 찾을 수 없습니다.</title>
 </head>
 <body>
-	<h1>ERROR 404</h1>
+	<h1>페이지를 찾을 수 없습니다.</h1>
 	<a href="index.jsp">메인으로 돌아가기</a>
 </body>
 </html>

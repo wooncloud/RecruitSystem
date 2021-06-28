@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sng.gdrs.dto.UserInfoDto;
 import com.sng.gdrs.model.service.IUserInfoService;
-
 @Controller
 public class UserController {
 	
@@ -208,14 +207,5 @@ public class UserController {
 		
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

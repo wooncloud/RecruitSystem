@@ -12,9 +12,12 @@
         )
         VALUES (
         	RECRUITMENT_SEQ.NEXTVAL, #{title}, #{content},
-            #{writer}, #{startterm}, #{endterm},
+            #{writer}, #{startterm}, #{endterm, jdbcType=DATE},
             #{employ}, #{status}
         )
+        <selectKey order="AFTER" keyProperty="seq" resultType="java.lang.Integer">
+			SELECT RECRUITMENT_SEQ.CURRVAL AS SEQ FROM DUAL
+		</selectKey>
 	</insert>
 	
 	<!-- 관리자 - 채용공고 수정 -->
@@ -39,46 +42,70 @@
 	
 	<!-- 관리자 - 채용공고 목록 조회 -->
 	<select id="raAdminList" resultType="RecruitDto">
-		SELECT r.SEQ, r.TITLE, r.WRITER, 
-			r.STARTTERM, r.ENDTERM, c.CODENAME AS EMPLOY, 
-			r.STATUS, r.DELFLAG 
-		        FROM RECRUITMENT r JOIN TYPECODE c
-		         ON r.EMPLOY = c.CODEID
-		        ORDER BY SEQ DESC
+		SELECT SEQ, TITLE, WRITER, STARTTERM, ENDTERM, EMPLOY, STATUS, DELFLAG 
+			FROM (
+				SELECT 
+					SEQ, TITLE, WRITER, 
+					STARTTERM, ENDTERM, EMPLOY, 
+					STATUS, DELFLAG, ROW_NUMBER() OVER(ORDER BY SEQ DESC) AS RN
+				FROM RECRUITMENT
+				<where>
+		        	<if test="title != null">
+		        		AND TITLE LIKE '%' || #{title} || '%'
+		        	</if>
+		        	<if test="employ != null">
+		   				AND EMPLOY = #{employ}
+		        	</if>
+			    </where> 
+			)
+			WHERE RN BETWEEN #{first} AND #{last}
+		    ORDER BY SEQ DESC;
 	</select>
-	<!-- 검색쿼리 -->
 	
+	<!-- 관리자 - 채용공고 전체 글 갯수 조회 -->
+	<select id="raAdminAllCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM RECRUITMENT r
+	</select>
 	
 	
 	
 	<!-- 지원자용 쿼리 -->
 	<!-- 지원자 - 채용공고 목록 조회 -->
-	<select id="raUserList" resultType="RecruitDto">
-		SELECT r.SEQ, r.TITLE, r.STARTTERM, r.ENDTERM, t.CODENAME AS EMPLOY
-        FROM RECRUITMENT r JOIN TYPECODE t 
-        	ON r.EMPLOY = t.CODEID 
-        WHERE r.STATUS = 'P' AND r.DELFLAG = 'N'
-        ORDER BY r.ENDTERM ASC, r.TITLE
+	<select id="raUserList" parameterType="java.util.Map" resultType="RecruitDto">
+		SELECT SEQ, TITLE, STARTTERM, ENDTERM, EMPLOY 
+		    FROM (
+		    	SELECT 
+					SEQ, TITLE, STARTTERM, 
+					ENDTERM, EMPLOY, ROW_NUMBER() OVER(ORDER BY ENDTERM, TITLE) AS RN
+				FROM RECRUITMENT r 
+				<where>
+				    STATUS = 'RCS002' AND DELFLAG = 'N' 
+		        	<if test="title != null">
+		        		AND TITLE LIKE '%' || #{title} || '%'
+		        	</if>
+		        	<if test="employ != null">
+		   				AND EMPLOY = #{employ}
+		        	</if>
+			    </where> 
+		    )
+		    WHERE RN BETWEEN #{first} AND #{last}
+		    ORDER BY ENDTERM, TITLE
 	</select>
 	
-	<!-- 지원자 - 채용공고 검색 -->
-	<!-- <select id="raUserSearch">
-		SELECT SEQ, TITLE, STARTTERM, ENDTERM, EMPLOY 
-        FROM RECRUITMENT r
-        WHERE STATUS = 'P' AND DELFLAG = 'N'
-        
-                AND (TITLE LIKE '%젤리%' AND EMPLOY = 'EMP001')
-        ORDER BY ENDTERM ASC, TITLE
-	</select> -->
+	
+	<!-- 지원자 채용공고 글 갯수 조회 -->
+	<select id="raUserAllCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM RECRUITMENT r 
+		WHERE STATUS = 'RCS002' AND DELFLAG = 'N'
+	</select>
+	
 	
 	<!-- 채용공고 상세 조회 -->
 	<select id="raDetail" parameterType="java.lang.Integer" resultType="RecruitDto">
-		SELECT r.SEQ, r.TITLE, r.CONTENT, 
-		r.WRITER, r.STARTTERM, r.ENDTERM, 
-		c.CODENAME AS EMPLOY, r.STATUS, r.DELFLAG
-			FROM RECRUITMENT r JOIN TYPECODE c
-				ON r.EMPLOY = c.CODEID 
-			WHERE r.SEQ = #{seq}
+		SELECT SEQ, TITLE, CONTENT, WRITER, STARTTERM, ENDTERM, EMPLOY, STATUS, DELFLAG
+			FROM RECRUITMENT
+			WHERE SEQ = #{seq}
 	</select>
 	
 </mapper>

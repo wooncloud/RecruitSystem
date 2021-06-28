@@ -1,6 +1,7 @@
 package com.sng.gdrs.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sng.gdrs.dto.RecruitDto;
 
@@ -47,12 +48,18 @@ public interface IRecruitDao {
 	 * 
 	 */
 	public List<RecruitDto> raAdminSearch();
+	
+	/**
+	 * 관리자 - 채용공고 전체 글 갯수 조회
+	 * @return
+	 */
+	public int raAdminAllCount();
 
 	/**
 	 * 지원자 - 채용공고 목록 조회
 	 * 
 	 */
-	public List<RecruitDto> raUserList();
+	public List<RecruitDto> raUserList(Map<String, Object> map);
 
 	/**
 	 * 지원자 - 채용공고 검색
@@ -66,4 +73,10 @@ public interface IRecruitDao {
 	 */
 	public RecruitDto raDetail(int seq);
 
+	/**
+	 * 지원자 채용공고 글 갯수 조회
+	 * @return
+	 */
+	public int raUserAllCount();
+	
 }
