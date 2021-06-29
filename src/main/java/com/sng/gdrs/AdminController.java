@@ -22,14 +22,20 @@ public class AdminController {
 
 	@Autowired
 	private IAdminInfoService iaService;
-
-	@RequestMapping(value = "/doyouknowjelly.do", method = RequestMethod.GET)
+	
+	/**
+	 * 관리자 계정 생성 페이지로 이동
+	 */
+	@RequestMapping(value ="/doyouknowjelly.do", method = RequestMethod.GET )
 	public String signupForm() {
 		logger.info("[signupForm] : 관리자 계정 생성 페이지로 이동 요청");
 
 		return "admin/asignupForm";
 	}
 
+	/**
+	 * 관리자 계정 생성 프로세스
+	 */
 	@RequestMapping(value = "/asignUp.do", method = RequestMethod.POST)
 	public String asignUp(AdminInfoDto dto, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8;");
@@ -46,5 +52,4 @@ public class AdminController {
 
 		return null;
 	}
-
 }

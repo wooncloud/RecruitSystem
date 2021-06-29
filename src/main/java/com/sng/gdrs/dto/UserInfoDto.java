@@ -28,6 +28,12 @@ public class UserInfoDto implements Serializable {
 		this.emailcheck = emailcheck;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfoDto [email=" + email + ", password=" + password + ", name=" + name + ", birth=" + birth
+				+ ", phone=" + phone + ", delflag=" + delflag + ", emailcheck=" + emailcheck + "]";
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -82,16 +88,6 @@ public class UserInfoDto implements Serializable {
 
 	public void setEmailcheck(String emailcheck) {
 		this.emailcheck = emailcheck;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfoDto [email=" + email + ", password=" + password + ", name=" + name + ", birth=" + birth
-				+ ", phone=" + phone + ", delflag=" + delflag + ", emailcheck=" + emailcheck + "]";
 	}
 
 }

@@ -11,7 +11,7 @@ public class AdminInfoDto implements Serializable {
 	private String name;
 	private int admingrade;
 	private String delflag;
-
+	
 	public AdminInfoDto() {
 	}
 
