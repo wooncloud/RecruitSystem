@@ -12,6 +12,7 @@
 					<input type="button" value="채용완료" class="btn btn-warning text-white">
 				</div>
 			</div>
+			테스트 중 : ${lists}
 			<div class="my-3">
 				<div class="card">
 					<div class="card-body between-center">
@@ -61,15 +62,17 @@
 							</tr>
 						</thead>
 						<tbody>
+<%-- 						<c:forEach var="dto" items="${lists}" varStatus="vs"> --%>
 							<tr>
 								<td><input type="checkbox" name="" id=""></td>
 								<td></td>
-								<td></td>
+<%-- 								<td>${dto.name}</td> --%>
 								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
 							</tr>
+<%-- 						</c:forEach> --%>
 						</tbody>
 					</table>
 				</div>

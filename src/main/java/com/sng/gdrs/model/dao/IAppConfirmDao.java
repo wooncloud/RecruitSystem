@@ -1,13 +1,17 @@
 package com.sng.gdrs.model.dao;
 
+import java.util.List;
+
+import com.sng.gdrs.dto.AppConfirmDto;
+
 public interface IAppConfirmDao {
 	
 	/**
 	 * 지원자 전체 조회
 	 * 
-	 * @param 
 	 * @return
 	 */
+	public List<AppConfirmDto> acAllList();
 	
 	/**
 	 * 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
@@ -80,13 +84,21 @@ public interface IAppConfirmDao {
 	 */
 	
 	/**
-	 * 관리자가 여러 지원자를 다중 선택하여 
+	 * 관리자가 여러 지원자를 다중 선택하여 일괄적으로 진행 결과를 변경
 	 * 
 	 * @param 
 	 * @return
 	 */
+	
 	/**
-	 * 지원자 상세보기 학력정보
+	 * 관리자가 여러 지원자를 다중 선택하여 일괄적으로 채용 결과를 변경
+	 * 
+	 * @param 
+	 * @return
+	 */
+	
+	/**
+	 * 관리자가 특정 지원자의 주석을 추가
 	 * 
 	 * @param 
 	 * @return
