@@ -300,20 +300,61 @@ function delFlagChk(){
 
 	//이메일 인증
 function emailChk(){
+	let emailWait = document.getElementById('emailWait');
+	//인증창이 뜨는동안 대기 메세지 활성화 및 버튼 비활성화
+	emailWait.innerHTML='인증창이 뜰때까지 기다려주세요.';
+	emailWait.style.color='blue';
+	let emailChkBtn = document.getElementById("emailChkBtn");
+	emailChkBtn.disabled = true;
 	$.ajax({
 		url:"./emailChk.do",
 		type:"post",
 		async:"true",
 		success: function(){
+			//인증창이뜨면 메세지 사라짐 및 버튼 활성화
+			emailWait.innerHTML="";
+			emailChkBtn.disabled = false;
 			Swal.fire({
 				title:'이메일 인증',
 				html:'이메일로 전송된 인증번호를 입력해 주세요.',
-				input:'text',
+				html: '<input type="text" id="swal-input1" class="swal2-input">',
 				confirmButtonText: '확인',	
 				showCancelButton: true,
 				cancelButtonColor: 'gray',
 				cancelButtonText: '취소',
-			})
+			}).then((result) => {
+				if(result.isConfirmed){
+					let emailChk = document.getElementById('swal-input1').value;
+					console.log(emailChk);
+					$.ajax({
+						url:"./emailChkOk.do",
+						type:"post",
+						data: "emailChk="+emailChk,
+						async:true,
+						success: function(msg){
+							if(msg.isc==true){	
+								console.log(msg.isc);
+							Swal.fire({
+								icon:'success',
+								title:'이메일 인증',
+								text:'인증에 성공하셨습니다.'
+							})
+							// 인증에 성공하면 버튼 사라지도록
+							emailChkBtn.style.display = "none";
+							}else{
+								Swal.fire({
+									icon:'error',
+									title:'인증 번호가 일치하지 않습니다.',
+									text:'다시 인증해 주세요.'
+								})
+							}
+						}
+						
+					}) // ajax 종료
+					
+				} // Confirmed if문 종료
+			}) // then(result) 종료
+			
 		}
 	})
 }

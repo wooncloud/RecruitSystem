@@ -6,6 +6,25 @@ let recruitList = {
 		for (const e of employs) {
 			e.innerText = common.getCodeName(e.innerText, empCode);
 		}
+		let status = document.querySelectorAll("#status");
+		for (const s of status) {
+			switch(s.innerText){
+				case "RCS001":
+					s.classList.add('bg-warning');
+					break;
+				case "RCS002":
+					s.classList.add('bg-success');
+					break;
+				case "RCS003":
+					s.classList.add('bg-danger');
+					break;
+				case "RCS004":
+					s.classList.add('bg-secondary');
+					break;
+			}
+
+			s.innerText = common.getCodeName(s.innerText, rcsCode);
+		}
 	},
 	search: function(){
 		let emp = "";
@@ -105,6 +124,22 @@ let recruitDetail = {
 
 		let status = document.getElementById("status").innerText;
 		document.getElementById("status").innerText = common.getCodeName(status, rcsCode);
+		switch(status){
+			case "RCS001":
+				document.getElementById("status").classList.add('bg-warning');
+				break;
+			case "RCS002":
+				document.getElementById("status").classList.add('bg-success');
+				break;
+			case "RCS003":
+				document.getElementById("status").classList.add('bg-danger');
+				break;
+			case "RCS004":
+				document.getElementById("status").classList.add('bg-secondary');
+				break;
+		}
+
+
 		let employ = document.getElementById("employ").innerText;
 		document.getElementById("employ").innerText = common.getCodeName(employ, empCode);
 

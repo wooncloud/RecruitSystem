@@ -24,7 +24,7 @@
 	<update id="raModify" parameterType="RecruitDto">
 		UPDATE  RECRUITMENT SET 
 			TITLE = #{title}, CONTENT = #{content}, STARTTERM = #{startterm},
-			ENDTERM = #{endterm}, EMPLOY = #{employ}
+			ENDTERM = #{endterm, jdbcType=DATE}, EMPLOY = #{employ}, STATUS = #{status}
 		WHERE SEQ = #{seq}
 	</update>
 	
@@ -41,7 +41,7 @@
 	</update>
 	
 	<!-- 관리자 - 채용공고 목록 조회 -->
-	<select id="raAdminList" resultType="RecruitDto">
+	<select id="raAdminList" parameterType="java.util.Map" resultType="RecruitDto">
 		SELECT SEQ, TITLE, WRITER, STARTTERM, ENDTERM, EMPLOY, STATUS, DELFLAG 
 			FROM (
 				SELECT 
@@ -59,27 +59,40 @@
 			    </where> 
 			)
 			WHERE RN BETWEEN #{first} AND #{last}
-		    ORDER BY SEQ DESC;
+		    ORDER BY SEQ DESC
 	</select>
 	
 	<!-- 관리자 - 채용공고 전체 글 갯수 조회 -->
-	<select id="raAdminAllCount" resultType="java.lang.Integer">
+	<select id="raAdminAllCount" parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM RECRUITMENT r
+		<where>
+        	<if test="title != null">
+        		AND TITLE LIKE '%' || #{title} || '%'
+        	</if>
+        	<if test="employ != null">
+   				AND EMPLOY = #{employ}
+        	</if>
+	    </where> 
 	</select>
-	
 	
 	
 	<!-- 지원자용 쿼리 -->
 	<!-- 지원자 - 채용공고 목록 조회 -->
 	<select id="raUserList" parameterType="java.util.Map" resultType="RecruitDto">
-		SELECT SEQ, TITLE, STARTTERM, ENDTERM, EMPLOY 
+		SELECT SEQ, TITLE, STARTTERM, ENDTERM, EMPLOY, STATUS
 		    FROM (
 		    	SELECT 
 					SEQ, TITLE, STARTTERM, 
-					ENDTERM, EMPLOY, ROW_NUMBER() OVER(ORDER BY ENDTERM, TITLE) AS RN
+					ENDTERM, EMPLOY, STATUS, 
+					ROW_NUMBER() OVER(ORDER BY ENDTERM, TITLE) AS RN
 				FROM RECRUITMENT r 
 				<where>
-				    STATUS = 'RCS002' AND DELFLAG = 'N' 
+					1 = (CASE 
+						WHEN STATUS = 'RCS002' AND SYSDATE BETWEEN STARTTERM AND ENDTERM THEN 1
+						WHEN STATUS = 'RCS003' AND SYSDATE NOT BETWEEN STARTTERM AND ENDTERM THEN 1
+						ELSE 0
+					END)
+ 					AND DELFLAG = 'N' 
 		        	<if test="title != null">
 		        		AND TITLE LIKE '%' || #{title} || '%'
 		        	</if>
@@ -94,10 +107,23 @@
 	
 	
 	<!-- 지원자 채용공고 글 갯수 조회 -->
-	<select id="raUserAllCount" resultType="java.lang.Integer">
+	<select id="raUserAllCount" parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT COUNT(*) 
 		FROM RECRUITMENT r 
-		WHERE STATUS = 'RCS002' AND DELFLAG = 'N'
+			<where>
+				1 = (CASE 
+					WHEN STATUS = 'RCS002' AND SYSDATE BETWEEN STARTTERM AND ENDTERM THEN 1
+					WHEN STATUS = 'RCS003' AND SYSDATE NOT BETWEEN STARTTERM AND ENDTERM THEN 1
+					ELSE 0
+				END)
+					AND DELFLAG = 'N' 
+	        	<if test="title != null">
+	        		AND TITLE LIKE '%' || #{title} || '%'
+	        	</if>
+	        	<if test="employ != null">
+	   				AND EMPLOY = #{employ}
+	        	</if>
+		    </where> 
 	</select>
 	
 	

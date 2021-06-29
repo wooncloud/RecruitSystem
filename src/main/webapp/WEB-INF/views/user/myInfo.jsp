@@ -18,8 +18,9 @@
 					이메일
 					<div class="fw-normal fs-6">${dto.email}
 					</div>
-						<c:if test="${userInfoDto.emailcheck == 'N'}">
-							<input type="button" value="이메일 인증" class="btn btn-outline-success" onclick="emailChk()">
+						<c:if test="${userInfoDto.emailcheck != 'Y'}">
+							<input type="button" id="emailChkBtn" value="이메일 인증" class="btn btn-outline-success" onclick="emailChk()">
+							<span id="emailWait"></span>
 						</c:if>		
 				</div>
 				<div  class="my-3 fw-light">

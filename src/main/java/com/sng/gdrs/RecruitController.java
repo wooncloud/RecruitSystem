@@ -26,6 +26,7 @@ import com.sng.gdrs.comm.Util;
 import com.sng.gdrs.dto.CodeDto;
 import com.sng.gdrs.dto.Paging;
 import com.sng.gdrs.dto.RecruitDto;
+import com.sng.gdrs.dto.UserInfoDto;
 import com.sng.gdrs.model.service.ICodeService;
 import com.sng.gdrs.model.service.IRecruitService;
 
@@ -49,7 +50,8 @@ public class RecruitController {
 	@RequestMapping(value = "/recruitList.do", method = RequestMethod.GET)
 	public String recruitList(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		logger.info("[recruitList] : 채용공고 화면으로 이동");
-		session.setAttribute("UserEmail", "kckt66@naver.com");
+		UserInfoDto userDto =(UserInfoDto)session.getAttribute("userInfoDto");
+		String auth = (String)session.getAttribute("auth");
 		
 		// 페이징
 		Paging page = new Paging();
@@ -59,7 +61,14 @@ public class RecruitController {
 		}
 		
 		int idx = Integer.parseInt(strIdx);
-		int allPageCnt = iService.raUserAllCount(); // 사용자 (관리자 분기 필요)
+		int allPageCnt = 0;
+		if (auth != null && auth.equalsIgnoreCase("admin")) {
+			// 관리자가 볼수 있는 글의 총 갯수
+			allPageCnt = iService.raAdminAllCount(param);
+		} else {
+			// 사용자 볼 수 있는 글의 총 갯수
+			allPageCnt = iService.raUserAllCount(param);
+		}
 		Util.defaultPagingSetting(page, allPageCnt); // paging dto setting
 		
 		page.setPage(idx);
@@ -72,14 +81,23 @@ public class RecruitController {
 		param.put("last", page.getPage() * page.getCountList());
 		// 페이징 끝
 		
-		
+		List<RecruitDto> lists = null;
 		// 값 가공 및 전달
-		List<RecruitDto> lists = iService.raUserList(param);
+		if (auth != null && auth.equalsIgnoreCase("admin")) {
+			// 관리자가 볼수 있는 글의 총 갯수
+			lists = iService.raAdminList(param);
+		} else {
+			// 사용자 볼 수 있는 글의 총 갯수
+			lists = iService.raUserList(param);
+		}
+		
 		List<CodeDto> emp = codeService.selectCodeType("EMP");
 		JSONArray empJson = Util.ConvertCodeToJson(emp);
+		JSONArray rcsJson = Util.ConvertCodeToJson(codeService.selectCodeType("RCS"));
 		model.addAttribute("lists", lists);
 		model.addAttribute("emp", emp);
 		model.addAttribute("empJson", empJson);
+		model.addAttribute("rcsJson", rcsJson);
 		model.addAttribute("page", page);
 
 		return "recruit/recruitList";

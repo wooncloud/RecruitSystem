@@ -47,17 +47,17 @@ public class Util {
 	@SuppressWarnings("unchecked")
 	public static JSONArray ConvertCodeToJson(List<CodeDto> codeList) {
 		JSONArray ja = new JSONArray();
-		
+
 		for (CodeDto code : codeList) {
 			JSONObject j = new JSONObject();
 			j.put("seq", code.getSeq());
 			j.put("type", code.getCodetype());
 			j.put("id", code.getCodeid());
 			j.put("name", code.getCodename());
-			
+
 			ja.add(j);
 		}
-		
+
 		return ja;
 	}
 	
@@ -71,13 +71,36 @@ public class Util {
 	public static Paging defaultPagingSetting(Paging page, int allCnt) {
 		// 총 게시물의 갯수
 		page.setTotalCount(allCnt);
-		//출력될 개시글의 수
+		// 출력될 개시글의 수
 		page.setCountList(10);
 		// 화면에 몇개의 페이지를 보여줄건지 (페이지 그룹)
 		page.setCountPage(10);
 		// 총페이지의 갯수
 		page.setTotalPage(page.getTotalCount());
-		
+
 		return page;
 	}
+	
+	/**
+	 * 랜덤으로 8자리의 문자+숫자를 만들어주는 메서드입니다.
+	 * 
+	 * @return 랜덤 발생한 8자리의 문자+숫자
+	 * @author Lee Gu Sung
+	 */
+	public static String randomVal() {
+		String randomval = "";
+
+		for (int i = 0; i < 8; i++) {
+			int rndVal = (int) (Math.random() * 62);
+			if (rndVal < 10) {
+				randomval += rndVal;
+			} else if (rndVal > 35) {
+				randomval += (char) (rndVal + 61);
+			} else {
+				randomval += (char) (rndVal + 55);
+			}
+		}
+		return randomval;
+	}
+	
 }

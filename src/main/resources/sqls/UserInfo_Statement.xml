@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sng.gdrs.model.dao.IUserInfoDao">
 	
-<!-- 	로그인 -->
+	<!-- 	로그인 -->
 	<select id="umLogin" parameterType="java.util.Map" resultType="UserInfoDto">
-		SELECT EMAIL , NAME , DELFLAG
+		SELECT EMAIL, NAME, DELFLAG, EMAILCHECK
 		FROM (
-			SELECT EMAIL , NAME , DELFLAG , PASSWORD 
+			SELECT EMAIL, NAME, DELFLAG, PASSWORD, EMAILCHECK
 				FROM USERINFO u 
 			UNION
-			SELECT EMAIL , NAME , DELFLAG , PASSWORD 
+			SELECT EMAIL, NAME, DELFLAG, PASSWORD, 'ADMIN'
 				FROM ADMININFO a
 		)
 		WHERE EMAIL = #{email}
@@ -17,7 +17,7 @@
 			AND DELFLAG = 'N'
 	</select>
 
-<!-- 지원자 회원가입 -->
+	<!-- 지원자 회원가입 -->
 	<insert id="umSignUp" parameterType="UserInfoDto">
 		INSERT INTO USERINFO (
                            EMAIL, PASSWORD, NAME, 
@@ -26,7 +26,7 @@
                         #{birth}, #{phone})
 	</insert>
 
-<!-- 이메일 중복검사 -->
+	<!-- 이메일 중복검사 -->
 	<select id="umDuplicate" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT EMAIL
 			FROM (SELECT EMAIL 
@@ -37,53 +37,53 @@
 		WHERE EMAIL = #{email}
 	</select>
 
-<!-- 이메일 인증. -->
+	<!-- 이메일 인증. -->
 	<update id="umConfirm" parameterType="java.util.Map">
-		UPDATE USERINFO SET EMAILCHECK = 'Y'
+		UPDATE USERINFO SET EMAILCHECK = #{emailcheck}
        	 WHERE EMAIL =  #{email}
 	</update>
 
-<!-- 내정보확인 -->
+	<!-- 내정보확인 -->
 	<select id="umMyPage" parameterType="java.lang.String" resultType="UserInfoDto">
 		SELECT EMAIL, NAME, TO_CHAR(BIRTH, 'YYYY-MM-DD') BIRTH ,PHONE
       	  FROM USERINFO u 
        	 WHERE EMAIL = #{email}
 	</select>
 
-<!-- 내정보 변경 -->
-<!-- 변경전 비밀번호 확인  -->
+	<!-- 내정보 변경 -->
+	<!-- 변경전 비밀번호 확인  -->
 	<select id="umUserCheck" parameterType="java.util.Map" resultType="UserInfoDto">
 		SELECT EMAIL
       	  FROM USERINFO u 
       	  WHERE EMAIL =#{email}
               AND PASSWORD =#{password}
 	</select>
-<!-- 비밀번호 변경 -->
+	<!-- 비밀번호 변경 -->
 	<update id="umModify" parameterType="UserInfoDto">
 		UPDATE USERINFO SET PASSWORD =#{password}
      	   WHERE EMAIL = #{email}
 	</update>
 
-<!-- 회원탈퇴 -->
+	<!-- 회원탈퇴 -->
 	<update id="umDelflag" parameterType="UserInfoDto">
 		UPDATE USERINFO SET DELFLAG='Y' 
       	  WHERE EMAIL = #{email}
 	</update>
 
-<!-- 비밀번호 암호화에 사용될 것 -->
-<!-- 아이디로 로그인 -->
+	<!-- 비밀번호 암호화에 사용될 것 -->
+	<!-- 아이디로 로그인 -->
 	<select id="umEmailSecurity" parameterType="java.lang.String" resultType="UserInfoDto">
-		SELECT EMAIL, NAME, DELFLAG 
-			FROM (SELECT EMAIL, NAME, DELFLAG  
+		SELECT EMAIL, NAME, DELFLAG, EMAILCHECK
+			FROM (SELECT EMAIL, NAME, DELFLAG , EMAILCHECK 
 						FROM USERINFO u 
 					UNION
-					 SELECT EMAIL, NAME, DELFLAG  
+					 SELECT EMAIL, NAME, DELFLAG , 'ADMIN' 
 						FROM ADMININFO a)
 			WHERE EMAIL = #{email}
 			AND DELFLAG ='N'
 	</select>
 
-<!-- 비밀번호 확인 -->
+	<!-- 비밀번호 확인 -->
 	<select id="umPwSecurity" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT PASSWORD 
 			FROM (SELECT EMAIL, PASSWORD 
