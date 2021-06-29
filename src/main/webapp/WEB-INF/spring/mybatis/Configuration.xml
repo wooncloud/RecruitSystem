@@ -13,6 +13,7 @@
 		<typeAlias type="com.sng.gdrs.dto.CertificateDto" alias="CertificateDto" />
 		<typeAlias type="com.sng.gdrs.dto.EducationDto" alias="EducationDto" />
 		<typeAlias type="com.sng.gdrs.dto.CodeDto" alias="CodeDto" />
+		<typeAlias type="com.sng.gdrs.dto.AppConfirmJoinDto" alias="AppConfirmJoinDto" />
 	</typeAliases>
 
 	<!-- 쿼리문이 입력되어 있는 statement.xml -->

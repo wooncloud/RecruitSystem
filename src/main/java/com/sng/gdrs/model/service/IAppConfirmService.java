@@ -1,13 +1,13 @@
 package com.sng.gdrs.model.service;
 
 import java.util.List;
+import java.util.Map;
 
-import com.sng.gdrs.dto.AppConfirmDto;
 
 public interface IAppConfirmService {
 
 	// 지원자 전체 조회
-	public List<AppConfirmDto> acAllList();
+	public List<Map<String, String>> acAllList();
 
 	// 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
 

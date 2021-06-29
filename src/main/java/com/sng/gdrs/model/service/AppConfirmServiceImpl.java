@@ -1,13 +1,13 @@
 package com.sng.gdrs.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sng.gdrs.dto.AppConfirmDto;
 import com.sng.gdrs.model.dao.IAppConfirmDao;
 
 @Service
@@ -20,7 +20,7 @@ public class AppConfirmServiceImpl implements IAppConfirmService {
 
 	// 지원자 전체 조회
 	@Override
-	public List<AppConfirmDto> acAllList() {
+	public List<Map<String, String>> acAllList() {
 		logger.info("[acUserList]");
 		return dao.acAllList();
 	}

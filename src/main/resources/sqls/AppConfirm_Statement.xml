@@ -3,7 +3,7 @@
 <mapper namespace="com.sng.gdrs.model.dao.IAppConfirmDao">
 
 	<!-- 지원자 전체 조회 -->
-	<select id="acAllList" resultType="java.util.Map">
+	<select id="acAllList" resultType="java.util.HashMap">
 		SELECT rm.SEQ, r.TITLE, r.EMPLOY, u.NAME, a.TITLE,
 			a.REGDATE, rm.SUBMITDATE, rm.STEP, rm."RESULT"
 		FROM RECRUITMANAGEMENT rm

@@ -1,6 +1,7 @@
 package com.sng.gdrs;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,8 @@ public class AppConfirmController {
 	public String applyList(Model model) {
 		logger.info("[applyList] : 관리자 - 지원자 목록 조회 페이지로 이동");
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, String> map = (HashMap<String, String>) iaService.acAllList();
 		
-		List<AppConfirmDto> AppConfirm = iaService.acAllList();
-		model.addAttribute("AppConfirm", AppConfirm);
 		
 		return "admin/applyList";
 	}

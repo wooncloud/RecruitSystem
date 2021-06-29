@@ -1,12 +1,12 @@
 package com.sng.gdrs.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sng.gdrs.dto.AppConfirmDto;
 
 @Repository
 public class AppConfirmDaoImpl implements IAppConfirmDao {
@@ -18,7 +18,7 @@ public class AppConfirmDaoImpl implements IAppConfirmDao {
 
 	// 지원자 전체 조회
 	@Override
-	public List<AppConfirmDto> acAllList() {
+	public List<Map<String, String>> acAllList() {
 		
 		return sqlSession.selectList(NS+"acAllList");
 	}

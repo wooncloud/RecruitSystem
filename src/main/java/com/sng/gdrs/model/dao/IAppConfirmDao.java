@@ -1,8 +1,7 @@
 package com.sng.gdrs.model.dao;
 
 import java.util.List;
-
-import com.sng.gdrs.dto.AppConfirmDto;
+import java.util.Map;
 
 public interface IAppConfirmDao {
 	
@@ -11,7 +10,7 @@ public interface IAppConfirmDao {
 	 * 
 	 * @return
 	 */
-	public List<AppConfirmDto> acAllList();
+	public List<Map<String, String>> acAllList();
 	
 	/**
 	 * 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
