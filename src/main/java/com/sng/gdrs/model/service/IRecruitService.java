@@ -44,7 +44,7 @@ public interface IRecruitService {
 	 * 
 	 * @return
 	 */
-	public List<RecruitDto> raAdminList();
+	public List<RecruitDto> raAdminList(Map<String, Object> map);
 
 	/**
 	 * 관리자 - 채용공고 검색
@@ -80,12 +80,12 @@ public interface IRecruitService {
 	 * 
 	 * @return
 	 */
-	public int raAdminAllCount();
+	public int raAdminAllCount(Map<String, Object> map);
 
 	/**
 	 * 지원자 채용공고 글 갯수 조회
 	 * 
 	 * @return
 	 */
-	public int raUserAllCount();
+	public int raUserAllCount(Map<String, Object> map);
 }

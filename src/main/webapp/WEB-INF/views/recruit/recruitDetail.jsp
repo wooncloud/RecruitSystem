@@ -29,26 +29,30 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<div id="employ" class="ms-3 me-1 badge bg-secondary">${dto.employ}</div>
-						<div id="status" class="mx-1 badge bg-primary">${dto.status}</div>
+						<div id="employ" class="ms-3 me-1 badge bg-light text-dark">${dto.employ}</div>
+						<div id="status" class="mx-1 badge">${dto.status}</div>
 					</div>
 				</div>
 				<div class="w-25 px-3 text-end">
-					<input type="button" class="btn btn-success btn-lg" value="지원하기" onclick="">
+					<c:if test="${sessionScope.userInfoDto.email ne null && sessionScope.auth eq 'user' }">				
+						<input type="button" class="btn btn-success btn-lg" value="지원하기" onclick="">
+					</c:if>
 				</div>
 			</div>
 			<div class="card-body">
 				<div id="viewer"></div>
 			</div>
-			<div class="card-footer d-flex align-items-center justify-content-between">
-				<div>	
-					<a href="./recruitModifyForm.do?seq=${dto.seq}" class="mx-1 btn btn-success">공고 수정</a>
-					<input type="button" value="공고 삭제" id="delete" class="mx-1 btn btn-danger" onclick="recruitDetail.delete('${dto.seq}')">
+			<c:if test="${sessionScope.userInfoDto.email ne null && sessionScope.auth eq 'admin'}">
+				<div class="card-footer d-flex align-items-center justify-content-between">
+					<div>	
+						<a href="./recruitModifyForm.do?seq=${dto.seq}" class="mx-1 btn btn-success">공고 수정</a>
+						<input type="button" value="공고 삭제" id="delete" class="mx-1 btn btn-danger" onclick="recruitDetail.delete('${dto.seq}')">
+					</div>
+					<div>
+						<a href="#" class="mx-1 btn btn-secondary">해당 공고 지원자 목록 조회</a>
+					</div>
 				</div>
-				<div>
-					<a href="#" class="mx-1 btn btn-secondary">해당 공고 지원자 목록 조회</a>
-				</div>
-			</div>
+			</c:if>
 		</div>
 	</div>
 	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>

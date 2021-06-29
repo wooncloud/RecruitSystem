@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class UserInfoDto implements Serializable {
 
 	private static final long serialVersionUID = 4590910370702836297L;
-	
+
 	private String email;
 	private String password;
 	private String name;
@@ -13,15 +13,12 @@ public class UserInfoDto implements Serializable {
 	private String phone;
 	private String delflag;
 	private String emailcheck;
-	
+
 	public UserInfoDto() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public UserInfoDto(String email, String password, String name, String birth, String phone, String delflag,
 			String emailcheck) {
-		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -96,7 +93,5 @@ public class UserInfoDto implements Serializable {
 		return "UserInfoDto [email=" + email + ", password=" + password + ", name=" + name + ", birth=" + birth
 				+ ", phone=" + phone + ", delflag=" + delflag + ", emailcheck=" + emailcheck + "]";
 	}
-	
-	
-	
+
 }
