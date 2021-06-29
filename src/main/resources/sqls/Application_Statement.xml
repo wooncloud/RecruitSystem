@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sng.gdrs.model.dao.IApplicationDao">
+
+	<!-- 지원자가 자신의 작성중인 지원서를 저장 -->
+	<insert id="apSave" parameterType="ApplicationDto">
+		INSERT INTO APPLICATION
+		(
+			SEQ, EMAIL, TITLE,
+			REGDATE, RECRUIT_SEQ, INTRODUCE,
+			PORTPOLIO_LINK, PORTPOLIO_FILE, REWARDING,
+			HANDICAP, MILITARY, DELFLAG
+		)
+		VALUES(
+			APPLICATION_SEQ.NEXTVAL, #{email}, #{title},
+			#{regdate}, #{recruit_seq}, #{introduce},
+			#{portpolio_link}, #{portpolio_file}, #{rewarding},
+			#{handicap}, #{military}, #{delflag}
+		)
+	</insert>
+	
+	<!-- 지원자가 자신이 저장했던 지원서를 수정 -->
+	<update id="apModify" parameterType="ApplicationDto">
+		UPDATE APPLICATION
+		SET
+			EMAIL = #{email}, TITLE = #{title}, REGDATE = #{regdate},
+			RECRUIT_SEQ = #{recruit_seq}, INTRODUCE = #{introduce}, PORTPOLIO_LINK = #{portpolio_link},
+			PORTPOLIO_FILE = #{portpolio_file}, REWARDING = #{rewarding}, HANDICAP = #{handicap},
+			MILITARY = #{military}, DELFLAG = 'N'
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신이 저장했던 지원서를 삭제 -->
+	<update id="apDelete" parameterType="java.lang.Integer">
+		UPDATE APPLICATION
+		SET DELFLAG ='Y'
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신이 저장한 지원서를 제출 -->
+	<update id="apApply" parameterType="java.util.Map">
+		UPDATE APPLICATION SET RECRUIT_SEQ = #{recruit_seq}
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신이 저장하거나 제출한 지원서를 조회 -->
+	<select id="apDetail" parameterType="java.lang.String" resultType="ApplicationDto">
+		SELECT 
+			SEQ, EMAIL, TITLE, 
+			REGDATE, RECRUIT_SEQ, INTRODUCE, 
+			PORTPOLIO_LINK,	PORTPOLIO_FILE, REWARDING, 
+			HANDICAP, MILITARY, DELFLAG
+		FROM APPLICATION
+		WHERE EMAIL = #{email}
+	</select>
+
+	<!-- 지원자가 자신의 경력 정보를 추가 -->
+	<insert id="apInsertCareer" parameterType="CareerDto">
+		INSERT INTO CAREER (
+			SEQ, AP_SEQ, CORPNAME,
+			HIREDATE, FIREDATE, EMPLOY,
+			"POSITION", "WORK"
+		)
+		VALUES(
+			CAREER_SEQ.NEXTVAL, #{ap_seq}, #{corpname},
+			#{hiredate}, #{firedate}, #{employ},
+			#{position}, #{work}
+		)
+	</insert>
+
+	<!-- 지원자가 자신의 경력정보를 삭제 -->
+	<delete id="apDeleteCareer" parameterType="java.lang.Integer">
+		DELETE FROM CAREER c WHERE SEQ = #{seq}
+	</delete>
+	
+	<!-- 지원자가 자신의 경력정보를 수정 -->
+	<update id="apModifyCareer" parameterType="CareerDto">
+		UPDATE CAREER
+		SET 
+			CORPNAME = #{corpname}, HIREDATE = #{hiredate}, FIREDATE = #{firedate},
+			EMPLOY = #{employ}, "POSITION" = #{position}, "WORK" = #{work}
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신의 프로젝트 경험을 추가 -->
+	<insert id="apInsertProject" parameterType="ProjectExpDto">
+		INSERT INTO PROJECTEXP (
+			SEQ, AP_SEQ, TITLE,
+			STARTDATE, ENDDATE, CORPNAME,
+			JOB, CONTENT
+		)
+		VALUES(
+			PROJECTEXP_SEQ.NEXTVAL, #{ap_seq}, #{title},
+			#{startdate}, #{enddate}, #{corpname},
+			#{job}, #{content}
+		)
+	</insert>
+
+	<!-- 지원자가 자신의 프로젝트 경험을 삭제 -->
+	<delete id="apDeleteProject" parameterType="java.lang.Integer">
+		DELETE FROM PROJECTEXP p WHERE SEQ = #{seq}
+	</delete>
+	
+	<!-- 지원자가 자신의 프로젝트 경험을 수정 -->
+	<update id="apModifyProject" parameterType="ProjectExpDto">
+		UPDATE PROJECTEXP
+		SET 
+			TITLE = #{title}, STARTDATE = #{startdate}, ENDDATE = #{enddate},
+			CORPNAME = #{corpname}, JOB = #{job}, CONTENT = #{content}
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신의 자격증 및 수상정보를 추가 -->
+	<insert id="apInsertLicense" parameterType="CertificateDto">
+		INSERT INTO CERTIFICATE (
+			SEQ, AP_SEQ, "TYPE",
+			NAME, AGENCY, GRADE,
+			REGDATE
+		)
+		VALUES(
+			CERTIFICATE_SEQ.NEXTVAL, #{ap_seq}, #{type},
+			#{name}, #{agency}, #{grade},
+			#{regdate}
+		)
+	</insert>
+
+	<!-- 지원자가 자신의 자격증 및 수상정보를 수정 -->
+	<update id="apModifyLicense" parameterType="CertificateDto">
+		UPDATE CERTIFICATE
+		SET "TYPE" = #{type}, NAME = #{name}, AGENCY = #{agency},
+			GRADE = #{grade}, REGDATE = #{regdate}
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신의 자격증 및 수상정보를 삭제 -->
+	<delete id="apDeleteLicense" parameterType="java.lang.Integer">
+		DELETE FROM CERTIFICATE c WHERE SEQ = #{seq}
+	</delete>
+
+	<!-- 지원자가 자신의 학력정보 추가 -->
+	<insert id="apInsertEdu" parameterType="EducationDto">
+		INSERT INTO EDUCATION (
+			SEQ, AP_SEQ, UNIVERSITY,
+			NAME, MAJOR, SCORE,
+			INDATE, OUTDATE, STATUS
+		)
+		VALUES(
+			EDUCATION_SEQ.NEXTVAL, #{ap_seq}, #{university},
+			#{name}, #{major}, #{score},
+			#{indate}, #{outdate}, #{status}
+		)
+	</insert>
+
+	<!-- 지원자가 자신의 학력정보 수정 -->
+	<update id="apModifyEdu" parameterType="EducationDto">
+		UPDATE EDUCATION
+		SET 
+			UNIVERSITY = #{university}, NAME = #{name}, MAJOR = #{major},
+			SCORE = #{score}, INDATE = #{indate}, OUTDATE = #{outdate},
+			STATUS = #{status}
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 지원자가 자신의 학력정보 삭제 -->
+	<delete id="apDeleteEdu" parameterType="java.lang.Integer">
+		DELETE FROM EDUCATION e WHERE SEQ = #{seq}
+	</delete>
+
+	<!-- 지원자가 지원서를 제출하기 전에 지원 여부를 확인 -->
+	<select id="apApplyCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(RECRUIT_SEQ) CNT
+		FROM APPLICATION
+		WHERE
+			EMAIL = #{email}
+			AND RECRUIT_SEQ IS NOT NULL
+	</select>
+	
+</mapper>
