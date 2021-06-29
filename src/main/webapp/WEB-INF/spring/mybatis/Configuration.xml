@@ -25,6 +25,7 @@
 		<mapper resource="sqls/AdminInfo_Statement.xml" />
 		<mapper resource="sqls/Recruit_Statement.xml" />
 		<mapper resource="sqls/AppConfirm_Statement.xml" />
+		<mapper resource="sqls/Application_Statement.xml" />
 	</mappers>
 
 </configuration>
