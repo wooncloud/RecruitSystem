@@ -44,9 +44,9 @@ public class RecruitService implements IRecruitService {
 	}
 
 	@Override
-	public List<RecruitDto> raAdminList() {
+	public List<RecruitDto> raAdminList(Map<String, Object> map) {
 		logger.info("[raAdminList]");
-		return iDao.raAdminList();
+		return iDao.raAdminList(map);
 	}
 
 	@Override
@@ -74,15 +74,15 @@ public class RecruitService implements IRecruitService {
 	}
 
 	@Override
-	public int raAdminAllCount() {
+	public int raAdminAllCount(Map<String, Object> map) {
 		logger.info("[raAdminAllCount]");
-		return iDao.raAdminAllCount();
+		return iDao.raAdminAllCount(map);
 	}
 
 	@Override
-	public int raUserAllCount() {
+	public int raUserAllCount(Map<String, Object> map) {
 		logger.info("[raUserAllCount]");
-		return iDao.raUserAllCount();
+		return iDao.raUserAllCount(map);
 	}
 
 }

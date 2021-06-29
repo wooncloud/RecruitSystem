@@ -6,7 +6,9 @@
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <a href="./recruitInsertForm.do" class="btn btn-primary">공고작성</a>
+            	<c:if test="${sessionScope.userInfoDto.email ne null && sessionScope.auth eq 'admin' }">
+	                <a href="./recruitInsertForm.do" class="btn btn-primary">공고작성</a>
+            	</c:if>
             </div>
             <div class="d-flex justify-content-between">
                 <div class="mx-1">
@@ -24,7 +26,9 @@
             </div>
         </div>
         <div class="recruit-list">
-            <c:forEach var="dto" items="${lists }" varStatus="vs">
+            <c:forEach var="dto" items="${lists}" varStatus="vs">
+            	<c:if test="${sessionScope.auth eq 'admin'}">
+            	</c:if>
                 <div class="card my-2">
                     <div class="card-body d-flex justify-content-between">
                         <div class="d-flex flex-column">
@@ -49,8 +53,11 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            <div id="employ">
+                            <div id="employ" class="mx-5">
                             	${dto.employ}
+                            </div>
+                            <div id="status" class="mx-5 badge fs-6">
+                            	${dto.status}
                             </div>
                         </div>
                     </div>
@@ -82,6 +89,7 @@
     <script type="text/javascript">
         window.onload = recruitList.init;
         let empCode = ${empJson}
+        let rcsCode = ${rcsJson}
     </script>
 
 <%@include file="/footer.jsp" %>

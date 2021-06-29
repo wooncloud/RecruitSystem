@@ -37,8 +37,8 @@ public class RecruitDaoImpl implements IRecruitDao {
 	}
 
 	@Override
-	public List<RecruitDto> raAdminList() {
-		return sqlSession.selectList(NS + "raAdminList");
+	public List<RecruitDto> raAdminList(Map<String, Object> map) {
+		return sqlSession.selectList(NS + "raAdminList", map);
 	}
 
 	@Override
@@ -62,13 +62,13 @@ public class RecruitDaoImpl implements IRecruitDao {
 	}
 
 	@Override
-	public int raAdminAllCount() {
-		return sqlSession.selectOne(NS + "raAdminAllCount");
+	public int raAdminAllCount(Map<String, Object> map) {
+		return sqlSession.selectOne(NS + "raAdminAllCount", map);
 	}
 
 	@Override
-	public int raUserAllCount() {
-		return sqlSession.selectOne(NS + "raUserAllCount");
+	public int raUserAllCount(Map<String, Object> map) {
+		return sqlSession.selectOne(NS + "raUserAllCount", map);
 	}
 
 }

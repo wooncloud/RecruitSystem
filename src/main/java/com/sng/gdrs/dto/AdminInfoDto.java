@@ -2,22 +2,20 @@ package com.sng.gdrs.dto;
 
 import java.io.Serializable;
 
-public class AdminInfoDto implements Serializable{
+public class AdminInfoDto implements Serializable {
 
 	private static final long serialVersionUID = 3370414582412709875L;
-	
+
 	private String email;
 	private String password;
 	private String name;
 	private int admingrade;
 	private String delflag;
-	                          
+
 	public AdminInfoDto() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public AdminInfoDto(String email, String password, String name, int admingrade, String delflag) {
-		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -65,16 +63,10 @@ public class AdminInfoDto implements Serializable{
 		this.delflag = delflag;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public String toString() {
 		return "AdminInfoDto [email=" + email + ", password=" + password + ", name=" + name + ", admingrade="
 				+ admingrade + ", delflag=" + delflag + "]";
 	}
 
-	
-	
 }

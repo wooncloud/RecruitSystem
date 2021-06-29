@@ -41,7 +41,7 @@ public interface IRecruitDao {
 	 * 관리자 - 채용공고 목록 조회
 	 * 
 	 */
-	public List<RecruitDto> raAdminList();
+	public List<RecruitDto> raAdminList(Map<String, Object> map);
 
 	/**
 	 * 관리자 - 채용공고 검색
@@ -53,7 +53,7 @@ public interface IRecruitDao {
 	 * 관리자 - 채용공고 전체 글 갯수 조회
 	 * @return
 	 */
-	public int raAdminAllCount();
+	public int raAdminAllCount(Map<String, Object> map);
 
 	/**
 	 * 지원자 - 채용공고 목록 조회
@@ -77,6 +77,6 @@ public interface IRecruitDao {
 	 * 지원자 채용공고 글 갯수 조회
 	 * @return
 	 */
-	public int raUserAllCount();
+	public int raUserAllCount(Map<String, Object> map);
 	
 }

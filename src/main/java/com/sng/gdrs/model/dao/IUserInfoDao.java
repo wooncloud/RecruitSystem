@@ -48,11 +48,12 @@ public interface IUserInfoDao {
 
 	/**
 	 * 변경전 기존 비밀번호 확인
+	 * 
 	 * @param map
 	 * @return
 	 */
 	public UserInfoDto umUserCheck(Map<String, Object> map);
-	
+
 	/**
 	 * 내정보변경
 	 * 
