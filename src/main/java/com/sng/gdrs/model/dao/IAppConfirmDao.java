@@ -3,6 +3,8 @@ package com.sng.gdrs.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.sng.gdrs.dto.AppConfirmJoinDto;
+
 public interface IAppConfirmDao {
 	
 	/**
@@ -10,7 +12,14 @@ public interface IAppConfirmDao {
 	 * 
 	 * @return
 	 */
-	public List<Map<String, String>> acAllList();
+	public List<AppConfirmJoinDto> acAllList(Map<String, Object> map);
+
+	/**
+	 * 지원자 수 조회
+	 * 
+	 * @return
+	 */
+	public int acAllListsCount(Map<String, Object> map);
 	
 	/**
 	 * 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
@@ -25,6 +34,14 @@ public interface IAppConfirmDao {
 	 * @param 
 	 * @return
 	 */
+	public List<AppConfirmJoinDto> acSelAllList(Map<String, Object> map);
+	
+	/**
+	 * 선택한 공고의 지원자 수 조회
+	 * 
+	 * @return
+	 */
+	public int acSelAllListsCount(Map<String, Object> map);
 	
 	/**
 	 * 선택한 지원자 상세보기
@@ -32,6 +49,7 @@ public interface IAppConfirmDao {
 	 * @param 
 	 * @return
 	 */
+	
 	
 	/**
 	 * 지원자 상세보기 경력정보

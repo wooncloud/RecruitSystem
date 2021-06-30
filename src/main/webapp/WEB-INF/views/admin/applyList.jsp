@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/header.jsp" %>
+	<script type="text/javascript" src="./js/admin.js"></script>
 	<div class="container mt-5">
 		<div class="ctrl-div">
 			<div class="my-1 between-center">
 				<div>
-					<select name="" id="" class="form-select">
-						<option value="젤리랑 놀아줄 사람">젤리랑 놀아줄 사람</option>
+					<select name="selectRecruit" id="selectRecruit" class="form-select" onchange="selectRecruit()">
+						<option value="채용공고 선택" >채용공고 선택</option>
+						<option value="allUser" >------------------------------------</option>
+						<option value="allUser" >지원자 전체목록</option>
+						<option value="allUser" >------------------------------------</option>
+						<c:forEach var="dto" items="${rlists}" varStatus="vs">
+							<option value="${dto.seq}">${dto.seq}&nbsp;-&nbsp;${dto.title}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div>
 					<input type="button" value="채용완료" class="btn btn-warning text-white">
 				</div>
-			</div>
-			테스트 중 : ${lists}
+			</div>		
 			<div class="my-3">
 				<div class="card">
 					<div class="card-body between-center">
@@ -39,9 +45,15 @@
 			<div class="my-3 d-flex align-items-center justify-content-end">
 				<select name="" id="" class="mx-1 form-select">
 					<option value="">진행단계 선택</option>
+					<c:forEach var="stp" items="${stp}" varStatus="vs">
+						<option value="">${stp.codename}</option>
+					</c:forEach>
 				</select>
 				<select name="" id="" class="mx-1 form-select">
 					<option value="">합격여부 선택</option>
+					<c:forEach var="rst" items="${rst}" varStatus="vs">
+						<option value="">${rst.codename}</option>
+					</c:forEach>
 				</select>
 				<input type="button" value="적용" class="mx-1 btn btn-success">
 			</div>
@@ -62,38 +74,61 @@
 							</tr>
 						</thead>
 						<tbody>
-<%-- 						<c:forEach var="dto" items="${lists}" varStatus="vs"> --%>
+						
+						<c:forEach var="dto" items="${lists}" varStatus="vs">
 							<tr>
 								<td><input type="checkbox" name="" id=""></td>
-								<td></td>
-<%-- 								<td>${dto.name}</td> --%>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>${dto.seq}</td>
+								<td>${dto.udto[0].name}</td>
+								<td>
+									<a href="#">${dto.adto[0].title}</a>
+								</td>
+								<td>
+									<fmt:formatDate value="${dto.submitdate}" pattern="yyyy. MM. dd." />
+								</td>
+								<td>
+									<div id="step">${dto.step}</div>
+								</td>
+								<td>
+									<div id="result">${dto.result}</div>
+								</td>
 							</tr>
-<%-- 						</c:forEach> --%>
+						</c:forEach>
 						</tbody>
 					</table>
+					
+				
 				</div>
 			</div>
+<%-- 			<c:if test=""> --%>
 			<ul class="mt-3 pagination justify-content-center">
+			<c:if test="${page.startPage > page.countPage}">
 				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Previous">
+					<a class="page-link" href="./appConfirmList.do?page=${page.startPage-1}" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
+			</c:if>
+				<c:forEach var="num" begin="${page.startPage}" end="${page.endPage}">
+					<li class="page-item ${num eq page.page ? 'active' : ''}">
+						<a class="page-link" href="./appConfirmList.do?page=${num}">${num}</a>
+					</li>	
+				</c:forEach>
+				
+				<c:if test="${page.endPage < page.totalPage}">
+					<li class="page-item">
+						<a class="page-link" href="./appConfirmList.do?page=${page.endPage + 1}">
+							<span>&raquo;</span>
+						</a>
+					</li>
+				</c:if>	
 			</ul>
+<%-- 			</c:if> --%>
 		</div>
 	</div>
-
-
+<script type="text/javascript">
+	window.onload = applyList.init;
+	let stpCode = ${stpJson}
+	let rstCode = ${rstJson}
+</script>
 <%@include file="/footer.jsp" %>

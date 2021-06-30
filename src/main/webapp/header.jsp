@@ -44,7 +44,7 @@
 	                        		<li><a href="./result.do">지원결과 확인</a></li>
                         		</c:when>
                         		<c:otherwise>
-			                        <li><a href="./applyList.do">지원자 목록 조회</a></li>                        		
+			                        <li><a href="./appConfirmList.do">지원자 목록 조회</a></li>                        		
                         		</c:otherwise>
                         	</c:choose>                     
                         </c:if>

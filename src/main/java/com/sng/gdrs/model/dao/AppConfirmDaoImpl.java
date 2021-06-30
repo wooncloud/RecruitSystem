@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sng.gdrs.dto.AppConfirmJoinDto;
+
 
 @Repository
 public class AppConfirmDaoImpl implements IAppConfirmDao {
@@ -18,16 +20,33 @@ public class AppConfirmDaoImpl implements IAppConfirmDao {
 
 	// 지원자 전체 조회
 	@Override
-	public List<Map<String, String>> acAllList() {
-		
-		return sqlSession.selectList(NS+"acAllList");
+	public List<AppConfirmJoinDto> acAllList(Map<String, Object> map) {
+					
+		return sqlSession.selectList(NS+"acAllLists", map);
 	}
 	
-	
+	// 지원자 수 조회
+	@Override
+	public int acAllListsCount(Map<String, Object> map) {
+		
+		return sqlSession.selectOne(NS+"acAllListsCount", map);
+	}
 
 	// 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
-
+	
 	// 선택한 공고의 지원자를 모두 조회
+	@Override
+	public List<AppConfirmJoinDto> acSelAllList(Map<String, Object> map) {
+
+		return sqlSession.selectList(NS+"acSelectList", map);
+	}
+	
+	// 선택한 공고의 지원자 수 조회
+	@Override
+	public int acSelAllListsCount(Map<String, Object> map) {
+	
+		return sqlSession.selectOne(NS+"acSelectListsCount", map);
+	}
 	
 	// 선택한 지원자 상세보기
 	

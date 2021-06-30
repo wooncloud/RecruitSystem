@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sng.gdrs.dto.AppConfirmJoinDto;
 import com.sng.gdrs.model.dao.IAppConfirmDao;
 
 @Service
@@ -20,15 +21,35 @@ public class AppConfirmServiceImpl implements IAppConfirmService {
 
 	// 지원자 전체 조회
 	@Override
-	public List<Map<String, String>> acAllList() {
+	public List<AppConfirmJoinDto> acAllList(Map<String, Object> map) {
 		logger.info("[acUserList]");
-		return dao.acAllList();
+		return dao.acAllList(map);
 	}
 
+	//지원자 전체 수 조회
+	@Override
+	public int acAllListsCount(Map<String, Object> map) {
+		logger.info("[acAllListsCount]");
+		return dao.acAllListsCount(map);
+	}
 
 	// 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
-
+	
 	// 선택한 공고의 지원자를 모두 조회
+	@Override
+	public List<AppConfirmJoinDto> acSelAllList(Map<String, Object> map) {
+		logger.info("[acSelAllList]");
+		return dao.acSelAllList(map);
+	}
+	
+	// 선택한 공고의 지원자 수 조회
+	@Override
+	public int acSelAllListsCount(Map<String, Object> map) {
+		logger.info("[acSelAllListsCount]");
+		return dao.acSelAllListsCount(map);
+	}
+	
+
 
 	// 선택한 지원자 상세보기
 

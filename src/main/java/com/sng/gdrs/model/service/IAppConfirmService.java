@@ -3,15 +3,23 @@ package com.sng.gdrs.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sng.gdrs.dto.AppConfirmJoinDto;
+
 
 public interface IAppConfirmService {
 
 	// 지원자 전체 조회
-	public List<Map<String, String>> acAllList();
+	public List<AppConfirmJoinDto> acAllList(Map<String, Object> map);
+	// 지원자 전체 수 조회
+	public int acAllListsCount(Map<String, Object> map);
 
 	// 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가
 
 	// 선택한 공고의 지원자를 모두 조회
+	public List<AppConfirmJoinDto> acSelAllList(Map<String, Object> map);
+	
+	//선택한 공고의 지원자 수 조회
+	public int acSelAllListsCount(Map<String, Object> map);
 
 	// 선택한 지원자 상세보기
 
