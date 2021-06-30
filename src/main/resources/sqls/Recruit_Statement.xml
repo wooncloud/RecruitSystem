@@ -105,6 +105,14 @@
 		    ORDER BY ENDTERM, TITLE
 	</select>
 	
+	<select id="raUserListNoPage" resultType="RecruitDto">
+		SELECT SEQ, TITLE, STARTTERM, ENDTERM, EMPLOY, STATUS
+			FROM RECRUITMENT r 
+			WHERE STATUS = 'RCS002' 
+					AND SYSDATE BETWEEN STARTTERM AND ENDTERM 
+					AND DELFLAG = 'N'
+	    	ORDER BY ENDTERM, TITLE
+	</select>
 	
 	<!-- 지원자 채용공고 글 갯수 조회 -->
 	<select id="raUserAllCount" parameterType="java.util.Map" resultType="java.lang.Integer">

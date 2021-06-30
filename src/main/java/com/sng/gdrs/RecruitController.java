@@ -149,7 +149,7 @@ public class RecruitController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/recruitInsert.do", method = RequestMethod.POST)
-	public void recruitInsert(@RequestParam Map<String, Object> param, HttpServletResponse resp) throws ParseException, IOException {
+	public void recruitInsert(@RequestParam Map<String, Object> param, HttpSession session, HttpServletResponse resp) throws ParseException, IOException {
 		logger.info("[recruitInsert] : 채용공고 신규작성 프로세스");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -166,8 +166,9 @@ public class RecruitController {
 			rDto.setEndterm(sdf.parse((String) param.get("endterm")));
 		}
 
-		// writer 임시
-		rDto.setWriter("dntjdgh02@naver.com");
+		// 관리자의 이메일
+		UserInfoDto userDto =(UserInfoDto)session.getAttribute("userInfoDto");
+		rDto.setWriter(userDto.getEmail());
 
 		boolean isc = iService.raWrite(rDto);
 		if (isc) {
@@ -227,7 +228,7 @@ public class RecruitController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/recruitModify.do", method = RequestMethod.POST)
-	public void recruitModify(@RequestParam Map<String, Object> param, HttpServletResponse resp) throws ParseException, IOException {
+	public void recruitModify(@RequestParam Map<String, Object> param, HttpSession session, HttpServletResponse resp) throws ParseException, IOException {
 		logger.info("[recruitModify] : 채용공고 수정 프로세스");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -245,8 +246,9 @@ public class RecruitController {
 			rDto.setEndterm(sdf.parse((String) param.get("endterm")));
 		}
 
-		// writer 임시
-		rDto.setWriter("dntjdgh02@naver.com");
+		// 관리자의 이메일
+		UserInfoDto userDto =(UserInfoDto)session.getAttribute("userInfoDto");
+		rDto.setWriter(userDto.getEmail());
 
 		boolean isc = iService.raModify(rDto);
 		if (isc) {

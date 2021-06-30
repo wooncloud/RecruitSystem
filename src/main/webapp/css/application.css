@@ -1,3 +1,9 @@
+.application-header{
+    position: sticky;
+    top: 58px;
+    z-index: 10;
+}
+
 .application-header .header-content{
     display: flex;
     justify-content: space-between;
@@ -9,11 +15,31 @@
     margin: 2rem 1rem;
 }
 
-.app-part > .app-part-title {
+.app-part .app-part-title {
     padding: 10px 20px 0 20px;
     border-bottom: 1px solid dimgray;
 }
 
-.app-part > .app-part-body {
+.app-part .app-part-body {
     padding: 10px 0;
+}
+
+.app-part-title-detail{
+    font-size: small;
+    color: dimgray;
+    margin-bottom: 0.5rem;
+}
+
+.app-part-body-new{
+    margin: 0.5rem 0;
+}
+
+.app-part-body-new > div{
+
+}
+
+.application-section .input-group-text,
+.application-section .form-select,
+.application-section .form-control {
+    border-radius: 0;
 }

@@ -1,5 +1,7 @@
 package com.sng.gdrs;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sng.gdrs.comm.Util;
 import com.sng.gdrs.dto.AppDetailDto;
 import com.sng.gdrs.dto.ApplicationDto;
+import com.sng.gdrs.dto.CodeDto;
+import com.sng.gdrs.dto.RecruitDto;
 import com.sng.gdrs.dto.UserInfoDto;
+import com.sng.gdrs.model.dao.ICodeDao;
 import com.sng.gdrs.model.service.IApplicationService;
+import com.sng.gdrs.model.service.ICodeService;
+import com.sng.gdrs.model.service.IRecruitService;
 
 @Controller
 public class ApplicationController {
@@ -23,6 +30,10 @@ public class ApplicationController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private IApplicationService iAppService;
+	@Autowired
+	private ICodeService iCodeService;
+	@Autowired
+	private IRecruitService iRecruitService;
 	
 	/**
 	 * myApplicaion : 내 지원서 화면으로 이동
@@ -49,7 +60,22 @@ public class ApplicationController {
 			}
 		}
 		
+		// 지원가능한 공고 가져오기
+		List<RecruitDto> rDto = iRecruitService.raUserListNoPage();
+		
+		// 코드 가져오기
+		List<CodeDto> adbCode = iCodeService.selectCodeType("ADB");
+		List<CodeDto> gdsCode = iCodeService.selectCodeType("GDS");
+		List<CodeDto> mstCode = iCodeService.selectCodeType("MST");
+		List<CodeDto> datCode = iCodeService.selectCodeType("DAT");
+		
 		model.addAttribute("adDto", adDto);
+		model.addAttribute("rDto", rDto);
+		model.addAttribute("ADB", adbCode);
+		model.addAttribute("GDS", gdsCode);
+		model.addAttribute("MST", mstCode);
+		model.addAttribute("DAT", datCode);
+		
 		
 		
 		// 개인데이터 
