@@ -20,7 +20,7 @@
 								<input type="button" value="지원하기" id="btnApSubmit" class="mx-1 btn btn-primary">
 							</div>
 						</div>
-						<input type="hidden" name="seq" value="${adDto.aDto.seq}">
+						<input type="hidden" id="seq" name="seq" value="${adDto.aDto.seq}">
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 					<div class="app-part-title-detail"></div>
 				</div>
 				<div class="app-part-body">
-					<select id="" class="form-select">
+					<select id="selApRecruit" class="form-select">
 						<option value="" selected>지원할 공고를 선택하세요.</option>
 						<c:forEach var="rec" items="${rDto}" varStatus="vs">
 							<option value="${rec.seq}">${rec.title}</option>
@@ -125,9 +125,9 @@
 				<div class="app-part-body">
 					<div class="input-group">
 						<span class="input-group-text">포트폴리오 URL</span>
-						<input type="text" class="form-control" placeholder="포트폴리오 URL을 입력...">
+						<input type="text" id="txtApPortpolio" class="form-control" placeholder="포트폴리오 URL을 입력...">
 						<span class="input-group-text">첨부파일</span>
-						<input type="file" class="form-control" placeholder="포트폴리오 첨부파일을 입력...">
+						<input type="file" id="fileApPortpolio" class="form-control" placeholder="포트폴리오 첨부파일을 입력...">
 					</div>
 				</div>
 			</div>
@@ -144,18 +144,18 @@
 				<div class="app-part-body">
 					<div class="app-part-body-new">
 						<div class="input-group">
-							<select class="form-select" id="selEdu">
+							<select class="form-select" id="selEduFinaledu">
 								<option value="">학력 선택..</option>
 								<c:forEach var="code" items="${ADB}" varStatus="vs">
 									<option value="${code.codeid}">${code.codename}</option>
 								</c:forEach>
 							</select>
-							<input type="text" id="txtEdu" class="form-control" placeholder="학교명">
-							<input type="text" id="txtEdu" class="form-control" placeholder="전공">
-							<input type="text" id="txtEdu" class="form-control" placeholder="평점/총점">
-							<input type="date" id="txtEdu" class="form-control" placeholder="입학년월일">
-							<input type="date" id="txtEdu" class="form-control" placeholder="졸업년월일">
-							<select class="form-select" id="selEdu">
+							<input type="text" id="txtEduName" class="form-control" placeholder="학교명">
+							<input type="text" id="txtEduMajor" class="form-control" placeholder="전공">
+							<input type="text" id="txtEduScore" class="form-control" placeholder="평점/총점">
+							<input type="date" id="txtEduIndate" class="form-control" placeholder="입학년월일">
+							<input type="date" id="txtEduOutdate" class="form-control" placeholder="졸업년월일">
+							<select class="form-select" id="selEduStatus">
 								<option value="">졸업상태 선택..</option>
 								<c:forEach var="code" items="${GDS}" varStatus="vs">
 									<option value="${code.codeid}">${code.codename}</option>
@@ -164,9 +164,7 @@
 						</div>
 					</div>
 					<input type="button" value="추가" id="btnEducationAdd" class="my-3 btn btn-outline-success">
-					<div>
-						리스트
-					</div>
+					<div id="educationList"></div>
 				</div>
 			</div>
 			<div id="certificate" class="app-part">
@@ -188,9 +186,7 @@
 						</div>
 					</div>
 					<input type="button" value="추가" id="btnCertificateAdd" class="my-3 btn btn-outline-success">
-					<div id="certList">
-						
-					</div>
+					<div id="certList"></div>
 				</div>
 			</div>
 			<div class="app-part">
@@ -216,8 +212,8 @@
 						</div>
 						<div class="app-part-body">
 							<select name="rewarding" id="selRewarding" class="form-select">
-								<option value="false">미대상</option>
-								<option value="true">대상</option>
+								<option value="N">미대상</option>
+								<option value="Y">대상</option>
 							</select>
 						</div>
 					</div>
@@ -245,55 +241,53 @@
 	</script>
 
 <script type="text/html" id="careerTemplete">
-	<div>
-		<div class="my-1 row">
-			<div class="col-4"><input type="text" class="form-control" placeholder="회사명" disabled></div>
-			<div class="col-2"><input type="text" class="form-control" placeholder="유형" disabled></div>
-			<div class="col-2"><input type="text" class="form-control" placeholder="직급" disabled></div>
-			<div class="col-2"><input type="date" class="form-control" placeholder="입사일" disabled></div>
-			<div class="col-2"><input type="date" class="form-control" placeholder="퇴사일" disabled></div>
-		</div>
-		<div class="my-1 row">
-			<div class="col-12"><input type="text" class="form-control" placeholder="담당업무" disabled></div>
-		</div>
-		<input type="button" value="수정" class="btn btn-outline-success" onclick="career.modify(this)">
-		<input type="button" value="삭제" class="btn btn-outline-danger" onclick="application.delete(this)">
+	<div class="my-1 row">
+		<div class="col-4"><input type="text" name="corpname" class="form-control" placeholder="회사명" disabled></div>
+		<div class="col-2"><input type="text" name="employ" class="form-control" placeholder="유형" disabled></div>
+		<div class="col-2"><input type="text" name="position" class="form-control" placeholder="직급" disabled></div>
+		<div class="col-2"><input type="date" name="hiredate" class="form-control" placeholder="입사일" disabled></div>
+		<div class="col-2"><input type="date" name="firedate" class="form-control" placeholder="퇴사일" disabled></div>
 	</div>
+	<div class="my-1 row">
+		<div class="col-12"><input type="text" name="work" class="form-control" placeholder="담당업무" disabled></div>
+	</div>
+	<input type="button" value="수정" class="btn btn-outline-success" onclick="career.modify(this)">
+	<input type="button" value="삭제" class="btn btn-outline-danger" onclick="application.delete(this)">
+	<input type="hidden" name="state" id="state" value="insert">
 </script>
 <script type="text/html" id="projectExpTemplete">
-	<div>
-		<div class="my-1 row">
-			<div class="col-8"><input type="text" class="form-control" placeholder="프로젝트 명" disabled></div>
-			<div class="col-2"><input type="date" class="form-control" placeholder="시작일" disabled></div>
-			<div class="col-2"><input type="date" class="form-control" placeholder="종료일" disabled></div>
-		</div>
-		<div class="my-1 row">
-			<div class="col-6"><input type="text" class="form-control" placeholder="회사명" disabled></div>
-			<div class="col-6"><input type="text" class="form-control" placeholder="직무" disabled></div>
-		</div>
-		<div class="my-1 row">
-			<div class="col-12">
-				<textarea cols="30" rows="4" class="form-control" placeholder="담당업무" disabled></textarea>
-			</div>
-		</div>
-		<input type="button" value="수정" class="btn btn-outline-success" onclick="projectExp.modify(this)">
-		<input type="button" value="삭제" class="btn btn-outline-danger" onclick="application.delete(this)">
+	<div class="my-1 row">
+		<div class="col-8"><input type="text" name="title" class="form-control" placeholder="프로젝트 명" disabled></div>
+		<div class="col-2"><input type="date" name="startdate" class="form-control" placeholder="시작일" disabled></div>
+		<div class="col-2"><input type="date" name="enddate" class="form-control" placeholder="종료일" disabled></div>
 	</div>
+	<div class="my-1 row">
+		<div class="col-6"><input type="text" name="corpname" class="form-control" placeholder="회사명" disabled></div>
+		<div class="col-6"><input type="text" name="job" class="form-control" placeholder="직무" disabled></div>
+	</div>
+	<div class="my-1 row">
+		<div class="col-12">
+			<textarea cols="30" rows="4" name="content" class="form-control" placeholder="담당업무" disabled></textarea>
+		</div>
+	</div>
+	<input type="button" value="수정" class="btn btn-outline-success" onclick="projectExp.modify(this)">
+	<input type="button" value="삭제" class="btn btn-outline-danger" onclick="application.delete(this)">
+	<input type="hidden" name="state" id="state" value="insert">
 </script>
 <script type="text/html" id="eduTemplete">
 	<div class="input-group">
-		<select class="form-select" disabled>
+		<select class="form-select" name="finaledu" disabled>
 			<option value="">학력 선택..</option>
 			<c:forEach var="code" items="${ADB}" varStatus="vs">
 				<option value="${code.codeid}">${code.codename}</option>
 			</c:forEach>
 		</select>
-		<input type="text" class="form-control" placeholder="학교명" disabled>
-		<input type="text" class="form-control" placeholder="전공" disabled>
-		<input type="text" class="form-control" placeholder="평점/총점" disabled>
-		<input type="date" class="form-control" placeholder="입학년월일" disabled>
-		<input type="date" class="form-control" placeholder="졸업년월일" disabled>
-		<select class="form-select" disabled>
+		<input type="text" name="name" class="form-control" placeholder="학교명" disabled>
+		<input type="text" name="major" class="form-control" placeholder="전공" disabled>
+		<input type="text" name="score" class="form-control" placeholder="평점/총점" disabled>
+		<input type="date" name="indate" class="form-control" placeholder="입학년월일" disabled>
+		<input type="date" name="outdate" class="form-control" placeholder="졸업년월일" disabled>
+		<select class="form-select" name="status" disabled>
 			<option value="">졸업상태 선택..</option>
 			<c:forEach var="code" items="${GDS}" varStatus="vs">
 				<option value="${code.codeid}">${code.codename}</option>
@@ -301,20 +295,22 @@
 		</select>
 		<input type="button" value="수정" class="btn btn-outline-success" onclick="education.modify(this)">
 		<input type="button" value="삭제" class="btn btn-outline-danger" onclick="application.delete(this)">
+		<input type="hidden" name="state" id="state" value="insert">
 	</div>
 </script>
 <script type="text/html" id="certTemplete">
 	<div class="input-group">
-		<select class="form-select" disabled>
+		<select class="form-select" name="type" disabled>
 			<option value="자격증">자격증</option>
 			<option value="수상정보">수상정보</option>
 		</select>
-		<input type="text" class="form-control" placeholder="시험명" disabled>
-		<input type="text" class="form-control" placeholder="주최기관" disabled>
-		<input type="text" class="form-control" placeholder="점수 및 등급" disabled>
-		<input type="date" class="form-control" placeholder="취득일" disabled>
+		<input type="text" name="name" class="form-control" placeholder="시험명" disabled>
+		<input type="text" name="agency" class="form-control" placeholder="주최기관" disabled>
+		<input type="text" name="grade" class="form-control" placeholder="점수 및 등급" disabled>
+		<input type="date" name="regdate" class="form-control" placeholder="취득일" disabled>
 		<input type="button" value="수정" class="btn btn-outline-success" onclick="certificate.modify(this)">
 		<input type="button" value="삭제" class="btn btn-outline-danger" onclick="application.delete(this)">
+		<input type="hidden" name="state" id="state" value="insert">
 	</div>
 </script>
 <%@include file="/footer.jsp" %>

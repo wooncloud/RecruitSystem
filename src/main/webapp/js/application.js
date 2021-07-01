@@ -3,9 +3,13 @@ let application = {
         console.log("application init");
 
         // btn init
-        document.getElementById("btnApSave").addEventListener("click", application.save);
-        document.getElementById("btnApView").addEventListener("click", application.view);
-        document.getElementById("btnApSubmit").addEventListener("click", application.submit);
+        document.getElementById('btnApSave').addEventListener('click', application.save);
+        document.getElementById('btnApView').addEventListener('click', application.view);
+        document.getElementById('btnApSubmit').addEventListener('click', application.submit);
+
+        document.getElementById('txtApTitle').addEventListener('change', application.changeTitle);
+        document.getElementById('txtApIntroduce').addEventListener('change', application.changeIntroduce);
+        document.getElementById('selApRecruit').addEventListener('change', application.changeRecruitSeq);
 
         // module Init
         application.moduleInit();
@@ -19,24 +23,78 @@ let application = {
     },
     save: () => {
         // 지원서 제목
-        let title = document.getElementById("txtApTitle");
+        let title = document.getElementById('txtApTitle');
         // 자기소개
-        let introduce = document.getElementById("txtApIntroduce");
+        let introduce = document.getElementById('txtApIntroduce');
 
-        if(title.value == ""){
-            swal.fire("알림", "지원서 제목이 없습니다.", "warning");
+        if(title.value == ''){
+            swal.fire('알림', '지원서 제목이 없습니다.', 'warning');
             title.focus();
             return;
         }
-        if(introduce.value == ""){
-            swal.fire("알림", "자기소개를 입력해 주세요.", "warning");
+        if(introduce.value == ''){
+            swal.fire('알림', '자기소개를 입력해 주세요.', 'warning');
             introduce.focus();
             return;
         }
 
         // json 조합
+        let data = {
+            'title': document.getElementById('txtApTitle').value,
+            'recruit_seq': document.getElementById('selApRecruit').value,
+            'introduce': document.getElementById('txtApIntroduce').value,
+            'portpolio_link': document.getElementById('txtApPortpolio').value,
+            'portpolio_file': document.getElementById('fileApPortpolio').value,
+            'rewarding': document.getElementById('selRewarding').value,
+            'handicap': document.getElementById('selHandicap').value,
+            'military': document.getElementById('selMilitary').value,
+            'career': [],
+            'projectExp': [],
+            'education': [],
+            'certificate': [],
+        }
 
-        // ajsx 전송
+        data.career = application.exportListData(document.getElementById("careerList"));
+        data.projectExp = application.exportListData(document.getElementById("projectExpList"));
+        data.education = application.exportListData(document.getElementById("educationList"));
+        data.certificate = application.exportListData(document.getElementById("certList"));
+
+        // Send Data
+        $.ajax({
+            url: "./saveApplicaion.do",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "JSON",
+            contentType: "application/json; charset=UTF-8",
+            success: (msg) => {
+                console.log(msg);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    },
+    exportListData: (objList) => {
+        let jsonArray = new Array();
+        let listEmts = objList.children;
+        for (const listEmt of listEmts) {
+            let emtDatas = listEmt.querySelectorAll("input:not([type=button]), select, textarea");
+            let jsonData = "{";
+            for (const data of emtDatas) {
+                let dataName = data.name;
+                let dataValue = data.value;
+                jsonData += `"${dataName}":"${dataValue}",`;
+            }
+            jsonData = jsonData.substr(0, jsonData.length - 1);
+            jsonData += "}"
+
+            jsonData = jsonData.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+            console.log(jsonData);
+            jsonData = JSON.parse(jsonData);
+            jsonArray.push(jsonData);
+        }
+
+        return jsonArray;
     },
     view: () => {
         console.log("view");
@@ -59,22 +117,113 @@ let application = {
             cancelButtonText: '취소',
         }).then((result) => {
             if (result.isConfirmed) {
-                emt.remove();
+                let state = emt.querySelector("#state");
+                
+                if(state.value == 'insert'){
+                    // insert는 새로 만든 요소라 DB 변경이 필요없어 그냥 삭제
+                    emt.remove();
+                }
+                else{
+                    state.value = 'delete';
+                    emt.style.display = 'none';
+                }
             }
         })
-    }
-}
+    },
+    // AJAX Methods ------------------------------------------------
+    changeTitle: () => {
+        let seq = document.getElementById('seq');
+        let title = document.getElementById('txtApTitle');
 
-let recruit = {
-    init: () => {
+        $.ajax({
+            url: "./application/changeTitle.do",
+            type: "post",
+            data: `seq=${seq.value}&title=${title.value}`,
+            success: (msg) => {
+                if (msg.state == "success") {
+                    Toast.fire({
+                        icon: 'success',
+                        title: msg.msg
+                    })
+                }
+                else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: msg.msg
+                    })
+                }
+            },
+            error: (err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: err.responseText
+                })
+                console.log(err);
+            }
+        });
+    },
+    changeIntroduce: () => {
+        let seq = document.getElementById('seq');
+        let introduce = document.getElementById('txtApIntroduce');
 
-    }
-}
+        $.ajax({
+            url: "./application/changeIntroduce.do",
+            type: "post",
+            data: `seq=${seq.value}&introduce=${introduce.value}`,
+            success: (msg) => {
+                if (msg.state == "success") {
+                    Toast.fire({
+                        icon: 'success',
+                        title: msg.msg
+                    })
+                }
+                else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: msg.msg
+                    })
+                }
+            },
+            error: (err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: err.responseText
+                })
+                console.log(err);
+            }
+        });
+    },
+    changeRecruitSeq: () => {
+        let seq = document.getElementById('seq');
+        let recruitSeq = document.getElementById('selApRecruit');
 
-let title = {
-    init: () => {
-
-    }
+        $.ajax({
+            url: "./application/changeRecruitSeq.do",
+            type: "post",
+            data: `seq=${seq.value}&recruitSeq=${recruitSeq.value}`,
+            success: (msg) => {
+                if (msg.state == "success") {
+                    Toast.fire({
+                        icon: 'success',
+                        title: msg.msg
+                    })
+                }
+                else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: msg.msg
+                    })
+                }
+            },
+            error: (err) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: err.responseText
+                })
+                console.log(err);
+            }
+        });
+    },
 }
 
 let career = {
@@ -160,6 +309,10 @@ let career = {
             }
         }
 
+        // state 변경
+        let state = emt.querySelector("#state");
+        state.value = state.value == "insert" ? "insert" : "update";
+
         e.addEventListener("click", () => { career.modify(e) });
         e.setAttribute("value", "수정");
     }
@@ -207,11 +360,11 @@ let projectExp = {
         }
     },
     valid: (data) => {
-        if (data.title == "") { return false }
-        else if (data.startdate == "") { return false }
-        else if (data.corpname == "") { return false }
-        else if (data.job == "") { return false }
-        else if (data.content == "") { return false }
+        if (data.Title == "") { return false }
+        else if (data.Startdate == "") { return false }
+        else if (data.Corpname == "") { return false }
+        else if (data.Job == "") { return false }
+        else if (data.Content == "") { return false }
         else { return true }
     },
     newElement: (data) => { 
@@ -250,20 +403,12 @@ let projectExp = {
             }
         }
 
+        // state 변경
+        let state = emt.querySelector("#state");
+        state.value = state.value == "insert" ? "insert" : "update";
+
         e.addEventListener("click", () => { projectExp.modify(e) });
         e.setAttribute("value", "수정");
-    }
-}
-
-let introduce = {
-    init: () => {
-
-    }
-}
-
-let portpolio = {
-    init: () => {
-
     }
 }
 
@@ -322,7 +467,7 @@ let education = {
         else { return true }
     },
     newElement: (data) => { 
-        let templete = document.getElementById("educationTemplete");
+        let templete = document.getElementById("eduTemplete");
         let emt = document.createElement("div");
         emt.innerHTML = templete.innerText.trim();
         emt.getElementsByTagName("select")[0].value = data.finaledu;
@@ -356,6 +501,11 @@ let education = {
                 i.setAttribute("disabled", "disabled");
             }
         }
+        
+        // state 변경
+        let state = emt.querySelector("#state");
+        state.value = state.value == "insert" ? "insert" : "update";
+
         emt.getElementsByTagName("select")[0].setAttribute("disabled", "disabled");
         emt.getElementsByTagName("select")[1].setAttribute("disabled", "disabled");
         e.addEventListener("click", () => { education.modify(e) });
@@ -441,25 +591,23 @@ let certificate = {
             }
         }
 
+        // state 변경
+        let state = emt.querySelector("#state");
+        state.value = state.value == "insert" ? "insert" : "update";
+
         e.addEventListener("click", () => { certificate.modify(e) });
         e.setAttribute("value", "수정");
     }
 }
 
-let military = {
-    init: () => {
-
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-}
-
-let rewarding = {
-    init: () => {
-
-    }
-}
-
-let handicap = {
-    init: () => {
-
-    }
-}
+})

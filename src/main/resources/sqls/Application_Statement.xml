@@ -40,10 +40,16 @@
 	<update id="apModify" parameterType="ApplicationDto">
 		UPDATE APPLICATION
 		SET
-			EMAIL = #{email}, TITLE = #{title}
-			RECRUIT_SEQ = #{recruit_seq}, INTRODUCE = #{introduce}, PORTPOLIO_LINK = #{portpolio_link},
-			PORTPOLIO_FILE = #{portpolio_file}, REWARDING = #{rewarding}, HANDICAP = #{handicap},
-			MILITARY = #{military}, DELFLAG = 'N'
+		 	DELFLAG = 'N'
+			<if test="email != null">,EMAIL = #{email}</if>
+			<if test="title != null">,TITLE = #{title}</if>
+			<if test="recruit_seq != 0">,RECRUIT_SEQ = #{recruit_seq}</if>
+			<if test="introduce != null">,INTRODUCE = #{introduce}</if>
+			<if test="portpolio_link != null">,PORTPOLIO_LINK = #{portpolio_link}</if>
+			<if test="portpolio_file != null">,PORTPOLIO_FILE = #{portpolio_file}</if>
+			<if test="rewarding != null">,REWARDING = #{rewarding}</if>
+			<if test="handicap != null">,HANDICAP = #{handicap},</if>
+			<if test="military != null">,MILITARY = #{military}</if>
 		WHERE SEQ = #{seq}
 	</update>
 
