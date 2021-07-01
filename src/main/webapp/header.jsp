@@ -7,71 +7,71 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <!-- CSS -->
-    <!-- bootstrap CSS -->
-    <link href="./css/init.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/common.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<!-- CSS -->
+	<!-- bootstrap CSS -->
+	<link href="./css/init.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/common.css" rel="stylesheet">
 	
-    <!-- JS -->
-    <!-- jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <!-- bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- swal2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+	<!-- JS -->
+	<!-- jQuery -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+	<!-- bootstrap JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- swal2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+	<script type="text/javascript" src="./js/common.js"></script>
 
-    <title>GDRS</title>
+	<title>GDRS</title>
 </head>
 <body>
-    <header>
-        <nav class="nav-base-frame">
-            <div class="nav-menu d-flex-center">
-                <div class="logo">
-                    <!-- <img src="/img/logo.jpg" alt="logo"> -->
-                    <!-- 아래는 임시로고 -->
-                    <a href="./index.jsp" class="temp-logo">GDRS</a>
-                </div>
-                <div class="nav-menu-list">
-                    <ul class="d-flex-center">
-                        <li><a href="./recruitList.do">채용공고</a></li>
-                        <c:if test="${userInfoDto.email ne null}">
-                        	<c:choose>
-                        		<c:when test="${sessionScope.auth eq 'user'}">
-                        			<li><a href="./myApplicaion.do">내 지원서</a></li>
-	                        		<li><a href="./result.do">지원결과 확인</a></li>
-                        		</c:when>
-                        		<c:otherwise>
-			                        <li><a href="./applyList.do">지원자 목록 조회</a></li>                        		
-                        		</c:otherwise>
-                        	</c:choose>                     
-                        </c:if>
-                    </ul>
-                </div>
-            </div>
-            <div class="nav-user d-flex-center">
-	            <c:choose>
-	            	<c:when test="${userInfoDto.email eq null}">
-		            	<div class="d-flex-center">
-		                    <a href="./loginForm.do">로그인</a>
-		                    <a href="./signupAgree.do">회원가입</a>
-		                </div>
-	            	</c:when>
-	            	<c:otherwise>
-	            		<div class="d-flex-center">
-		                    <span> ${userInfoDto.name} 님 안녕하세요.</span>
-		                    <c:if test="${sessionScope.auth eq 'user'}">
-			                    <a href="./myInfo.do">내 정보</a>
-		                    </c:if>
-		                    <a href="./logout.do">로그아웃</a>
-		                </div>
-	            	</c:otherwise>
-	            </c:choose> 
-            </div>
-        </nav>
-    </header>
-    <div class="header-space"></div>
-    <section>
+	<header>
+		<nav class="nav-base-frame">
+			<div class="nav-menu d-flex-center">
+				<div class="logo">
+					<!-- <img src="/img/logo.jpg" alt="logo"> -->
+					<!-- 아래는 임시로고 -->
+					<a href="./index.jsp" class="temp-logo">GDRS</a>
+				</div>
+				<div class="nav-menu-list">
+					<ul class="d-flex-center">
+						<li><a href="./recruitList.do">채용공고</a></li>
+						<c:if test="${userInfoDto.email ne null}">
+							<c:choose>
+								<c:when test="${sessionScope.auth eq 'user'}">
+									<li><a href="./myApplicaion.do">내 지원서</a></li>
+									<li><a href="./result.do">지원결과 확인</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="./applyList.do">지원자 목록 조회</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</ul>
+				</div>
+			</div>
+			<div class="nav-user d-flex-center">
+				<c:choose>
+					<c:when test="${userInfoDto.email eq null}">
+						<div class="d-flex-center">
+							<a href="./loginForm.do">로그인</a>
+							<a href="./signupAgree.do">회원가입</a>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="d-flex-center">
+							<span> ${userInfoDto.name} 님 안녕하세요.</span>
+							<c:if test="${sessionScope.auth eq 'user'}">
+								<a href="./myInfo.do">내 정보</a>
+							</c:if>
+							<a href="./logout.do">로그아웃</a>
+						</div>
+					</c:otherwise>
+				</c:choose> 
+			</div>
+		</nav>
+	</header>
+	<div class="header-space"></div>
+	<section>
 

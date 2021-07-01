@@ -85,4 +85,10 @@ public class RecruitService implements IRecruitService {
 		return iDao.raUserAllCount(map);
 	}
 
+	@Override
+	public List<RecruitDto> raUserListNoPage() {
+		logger.info("[raUserListNoPage]");
+		return iDao.raUserListNoPage();
+	}
+
 }

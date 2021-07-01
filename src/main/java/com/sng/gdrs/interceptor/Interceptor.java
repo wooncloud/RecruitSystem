@@ -2,6 +2,7 @@ package com.sng.gdrs.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +14,16 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		logger.info("[ * Interceptor * ] preHandle");
-
-		return super.preHandle(request, response, handler);
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		HttpSession session = request.getSession();
+		Object userSession =  session.getAttribute("userInfoDto");
+		if(userSession == null) {
+			response.sendRedirect("./loginForm.do");
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	//컨트롤러 실행 후 수행 로직
@@ -25,6 +31,9 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		logger.info("[ * Interceptor * ] postHandle");
+		
+		// 권한 체크
+		
 		
 		super.postHandle(request, response, handler, modelAndView);
 	}
