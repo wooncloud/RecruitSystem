@@ -7,23 +7,23 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <!-- CSS -->
-    <!-- bootstrap CSS -->
-    <link href="./css/init.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/common.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<!-- CSS -->
+	<!-- bootstrap CSS -->
+	<link href="./css/init.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/common.css" rel="stylesheet">
 	
-    <!-- JS -->
-    <!-- jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <!-- bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- swal2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+	<!-- JS -->
+	<!-- jQuery -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+	<!-- bootstrap JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- swal2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+	<script type="text/javascript" src="./js/common.js"></script>
 
-    <title>GDRS</title>
+	<title>GDRS</title>
 </head>
 <body>
     <header>
@@ -74,4 +74,3 @@
     </header>
     <div class="header-space"></div>
     <section>
-

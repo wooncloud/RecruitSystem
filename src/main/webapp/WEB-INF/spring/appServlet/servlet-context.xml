@@ -21,9 +21,19 @@
 <!-- 	IoC에서 호출되는 RequestMapping을 통해서 제어 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/admin/"/>
-			<mvc:exclude-mapping path="/init/*.do"/>
+			<mvc:mapping path="/recruit*.do"/>
+			<mvc:mapping path="/*Applicaion*.do"/>
+			<mvc:mapping path="/appConfirm*.do"/>
+			<mvc:exclude-mapping path="/recruitList.do"/>
+			<mvc:exclude-mapping path="/recruitDetail.do"/>
 			<beans:bean class="com.sng.gdrs.interceptor.Interceptor"></beans:bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/recruit*.do"/>
+			<mvc:mapping path="/appConfirm*.do"/>
+			<mvc:exclude-mapping path="/recruitList.do"/>
+			<mvc:exclude-mapping path="/recruitDetail.do"/>
+			<beans:bean class="com.sng.gdrs.interceptor.AuthInterceptor"></beans:bean>
 		</mvc:interceptor>
 		<beans:bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 				<beans:property name="cacheSeconds" value="0"/>

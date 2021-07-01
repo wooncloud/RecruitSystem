@@ -75,7 +75,10 @@ public class RecruitDaoImpl implements IRecruitDao {
 	public int raUserAllCount(Map<String, Object> map) {
 		return sqlSession.selectOne(NS + "raUserAllCount", map);
 	}
-
-	
+  
+	@Override
+	public List<RecruitDto> raUserListNoPage() {
+		return sqlSession.selectList(NS + "raUserListNoPage");
+	}
 
 }

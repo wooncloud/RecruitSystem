@@ -2,20 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sng.gdrs.model.dao.IApplicationDao">
 
+	<resultMap type="com.sng.gdrs.dto.AppDetailDto" id="AppDetailDto">
+		<result property="email" column="EMAIL" />
+		<result property="name" column="NAME" />
+		<result property="phone" column="PHONE" />
+		<result property="recruit_title" column="RECRUIT_TITLE" />
+		<collection property="aDto" javaType="ApplicationDto">
+			<result property="seq" column="SEQ"/>
+			<result property="email" column="EMAIL"/>
+			<result property="title" column="TITLE"/>
+			<result property="regdate" column="REGDATE"/>
+			<result property="recruit_seq" column="RECRUIT_SEQ"/>
+			<result property="introduce" column="INTRODUCE"/>
+			<result property="portpolio_link" column="PORTPOLIO_LINK"/>
+			<result property="portpolio_file" column="PORTPOLIO_FILE"/>
+			<result property="rewarding" column="REWARDING"/>
+			<result property="handicap" column="HANDICAP"/>
+			<result property="military" column="MILITARY"/>
+			<result property="delflag" column="DELFLAG"/>
+		</collection>
+	</resultMap>
+
 	<!-- 지원자가 자신의 작성중인 지원서를 저장 -->
 	<insert id="apSave" parameterType="ApplicationDto">
 		INSERT INTO APPLICATION
 		(
 			SEQ, EMAIL, TITLE,
-			REGDATE, RECRUIT_SEQ, INTRODUCE,
-			PORTPOLIO_LINK, PORTPOLIO_FILE, REWARDING,
-			HANDICAP, MILITARY, DELFLAG
+			REGDATE, RECRUIT_SEQ, INTRODUCE, DELFLAG
 		)
 		VALUES(
 			APPLICATION_SEQ.NEXTVAL, #{email}, #{title},
-			#{regdate}, #{recruit_seq}, #{introduce},
-			#{portpolio_link}, #{portpolio_file}, #{rewarding},
-			#{handicap}, #{military}, #{delflag}
+			SYSDATE, NULL, #{introduce}, 'N'
 		)
 	</insert>
 	
@@ -23,10 +40,16 @@
 	<update id="apModify" parameterType="ApplicationDto">
 		UPDATE APPLICATION
 		SET
-			EMAIL = #{email}, TITLE = #{title}, REGDATE = #{regdate},
-			RECRUIT_SEQ = #{recruit_seq}, INTRODUCE = #{introduce}, PORTPOLIO_LINK = #{portpolio_link},
-			PORTPOLIO_FILE = #{portpolio_file}, REWARDING = #{rewarding}, HANDICAP = #{handicap},
-			MILITARY = #{military}, DELFLAG = 'N'
+		 	DELFLAG = 'N'
+			<if test="email != null">,EMAIL = #{email}</if>
+			<if test="title != null">,TITLE = #{title}</if>
+			<if test="recruit_seq != 0">,RECRUIT_SEQ = #{recruit_seq}</if>
+			<if test="introduce != null">,INTRODUCE = #{introduce}</if>
+			<if test="portpolio_link != null">,PORTPOLIO_LINK = #{portpolio_link}</if>
+			<if test="portpolio_file != null">,PORTPOLIO_FILE = #{portpolio_file}</if>
+			<if test="rewarding != null">,REWARDING = #{rewarding}</if>
+			<if test="handicap != null">,HANDICAP = #{handicap},</if>
+			<if test="military != null">,MILITARY = #{military}</if>
 		WHERE SEQ = #{seq}
 	</update>
 
@@ -44,14 +67,18 @@
 	</update>
 
 	<!-- 지원자가 자신이 저장하거나 제출한 지원서를 조회 -->
-	<select id="apDetail" parameterType="java.lang.String" resultType="ApplicationDto">
+	<select id="apDetail" parameterType="java.lang.String" resultMap="AppDetailDto">
 		SELECT 
-			SEQ, EMAIL, TITLE, 
-			REGDATE, RECRUIT_SEQ, INTRODUCE, 
-			PORTPOLIO_LINK,	PORTPOLIO_FILE, REWARDING, 
-			HANDICAP, MILITARY, DELFLAG
-		FROM APPLICATION
-		WHERE EMAIL = #{email}
+			u.EMAIL, u.NAME, u.PHONE,
+			a.SEQ, a.EMAIL, a.TITLE, 
+			a.REGDATE, a.RECRUIT_SEQ, a.INTRODUCE, 
+			a.PORTPOLIO_LINK, a.PORTPOLIO_FILE, a.REWARDING, 
+			a.HANDICAP, a.MILITARY, a.DELFLAG,
+			r.TITLE RECRUIT_TITLE
+		FROM APPLICATION a 
+			JOIN USERINFO u ON a.EMAIL = u.EMAIL 
+			LEFT JOIN RECRUITMENT r ON a.RECRUIT_SEQ = r.SEQ 
+		WHERE a.EMAIL = #{email}
 	</select>
 
 	<!-- 지원자가 자신의 경력 정보를 추가 -->

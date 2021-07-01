@@ -6,15 +6,15 @@ import java.util.Date;
 public class CertificateDto implements Serializable {
 
 	private static final long serialVersionUID = -8396377969980099429L;
-	
-	private int seq     ;
-	private int ap_seq  ;
-	private String type    ;
-	private String name    ;
-	private String agency  ;
-	private String grade   ;
-	private Date regdate ;
-	
+
+	private int seq;
+	private int ap_seq;
+	private String type;
+	private String name;
+	private String agency;
+	private String grade;
+	private Date regdate;
+
 	public CertificateDto() {
 	}
 
@@ -90,7 +90,5 @@ public class CertificateDto implements Serializable {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
-	
-	
+
 }

@@ -85,4 +85,5 @@ public interface IRecruitDao {
 	 */
 	public int raUserAllCount(Map<String, Object> map);
 	
+	public List<RecruitDto> raUserListNoPage();
 }
