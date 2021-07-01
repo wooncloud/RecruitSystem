@@ -58,7 +58,7 @@
 		SELECT COUNT(*) FROM RECRUITMANAGEMENT r
 	</select>
 
-	<!-- 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가됨 **한번 더 봐야함** -->
+	<!-- 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가됨 **한번 더 봐야함 지원하기에서 사용될 쿼리** -->
 	<insert id="acUserInsert" parameterType="java.util.Map">
 		INSERT INTO RECRUITMANAGEMENT (SEQ, AP_SEQ, STEP, "RESULT", ETC, SUBMITDATE)
 		VALUES(RECRUITMANAGEMENT_SEQ.NEXTVAL, 4, #{step}, #{result}, #{etc}, SYSDATE)
@@ -145,7 +145,7 @@
 	</update>
 
 	<!-- 관리자가 여러 지원자를 다중 선택하여 일괄적으로 진행 결과를 변경 -->
-	<update id="acMultiStep" parameterType="java.util.Map">
+	<update id="acMultiStep" parameterType="java.util.List">
 		UPDATE RECRUITMANAGEMENT
 		SET STEP = #{step}
 		<foreach collection="stepseq" item="seq" open="(" separator=","
@@ -155,7 +155,7 @@
 	</update>
 
 	<!-- 관리자가 여러 지원자를 다중 선택하여 일괄적으로 채용 결과를 변경 -->
-	<update id="acMultiResult" parameterType="java.util.Map">
+	<update id="acMultiResult" parameterType="java.util.List">
 		UPDATE RECRUITMANAGEMENT
 		SET "RESULT" = #{result}
 		<foreach collection="resultseq" item="seq" open="(" separator=","

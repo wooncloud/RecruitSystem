@@ -246,7 +246,7 @@ public class UserController {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			messageHelper.setFrom("dlrjtjd0615@gmail.com"); // 보내는 사람의 이메일
 			messageHelper.setTo(email); // 받을 사람 이메일
-			messageHelper.setSubject("이메일 인증 메일입니다."); // 메일의 제목
+			messageHelper.setSubject("GDRS 이메일 인증 메일입니다."); // 메일의 제목
 			messageHelper.setText("이메일 인증의 입력란에 다음 인증키를 입력해 주세요.<br> 인증키 : " + ran, true);
 
 			mailSender.send(message);

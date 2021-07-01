@@ -11,7 +11,7 @@
 						<option value="allUser" >지원자 전체목록</option>
 						<option value="allUser" >------------------------------------</option>
 						<c:forEach var="dto" items="${rlists}" varStatus="vs">
-							<option value="${dto.seq}">${dto.seq}&nbsp;-&nbsp;${dto.title}</option>
+							<option  value="${dto.seq}" >${dto.seq}&nbsp;-&nbsp;${dto.title}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -19,14 +19,14 @@
 					<input type="button" value="채용완료" class="btn btn-warning text-white">
 				</div>
 			</div>		
-			<div class="my-3">
-				<div class="card">
-					<div class="card-body between-center">
-						<div><h1>젤리랑 놀아줄 사람</h1></div>
-						<div>모집기간</div>
-					</div>
-				</div>
-			</div>
+<!-- 			<div class="my-3" id="recruitCard"> -->
+<!-- 				<div class="card"> -->
+<!-- 					<div class="card-body between-center"> -->
+<!-- 						<div><h1 id="selRecruitTitle">젤리랑 놀아줄 사람 선택한공고 띄워야하는데</h1></div> -->
+<!-- 						<div>모집기간</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			<div class="my-3 d-flex align-items-center justify-content-end">
 				<div class="mx-1">
 					<select name="" id="" class="form-select">
@@ -42,29 +42,30 @@
 					<input type="button" value="검색" class="btn btn-outline-secondary">
 				</div>
 			</div>
-			<div class="my-3 d-flex align-items-center justify-content-end">
-				<select name="" id="" class="mx-1 form-select">
-					<option value="">진행단계 선택</option>
-					<c:forEach var="stp" items="${stp}" varStatus="vs">
-						<option value="">${stp.codename}</option>
-					</c:forEach>
-				</select>
-				<select name="" id="" class="mx-1 form-select">
-					<option value="">합격여부 선택</option>
-					<c:forEach var="rst" items="${rst}" varStatus="vs">
-						<option value="">${rst.codename}</option>
-					</c:forEach>
-				</select>
-				<input type="button" value="적용" class="mx-1 btn btn-success">
-			</div>
 		</div>
 		<div class="list-div">
+			<div class="my-3 d-flex align-items-center justify-content-end">
+				<select name="steps" id="steps" class="mx-1 form-select">
+					<option value="">진행단계 선택</option>
+					<c:forEach var="stp" items="${stp}" varStatus="vs">
+						<option value="${stp.codename}">${stp.codename}</option>
+					</c:forEach>
+				</select>
+				<input type="button" value="적용" class="mx-1 btn btn-success" onclick="stepChange()">
+				<select name="results" id="results" class="mx-1 form-select">
+					<option value="">합격여부 선택</option>
+					<c:forEach var="rst" items="${rst}" varStatus="vs">
+						<option value="${rst.codename}">${rst.codename}</option>
+					</c:forEach>
+				</select>
+				<input type="button" value="적용" class="mx-1 btn btn-success" onclick="resultChahge()">
+			</div>
 			<div class="card">
 				<div class="card-body">
 					<table class="mb-0 table table-sm table-hover">
 						<thead class="fw-bold ">
 							<tr>
-								<th style="width: 5%;"><input type="checkbox" name="" id=""></th>
+								<th style="width: 5%;"><input type="checkbox" name="chkAll" onclick="chkAll(this.checked)"></th>
 								<th style="width: 5%;">#</th>
 								<th style="width: 15%;">지원자명</th>
 								<th style="width: 40%;">지원서 제목</th>
@@ -77,7 +78,7 @@
 						
 						<c:forEach var="dto" items="${lists}" varStatus="vs">
 							<tr>
-								<td><input type="checkbox" name="" id=""></td>
+								<td><input type="checkbox" name="chkVal" value="${dto.seq}" onclick="selectChk()"></td>
 								<td>${dto.seq}</td>
 								<td>${dto.udto[0].name}</td>
 								<td>
@@ -95,11 +96,9 @@
 							</tr>
 						</c:forEach>
 						</tbody>
-					</table>
-					
-				
+					</table>		
 				</div>
-			</div>
+			</div>		
 <%-- 			<c:if test=""> --%>
 			<ul class="mt-3 pagination justify-content-center">
 			<c:if test="${page.startPage > page.countPage}">
@@ -124,7 +123,7 @@
 				</c:if>	
 			</ul>
 <%-- 			</c:if> --%>
-		</div>
+		</div>	
 	</div>
 <script type="text/javascript">
 	window.onload = applyList.init;

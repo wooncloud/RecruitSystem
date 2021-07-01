@@ -1,9 +1,10 @@
 package com.sng.gdrs;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.slf4j.Logger;
@@ -11,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sng.gdrs.comm.Util;
 import com.sng.gdrs.dto.AppConfirmJoinDto;
@@ -69,13 +72,15 @@ public class AppConfirmController {
 		List<RecruitDto> rlists = irService.raAllList();
 		
 		List<CodeDto> stp = codeService.selectCodeType("STP");
+		List<CodeDto> rst = codeService.selectCodeType("RST");
 		JSONArray stpJson = Util.ConvertCodeToJson(stp);
-		JSONArray rstJson = Util.ConvertCodeToJson(codeService.selectCodeType("RST"));
+		JSONArray rstJson = Util.ConvertCodeToJson(rst);
 		
 		model.addAttribute("lists", lists);
 		model.addAttribute("page", page);
 		model.addAttribute("rlists", rlists);
 		model.addAttribute("stp", stp);
+		model.addAttribute("rst", rst);
 		model.addAttribute("stpJson", stpJson);
 		model.addAttribute("rstJson", rstJson);
 		
@@ -132,7 +137,27 @@ public class AppConfirmController {
 		return "admin/applyList";
 	}
 	
-	
+	@RequestMapping(value = "/acChangeStep.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> acChangeStepBtn(ArrayList<String> chkVal, String steps){
+		logger.info("[acMultiBtn] : 선택한 지원자의 진행단계를 선택한 진행 단계로 변경");
+		logger.info("[acMultiBtn] : @@@@@@@@@@chkVal@@@@@@@@@@ : {}", chkVal);
+		logger.info("[acMultiBtn] : @@@@@@@@@@steps@@@@@@@@@@ : {}", steps);
+//		Map<String, Boolean> bmap = new HashMap<>();
+//		
+//		boolean isc = false;
+//		boolean isc2 = iaService.acMultiStep(chkVal);
+//		if (isc2 == true) {
+//			isc = true;
+//			logger.info("[acMultiBtn] : 진행 단계로 변경 성공 : {}", isc);
+//		} else {
+//			logger.info("[acMultiBtn] : 진행 단계로 변경 실패 : {}", isc);
+//		}
+//		bmap.put("isc", isc);
+		
+//		return bmap;
+		return null;
+	}
 	
 	
 	
