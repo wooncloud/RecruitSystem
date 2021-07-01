@@ -38,6 +38,12 @@ public interface IRecruitDao {
 	public int raStatus(int seq);
 
 	/**
+	 * 채용공고 목록 전체 조회(페이징x)
+	 * 
+	 */
+	public List<RecruitDto> raAllList();
+	
+	/**
 	 * 관리자 - 채용공고 목록 조회
 	 * 
 	 */

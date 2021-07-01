@@ -10,6 +10,7 @@
 		<typeAlias type="com.sng.gdrs.dto.AppConfirmDto" alias="AppConfirmDto" />
 		<typeAlias type="com.sng.gdrs.dto.ApplicationDto" alias="ApplicationDto" />		
 		
+		<typeAlias type="com.sng.gdrs.dto.AppConfirmJoinDto" alias="AppConfirmJoinDto" />
 		<typeAlias type="com.sng.gdrs.dto.CareerDto" alias="CareerDto" />
 		<typeAlias type="com.sng.gdrs.dto.ProjectExpDto" alias="ProjectExpDto" />
 		<typeAlias type="com.sng.gdrs.dto.CertificateDto" alias="CertificateDto" />

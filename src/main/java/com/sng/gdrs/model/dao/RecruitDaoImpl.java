@@ -35,6 +35,11 @@ public class RecruitDaoImpl implements IRecruitDao {
 	public int raStatus(int seq) {
 		return sqlSession.update(NS + "raStatus", seq);
 	}
+	
+	@Override
+	public List<RecruitDto> raAllList() {
+		return sqlSession.selectList(NS+"raAllList");
+	}
 
 	@Override
 	public List<RecruitDto> raAdminList(Map<String, Object> map) {
@@ -70,7 +75,7 @@ public class RecruitDaoImpl implements IRecruitDao {
 	public int raUserAllCount(Map<String, Object> map) {
 		return sqlSession.selectOne(NS + "raUserAllCount", map);
 	}
-
+  
 	@Override
 	public List<RecruitDto> raUserListNoPage() {
 		return sqlSession.selectList(NS + "raUserListNoPage");

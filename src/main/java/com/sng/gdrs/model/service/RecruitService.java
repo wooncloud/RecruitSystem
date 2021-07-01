@@ -44,6 +44,12 @@ public class RecruitService implements IRecruitService {
 	}
 
 	@Override
+	public List<RecruitDto> raAllList() {
+		logger.info("[raAllList]");
+		return iDao.raAllList();
+	}
+	
+	@Override
 	public List<RecruitDto> raAdminList(Map<String, Object> map) {
 		logger.info("[raAdminList]");
 		return iDao.raAdminList(map);

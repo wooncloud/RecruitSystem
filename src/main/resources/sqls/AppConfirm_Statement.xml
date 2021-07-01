@@ -2,45 +2,103 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sng.gdrs.model.dao.IAppConfirmDao">
 
-	<!-- 지원자 전체 조회 -->
-	<select id="acAllList" resultType="java.util.Map">
-		SELECT rm.SEQ, r.TITLE, r.EMPLOY, u.NAME, a.TITLE,
-			a.REGDATE, rm.SUBMITDATE, rm.STEP, rm."RESULT"
-		FROM RECRUITMANAGEMENT rm
-			JOIN APPLICATION a ON a.SEQ = rm.AP_SEQ
-			JOIN USERINFO u ON a.EMAIL = u.EMAIL
-			JOIN RECRUITMENT r ON a.RECRUIT_SEQ = r.SEQ
+	<resultMap type="com.sng.gdrs.dto.AppConfirmJoinDto" id="JoinDto">
+		<result property="seq" column="SEQ"/>
+		<result property="step" column="STEP"/>
+		<result property="result" column="RESULT"/>
+		<result property="etc" column="ETC"/>
+		<result property="submitdate" column="SUBMITDATE"/>
+		<collection property="udto" resultMap="userInfoDto"/>
+		<collection property="rdto" resultMap="recruitDto"/>
+		<collection property="adto" resultMap="applicationDto"/>
+	</resultMap>
+	
+	<resultMap type="com.sng.gdrs.dto.UserInfoDto" id="userInfoDto">
+		<result property="email" column="EMAIL"/>	
+		<result property="name" column="NAME"/>	
+		<result property="birth" column="BIRTH"/>	
+	</resultMap>
+	
+	<resultMap type="com.sng.gdrs.dto.RecruitDto" id="recruitDto">
+		<result property="seq" column="SEQ"/>
+		<result property="title" column="R_TITLE"/>
+		<result property="employ" column="EMPLOY"/>
+	</resultMap>
+	
+	<resultMap type="com.sng.gdrs.dto.ApplicationDto" id="applicationDto">
+		<result property="seq" column="SEQ"/>
+		<result property="title" column="A_TITLE"/>
+		<result property="regdate" column="REGDATE"/>
+		<result property="recruit_seq" column="RECRUIT_SEQ"/>
+		<result property="introduce" column="INTRODUCE"/>
+		<result property="portpolio_link" column="PORTPOLIO_LINK"/>
+		<result property="portpolio_file" column="PORTPOLIO_FILE"/>
+		<result property="rewarding" column="REWARDING"/>
+		<result property="handicap" column="HANDICAP"/>
+		<result property="military" column="MILITARY"/>
+	</resultMap>
+
+
+	<!-- 지원한 지원자 전체 조회 -->
+	<select id="acAllLists" parameterType="java.util.Map" resultMap="JoinDto">
+		SELECT SEQ, R_TITLE, EMPLOY, NAME, A_TITLE, REGDATE, SUBMITDATE, STEP, "RESULT"
+		FROM(
+			SELECT rm.SEQ, r.TITLE R_TITLE, r.EMPLOY, u.NAME, a.TITLE A_TITLE,
+				a.REGDATE, rm.SUBMITDATE, rm.STEP, rm."RESULT",
+				ROW_NUMBER() OVER(ORDER BY rm.SEQ DESC) AS RN
+			FROM RECRUITMANAGEMENT rm
+				JOIN APPLICATION a ON a.SEQ = rm.AP_SEQ
+				JOIN USERINFO u ON a.EMAIL = u.EMAIL  
+				JOIN RECRUITMENT r ON a.RECRUIT_SEQ = r.SEQ)
+			WHERE RN BETWEEN #{first} AND #{last}
+		  		  ORDER BY SEQ DESC
+	</select>
+	<!-- 지원한 지원자 전체 수 -->
+	<select id="acAllListsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM RECRUITMANAGEMENT r
 	</select>
 
-	<!-- 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가됨 -->
+	<!-- 지원자가 선택한 공고에 지원서를 제출하면 추가 지원자 리스트에 추가됨 **한번 더 봐야함 지원하기에서 사용될 쿼리** -->
 	<insert id="acUserInsert" parameterType="java.util.Map">
 		INSERT INTO RECRUITMANAGEMENT (SEQ, AP_SEQ, STEP, "RESULT", ETC, SUBMITDATE)
-		VALUES(RECRUITMANAGEMENT_SEQ.NEXTVAL, 4, 'STP001', 'RST001', '', SYSDATE)
+		VALUES(RECRUITMANAGEMENT_SEQ.NEXTVAL, 4, #{step}, #{result}, #{etc}, SYSDATE)
 	</insert>
 
 	<!-- 선택한 공고의 지원자를 모두 조회 -->
-	<select id="acUserList" parameterType="java.lang.Integer" resultType="java.util.Map">
-		SELECT rm.SEQ, r.TITLE, r.EMPLOY,
-			u.NAME, a.TITLE, a.REGDATE,
-			rm.SUBMITDATE, rm.STEP, rm."RESULT"
-		FROM RECRUITMANAGEMENT rm
-			JOIN APPLICATION a ON a.SEQ = rm.AP_SEQ
-			JOIN USERINFO u ON a.EMAIL = u.EMAIL
-			JOIN RECRUITMENT r ON a.RECRUIT_SEQ = r.SEQ
-		WHERE r.SEQ = 7
+	<select id="acSelectList" parameterType="java.util.Map" resultMap="JoinDto">
+		SELECT SEQ, R_TITLE, EMPLOY, NAME, A_TITLE, REGDATE, SUBMITDATE, STEP, "RESULT"
+			FROM(
+				SELECT rm.SEQ, r.TITLE R_TITLE, r.EMPLOY, u.NAME, a.TITLE A_TITLE,
+					a.REGDATE, rm.SUBMITDATE, rm.STEP, rm."RESULT",
+					ROW_NUMBER() OVER(ORDER BY rm.SEQ DESC) AS RN
+				FROM RECRUITMANAGEMENT rm
+					JOIN APPLICATION a ON a.SEQ = rm.AP_SEQ
+					JOIN USERINFO u ON a.EMAIL = u.EMAIL
+					JOIN RECRUITMENT r ON a.RECRUIT_SEQ = r.SEQ
+				WHERE r.SEQ = #{seq}	
+				)
+			WHERE RN BETWEEN #{first} AND #{last}
+		  		  ORDER BY SEQ DESC
 	</select>
-
+<!-- 선택한 공고에 지원한 지원자 전체 수 -->
+	<select id="acSelectListsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+			FROM RECRUITMANAGEMENT r
+			JOIN APPLICATION a ON a.SEQ = r.AP_SEQ
+			WHERE a.RECRUIT_SEQ = #{seq}
+	</select>
+	
 	<!-- 선택한 지원자 상세보기 -->
 	<select id="acAdminDetail" parameterType="java.lang.String" resultType="java.util.Map">
 		SELECT u.EMAIL , u.NAME , u.BIRTH , a.TITLE ,
-			a.SEQ AP_SEQ, a.REGDATE , a.RECRUIT_SEQ , a.INTRODUCE ,
+			a.SEQ , a.REGDATE , a.RECRUIT_SEQ , a.INTRODUCE ,
 			a.PORTPOLIO_LINK , a.PORTPOLIO_FILE , a.REWARDING ,
 			a.HANDICAP , a.MILITARY , r.STEP , r."RESULT" ,
 			r.ETC , r.SUBMITDATE
 		FROM USERINFO u
 			JOIN APPLICATION a ON u.EMAIL = a.EMAIL
 			JOIN RECRUITMANAGEMENT r ON a.SEQ = r.AP_SEQ
-		WHERE u.EMAIL = 'test01@google.com'
+		WHERE u.EMAIL = #{email}
 	</select>
 
 	<!-- 지원자 상세보기 경력정보 -->
@@ -48,48 +106,48 @@
 		SELECT AP_SEQ , CORPNAME , HIREDATE , FIREDATE ,
 			EMPLOY , "POSITION" , "WORK"
 		FROM CAREER c
-		WHERE AP_SEQ ='4'
+		WHERE AP_SEQ =#{seq}
 	</select>
 
 	<!-- 지원자 상세보기 프로젝트경험 -->
 	<select id="acAdminDetailPjt" parameterType="java.lang.Integer" resultType="ProjectExpDto">
 		SELECT AP_SEQ , TITLE , STARTDATE , ENDDATE , CORPNAME , JOB , CONTENT
 		FROM PROJECTEXP p
-		WHERE AP_SEQ ='4'
+		WHERE AP_SEQ =#{seq}
 	</select>
 
 	<!-- 지원자 상세보기 자격증, 수상정보 -->
 	<select id="acAdminDetailCert" parameterType="java.lang.Integer" resultType="CertificateDto">
 		SELECT AP_SEQ , "TYPE" , NAME , AGENCY , GRADE , REGDATE
 		FROM CERTIFICATE c
-		WHERE AP_SEQ ='4'
+		WHERE AP_SEQ =#{seq}
 	</select>
 
 	<!-- 지원자 상세보기 학력정보 -->
 	<select id="acAdminDetailEdu" parameterType="java.lang.Integer" resultType="EducationDto">
 		SELECT AP_SEQ , FINALEDU , NAME , MAJOR , SCORE , INDATE , OUTDATE , STATUS
 		FROM EDUCATION e
-		WHERE AP_SEQ ='4'
+		WHERE AP_SEQ =#{seq}
 	</select>
 
 	<!-- 선택한 지원자의 채용 진행단계 변경 -->
 	<update id="acStep" parameterType="java.lang.Integer">
 		UPDATE RECRUITMANAGEMENT
-		SET STEP='STP002'
-		WHERE SEQ=2
+		SET STEP=#{step}
+		WHERE SEQ=#{seq}
 	</update>
 
 	<!-- 선택한 지원자의 채용 결과 변경 -->
 	<update id="acResult" parameterType="java.lang.Integer">
 		UPDATE RECRUITMANAGEMENT
-		SET "RESULT" ='RST002'
-		WHERE SEQ=2
+		SET "RESULT" =#{result}
+		WHERE SEQ=#{seq}
 	</update>
 
 	<!-- 관리자가 여러 지원자를 다중 선택하여 일괄적으로 진행 결과를 변경 -->
-	<update id="acMultiStep" parameterType="java.util.Map">
+	<update id="acMultiStep" parameterType="java.util.List">
 		UPDATE RECRUITMANAGEMENT
-		SET STEP = 'STP003'
+		SET STEP = #{step}
 		<foreach collection="stepseq" item="seq" open="(" separator=","
 			close=")">
 			#{seq}
@@ -97,9 +155,9 @@
 	</update>
 
 	<!-- 관리자가 여러 지원자를 다중 선택하여 일괄적으로 채용 결과를 변경 -->
-	<update id="acMultiResult" parameterType="java.util.Map">
+	<update id="acMultiResult" parameterType="java.util.List">
 		UPDATE RECRUITMANAGEMENT
-		SET "RESULT" = 'RST001'
+		SET "RESULT" = #{result}
 		<foreach collection="resultseq" item="seq" open="(" separator=","
 			close=")">
 			#{seq}
@@ -109,8 +167,8 @@
 	<!-- 관리자가 특정 지원자의 주석을 추가할 수 있다. -->
 	<update id="acComment" parameterType="java.lang.Integer">	
 		UPDATE RECRUITMANAGEMENT
-		SET ETC = '고양이를 좋아함'
-		WHERE SEQ = '2'
+		SET ETC = #{etc}
+		WHERE SEQ = #{seq}
 	</update>
 
 </mapper>

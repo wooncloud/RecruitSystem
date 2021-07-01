@@ -40,6 +40,13 @@ public interface IRecruitService {
 	public boolean raStatus(int seq);
 
 	/**
+	 * 채용공고 목록 전체 조회(페이징x)
+	 * 
+	 * @return
+	 */
+	public List<RecruitDto> raAllList();
+	
+	/**
 	 * 관리자 - 채용공고 목록 조회
 	 * 
 	 * @return
