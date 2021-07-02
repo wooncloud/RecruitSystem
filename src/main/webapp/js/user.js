@@ -315,8 +315,7 @@ function emailChk(){
 			emailWait.innerHTML="";
 			emailChkBtn.disabled = false;
 			Swal.fire({
-				title:'이메일 인증',
-				html:'이메일로 전송된 인증번호를 입력해 주세요.',
+				title:'이메일로 전송된 인증번호를\n 입력해 주세요.',
 				html: '<input type="text" id="swal-input1" class="swal2-input">',
 				confirmButtonText: '확인',	
 				showCancelButton: true,
