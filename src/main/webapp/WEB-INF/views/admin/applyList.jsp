@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/header.jsp" %>
+	<link href="./css/admin.css" rel="stylesheet">
 	<script type="text/javascript" src="./js/admin.js"></script>
 	<div class="container mt-5">
 		<div class="ctrl-div">
@@ -82,7 +83,7 @@
 								<td>${dto.seq}</td>
 								<td>${dto.udto[0].name}</td>
 								<td>
-									<a href="#">${dto.adto[0].title}</a>
+									<a href="#" class="application-list" >${dto.adto[0].title}</a>
 								</td>
 								<td>
 									<fmt:formatDate value="${dto.submitdate}" pattern="yyyy. MM. dd." />

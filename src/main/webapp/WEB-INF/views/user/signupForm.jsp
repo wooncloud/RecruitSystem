@@ -14,7 +14,7 @@
 			<div class="mt-3 fs-4 fw-bold">회원가입</div>
 				<div class="input-group my-3">
  					<span class="input-group-text" >이메일</span>
-  					<input type="text" name="email" id="email" class="form-control"  required readonly>
+  					<input type="text" name="email" id="email" class="form-control" placeholder="중복확인을 클릭해 주세요." required readonly>
 					<input type="button" value="중복확인" class="btn btn-outline-success" onclick="duplicate()">
 				</div>
 				<div class="input-group my-3">
