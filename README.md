@@ -46,5 +46,5 @@ Spring Security를 이용한 password encoding을 적용하고 메일링 시스�
 
 ## 기타 개발 문서
 - [테이블 정의 및 쿼리 테스트](https://docs.google.com/spreadsheets/d/1TL6tcw55ejTB-Z5TIbEg-FtgyHEJx2ul3L0grO86sDA/edit?usp=sharing)
-- [ERD](t.ly/DL3u)
+- [ERD](https://t.ly/DL3u)
 - [화면 설계](https://docs.google.com/presentation/d/1FeZ0_QVg2_rd5uwgXTV_6DB0FU_ye1fCxqEA6Ugt9aQ/edit?usp=sharing)
